@@ -564,18 +564,18 @@
                 <!-- Épisode 1 -->
                 <div class="episode-card" data-title="1. La rivale" data-story="À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature sinistre et maléfique...">
                     <div class="video-box" onclick="openEpisode(0)">
-                        <iframe src="http://video.sibnet.ru/shell.php?videoid=5436850"></iframe>
+                        <iframe src="https://video.sibnet.ru/shell.php?videoid=5436850"></iframe>
                     </div>
                     <div class="episode-content">
                         <div class="episode-header-row">
                             <div class="episode-title" onclick="openEpisode(0)">1. La rivale</div>
                             <div class="like-container">
-                                <button class="like-btn" onclick="toggleLike(this)">👍</button>
+                                <button class="like-btn" onclick="toggleLike(event, this)">👍</button>
                                 <span class="like-count">142</span>
                             </div>
                         </div>
                         <div class="episode-story">À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature sinistre et maléfique...</div>
-                        <button class="download-btn" onclick="downloadVideo('http://video.sibnet.ru/video5436850.mp4', 'la_rivale.mp4')">📥 Télécharger</button>
+                        <button class="download-btn" onclick="downloadVideo(event, 'https://video.sibnet.ru/video5436850.mp4', 'la_rivale.mp4')">📥 Télécharger</button>
                     </div>
                 </div>
             </div>
@@ -628,8 +628,8 @@
             {
                 title: "1. La rivale",
                 story: "À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature sinistre et maléfique...",
-                videoHTML: '<iframe src="http://video.sibnet.ru/shell.php?videoid=5436850" allowfullscreen></iframe>',
-                downloadUrl: "http://video.sibnet.ru/video5436850.mp4",
+                videoHTML: '<iframe src="https://video.sibnet.ru/shell.php?videoid=5436850" allowfullscreen></iframe>',
+                downloadUrl: "https://video.sibnet.ru/video5436850.mp4",
                 fileName: "la_rivale.mp4",
                 disabled: false
             }
@@ -637,14 +637,13 @@
 
         let currentIndex = 0;
 
-        // Fonction magique pour forcer le téléchargement et éviter l'erreur 404 / redirection
-        async function downloadVideo(url, filename) {
+        async function downloadVideo(e, url, filename) {
+            e.stopPropagation();
             if (url === "#") return;
             
-            // Indication visuelle de chargement
-            const btn = event.currentTarget;
+            const btn = e.currentTarget;
             const originalText = btn.textContent;
-            btn.textContent = "Téléchargement en cours...";
+            btn.textContent = "Téléchargement...";
             btn.style.opacity = "0.7";
 
             try {
@@ -662,7 +661,6 @@
                 window.URL.revokeObjectURL(blobUrl);
                 document.body.removeChild(a);
             } catch (error) {
-                // Si le navigateur bloque pour des raisons de sécurité externe (CORS), on ouvre dans un nouvel onglet propre
                 window.open(url, '_blank');
             } finally {
                 btn.textContent = originalText;
@@ -681,8 +679,8 @@
         let currentQuestionIndex = 0;
         let score = 0;
 
-        function toggleLike(btn) {
-            event.stopPropagation();
+        function toggleLike(e, btn) {
+            e.stopPropagation();
             const container = btn.parentElement;
             const countSpan = container.querySelector('.like-count');
             let count = parseInt(countSpan.textContent);
@@ -756,7 +754,7 @@
                 dlBtn.onclick = null;
             } else {
                 dlBtn.className = "download-btn";
-                dlBtn.onclick = () => downloadVideo(ep.downloadUrl, ep.fileName);
+                dlBtn.onclick = (e) => downloadVideo(e, ep.downloadUrl, ep.fileName);
             }
 
             document.getElementById('prevBtn').classList.toggle('hidden', currentIndex === 0);
@@ -783,7 +781,7 @@
 
         function loadQuestion() {
             const qData = quizQuestions[currentQuestionIndex];
-            document.getElementById('questionText').textContent = `Question ${currentQuestionIndex + 1} : ${qData.q}`;
+            document.getElementById('questionText').textContent = `Question ${currentQuestionIndex + 1} :${qData.q}`;
             const optionsDiv = document.getElementById('optionsContainer');
             optionsDiv.innerHTML = "";
             document.getElementById('gameFeedback').textContent = "";
