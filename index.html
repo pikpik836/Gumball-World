@@ -17,7 +17,9 @@
             background-attachment: fixed;
             color: #E1E7ED;
             min-height: 100vh;
-            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         header {
@@ -56,7 +58,6 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            transition: background-color 0.2s;
         }
 
         .nav-btn.active, .nav-btn:hover {
@@ -66,8 +67,10 @@
 
         main {
             max-width: 500px;
+            width: 100%;
             margin: 20px auto;
             padding: 0 16px;
+            flex-grow: 1;
         }
 
         .page {
@@ -120,31 +123,17 @@
             text-decoration: none;
         }
 
-        .btn-blue {
-            background-color: #4A72E8;
-            color: #FFFFFF;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 15px;
+        .btn-back {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            color: #7EA3FF;
+            padding: 8px 16px;
+            border-radius: 8px;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .home-card {
-            text-align: center;
-        }
-
-        .home-card p {
-            line-height: 1.5;
-            margin-bottom: 20px;
-            color: #CBD5E1;
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+            margin: 0 auto 20px auto;
         }
 
         .search-box {
@@ -159,12 +148,12 @@
             outline: none;
         }
 
-        .season-card {
+        .season-card, .episode-preview {
             cursor: pointer;
             transition: transform 0.2s;
         }
 
-        .season-card:hover {
+        .season-card:hover, .episode-preview:hover {
             transform: translateY(-2px);
         }
 
@@ -181,7 +170,7 @@
             background-color: #000000;
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .video-container iframe {
@@ -193,43 +182,25 @@
             border: none;
         }
 
-        .episode-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
         .episode-title {
             color: #F27329;
             font-weight: bold;
-            font-size: 16px;
-        }
-
-        .episode-likes {
-            color: #7EA3FF;
-            font-size: 14px;
+            font-size: 18px;
+            margin-bottom: 8px;
         }
 
         .episode-desc {
             font-size: 13px;
             color: #CBD5E1;
-            line-height: 1.4;
-            margin-bottom: 12px;
+            line-height: 1.5;
+            margin-bottom: 16px;
         }
 
-        .quiz-option {
-            background-color: #0A1128;
-            border: 1px solid #2554A3;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .quiz-option:hover {
-            background-color: #2554A3;
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: rgba(225, 231, 237, 0.6);
         }
     </style>
 </head>
@@ -245,36 +216,37 @@
     </header>
 
     <main>
+        <!-- PAGE ACCUEIL -->
         <section id="home" class="page active">
-            <div class="card home-card">
+            <div class="card" style="text-align: center;">
                 <h1 class="title-primary">Bienvenue dans Gumball World !</h1>
-                <p>Découvre les épisodes du Monde Incroyable de Gumball, navigue à travers les saisons et teste tes connaissances avec notre mini-jeu officiel d'Elmore.</p>
+                <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes du Monde Incroyable de Gumball, navigue à travers les saisons et teste tes connaissances.</p>
                 <button class="btn-orange" onclick="switchPage('seasons')">🎬 Voir les épisodes</button>
-                <button class="btn-blue" onclick="switchPage('games')">🎮 Jouer au mini-jeu</button>
             </div>
         </section>
 
+        <!-- PAGE LISTE DES SAISONS -->
         <section id="seasons" class="page">
             <h2 class="title-primary">Gumball world - Saisons</h2>
             <p class="subtitle-orange">Choisissez une saison pour voir les épisodes</p>
 
-            <div class="card season-card" onclick="alert('Aucun épisode disponible pour la saison 1.')">
+            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
                 <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 1</h3>
                 <p class="disabled-text">Bientôt disponible</p>
             </div>
-            <div class="card season-card" onclick="alert('Aucun épisode disponible pour la saison 2.')">
+            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
                 <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 2</h3>
                 <p class="disabled-text">Bientôt disponible</p>
             </div>
-            <div class="card season-card" onclick="alert('Aucun épisode disponible pour la saison 3.')">
+            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
                 <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 3</h3>
                 <p class="disabled-text">Bientôt disponible</p>
             </div>
-            <div class="card season-card" onclick="alert('Aucun épisode disponible pour la saison 4.')">
+            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
                 <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 4</h3>
                 <p class="disabled-text">Bientôt disponible</p>
             </div>
-            <div class="card season-card" onclick="alert('Aucun épisode disponible pour la saison 5.')">
+            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
                 <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 5</h3>
                 <p class="disabled-text">Bientôt disponible</p>
             </div>
@@ -284,6 +256,7 @@
             </div>
         </section>
 
+        <!-- PAGE LISTE DE LA SAISON 6 -->
         <section id="season6" class="page">
             <h2 class="title-primary">Gumball world - Saison 6</h2>
             <p class="subtitle-orange">44 épisodes</p>
@@ -291,30 +264,38 @@
             <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode..." onkeyup="filterEpisodes()">
 
             <div id="episodesList">
-                <div class="card episode-item" data-title="1. la rivale">
-                    <div class="video-container">
-                        <iframe src="https://video.sibnet.ru/shell.php?videoid=5436850" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div class="episode-header">
-                        <span class="episode-title">1. La rivale</span>
-                        <span class="episode-likes">👍 142</span>
-                    </div>
-                    <p class="episode-desc">Retour sur l'arrivée d'Anaïs dans la famille Watterson et comment Gumball et Darwin accueillent leur petite soeur...</p>
-                    <a href="https://video.sibnet.ru/video5436850" target="_blank" class="btn-orange">📥 Télécharger</a>
+                <div class="card episode-preview" onclick="openPlayer('1. La rivale', 'Retour sur l\'arrivée d\'Anaïs dans la famille Watterson et comment Gumball et Darwin accueillent leur petite soeur...', 'https://video.sibnet.ru/shell.php?videoid=5436850', 'https://video.sibnet.ru/video5436850')">
+                    <h3 class="episode-title">1. La rivale</h3>
+                    <p class="episode-desc">Retour sur l'arrivée d'Anaïs dans la famille Watterson...</p>
+                    <span style="color: #7EA3FF; font-size: 13px; font-weight: bold;">▶ Regarder l'épisode</span>
                 </div>
             </div>
         </section>
 
-        <section id="games" class="page">
-            <h2 class="title-primary">Quiz Elmore</h2>
-            <p class="subtitle-orange">Teste tes connaissances !</p>
+        <!-- PAGE LECTEUR DE L'ÉPISODE -->
+        <section id="playerPage" class="page">
+            <button class="btn-back" onclick="switchPage('season6')">📋 Saisons</button>
 
-            <div class="card" id="quizCard">
-                <p id="quizQuestion" style="font-size: 16px; font-weight: bold; margin-bottom: 16px; text-align: center;"></p>
-                <div id="quizOptions"></div>
+            <div class="card">
+                <div class="video-container">
+                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <h2 id="playerTitle" class="episode-title"></h2>
+                <p id="playerDesc" class="episode-desc"></p>
+                <a id="downloadBtn" href="#" target="_blank" class="btn-orange">📩 Télécharger</a>
             </div>
         </section>
+
+        <!-- PAGE JEUX -->
+        <section id="games" class="page">
+            <h2 class="title-primary">Quiz Elmore</h2>
+            <p class="subtitle-orange">Section jeux bientôt disponible !</p>
+        </section>
     </main>
+
+    <footer>
+        © 2026 Gumball world — Tous droits réservés.
+    </footer>
 
     <script>
         function switchPage(pageId) {
@@ -323,16 +304,24 @@
 
             document.getElementById(pageId).classList.add('active');
 
-            const btnIndex = pageId === 'home' ? 0 : (pageId.includes('season') ? 1 : 2);
+            const btnIndex = pageId === 'home' ? 0 : ((pageId.includes('season') || pageId === 'playerPage') ? 1 : 2);
             document.querySelectorAll('.nav-btn')[btnIndex].classList.add('active');
+        }
+
+        function openPlayer(title, desc, videoUrl, downloadUrl) {
+            document.getElementById('playerTitle').innerText = title;
+            document.getElementById('playerDesc').innerText = desc;
+            document.getElementById('videoIframe').src = videoUrl;
+            document.getElementById('downloadBtn').href = downloadUrl;
+            switchPage('playerPage');
         }
 
         function filterEpisodes() {
             const input = document.getElementById('searchBar').value.toLowerCase();
-            const episodes = document.querySelectorAll('.episode-item');
+            const episodes = document.querySelectorAll('.episode-preview');
 
             episodes.forEach(ep => {
-                const title = ep.getAttribute('data-title');
+                const title = ep.querySelector('.episode-title').innerText.toLowerCase();
                 if (title.includes(input)) {
                     ep.style.display = "block";
                 } else {
@@ -340,81 +329,6 @@
                 }
             });
         }
-
-        const quizData = [
-            {
-                q: "1. De quelle couleur est le chat Gumball Watterson ?",
-                options: ["A) Orange", "B) Bleu", "C) Rose", "D) Vert"],
-                answer: 1
-            },
-            {
-                q: "2. Quel animal est Darwin, le meilleur ami de Gumball ?",
-                options: ["A) Un poisson rouge", "B) Un lapin", "C) Un chinchilla", "D) Un écureuil"],
-                answer: 0
-            },
-            {
-                q: "3. Dans quelle ville se déroulent leurs aventures ?",
-                options: ["A) Springfield", "B) Quahog", "C) Elmore", "D) Dimmsdale"],
-                answer: 2
-            },
-            {
-                q: "4. Quel est le prénom de la petite sœur génie de la famille ?",
-                options: ["A) Penny", "B) Carmen", "C) Carrie", "D) Anaïs"],
-                answer: 3
-            },
-            {
-                q: "5. Quel est l'activité principale du père, Richard Watterson ?",
-                options: ["A) Policier", "B) Aucun, il reste sur le canapé", "C) Professeur", "D) Vendeur"],
-                answer: 1
-            }
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-
-        function loadQuestion() {
-            if (currentQuestion >= quizData.length) {
-                document.getElementById('quizCard').innerHTML = `
-                    <h3 class="title-primary">Quiz Terminé !</h3>
-                    <p style="text-align:center; font-size: 18px; margin-bottom: 20px;">Ton score : ${score} / ${quizData.length}</p>
-                    <button class="btn-orange" onclick="resetQuiz()">Recommencer</button>
-                `;
-                return;
-            }
-
-            const data = quizData[currentQuestion];
-            document.getElementById('quizQuestion').innerText = data.q;
-            const optionsDiv = document.getElementById('quizOptions');
-            optionsDiv.innerHTML = '';
-
-            data.options.forEach((opt, index) => {
-                const btn = document.createElement('div');
-                btn.className = 'quiz-option';
-                btn.innerText = opt;
-                btn.onclick = () => selectOption(index);
-                optionsDiv.appendChild(btn);
-            });
-        }
-
-        function selectOption(index) {
-            if (index === quizData[currentQuestion].answer) {
-                score++;
-            }
-            currentQuestion++;
-            loadQuestion();
-        }
-
-        function resetQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            document.getElementById('quizCard').innerHTML = `
-                <p id="quizQuestion" style="font-size: 16px; font-weight: bold; margin-bottom: 16px; text-align: center;"></p>
-                <div id="quizOptions"></div>
-            `;
-            loadQuestion();
-        }
-
-        loadQuestion();
     </script>
 </body>
 </html>
