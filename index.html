@@ -189,20 +189,36 @@
             line-height: 1.3;
         }
 
-        .thumbnail-container {
+        /* Zone de la vidéo d'aperçu */
+        .preview-video-container {
+            position: relative;
             width: 100%;
-            aspect-ratio: 16 / 9;
+            padding-top: 56.25%;
             background-color: #000;
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 14px;
         }
 
-        .thumbnail-container img {
+        .preview-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            display: block;
+            border: none;
+        }
+
+        /* Calque invisible par-dessus l'iframe pour intercepter le clic */
+        .click-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0);
         }
 
         .synopsis-wrapper {
@@ -474,13 +490,11 @@
             {
                 title: "1. La rivale",
                 desc: "À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature sinister et maléfique...",
-                imgUrl: "https://video.sibnet.ru/v/5436850.jpg",
                 embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436850"
             },
             {
                 title: "2. La dame",
                 desc: "Gumball et Darwin découvrent que leur père Richard s'habille en femme pour passer du temps avec ses amies, ce qui les amène à croire à tort qu'il a une maîtresse.",
-                imgUrl: "https://video.sibnet.ru/v/5436852.jpg",
                 embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436852"
             }
         ];
@@ -498,8 +512,9 @@
 
                 card.innerHTML = `
                     <h3 class="episode-card-title">${ep.title}</h3>
-                    <div class="thumbnail-container">
-                        <img src="${ep.imgUrl}" alt="${ep.title}">
+                    <div class="preview-video-container">
+                        <iframe src="${ep.embedUrl}" frameborder="0" tabindex="-1"></iframe>
+                        <div class="click-overlay"></div>
                     </div>
                     <div class="synopsis-wrapper">
                         <p class="episode-desc">${ep.desc}</p>
