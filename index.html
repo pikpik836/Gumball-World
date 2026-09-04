@@ -76,6 +76,87 @@
             color: #FFFFFF;
         }
 
+        /* BANDEAU DU MINUTEUR TOUJOURS VISIBLE */
+        .global-timer-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 16px auto 0 auto;
+            padding: 0 16px;
+            transition: max-width 0.3s ease;
+        }
+
+        .timer-control-box {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .timer-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7EA3FF;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .timer-inputs {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .timer-input {
+            width: 100px;
+            background-color: #0A1128;
+            border: 1px solid #7EA3FF;
+            border-radius: 6px;
+            padding: 8px 10px;
+            color: #FFF;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .timer-input:focus {
+            border-color: #F27329;
+        }
+
+        .btn-set-timer {
+            background-color: #F27329;
+            color: #FFF;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .btn-set-timer:hover {
+            background-color: #d85c17;
+        }
+
+        .btn-cancel-timer {
+            background-color: #334155;
+            color: #CBD5E1;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .timer-status {
+            font-size: 12px;
+            color: #34D399;
+            font-weight: 600;
+        }
+
         main {
             width: 100%;
             max-width: 500px;
@@ -117,25 +198,6 @@
             text-align: center;
         }
 
-        .btn-orange {
-            background-color: #F27329;
-            color: #FFFFFF;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(242, 115, 41, 0.3);
-        }
-
         .btn-back {
             background-color: #121B2D;
             border: 1.5px solid #7EA3FF;
@@ -169,13 +231,12 @@
             gap: 16px;
         }
 
-        .season-card, .episode-preview {
+        .episode-preview {
             cursor: pointer;
             transition: transform 0.2s;
-            margin-bottom: 0;
         }
 
-        .season-card:hover, .episode-preview:hover {
+        .episode-preview:hover {
             transform: translateY(-3px);
         }
 
@@ -189,7 +250,6 @@
             line-height: 1.3;
         }
 
-        /* Zone de la vidéo d'aperçu */
         .preview-video-container {
             position: relative;
             width: 100%;
@@ -209,7 +269,6 @@
             border: none;
         }
 
-        /* Calque invisible par-dessus l'iframe pour intercepter le clic */
         .click-overlay {
             position: absolute;
             top: 0;
@@ -260,6 +319,7 @@
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            margin-bottom: 30px;
         }
 
         .video-container {
@@ -280,6 +340,38 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+
+        .time-limit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 17, 40, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .time-limit-overlay.active {
+            display: flex;
+        }
+
+        .time-limit-title {
+            color: #F27329;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .time-limit-desc {
+            color: #CBD5E1;
+            font-size: 14px;
         }
 
         .meta-tags {
@@ -326,52 +418,95 @@
             color: #FFFFFF;
         }
 
-        #prevBtn:hover:not(:disabled) {
-            background-color: #3b6edc;
-            transform: translateY(-2px);
-        }
-
         #nextBtn {
             background-color: #F27329;
             color: #FFFFFF;
         }
 
-        #nextBtn:hover:not(:disabled) {
-            background-color: #ff853c;
-            transform: translateY(-2px);
-        }
-
         .btn-nav-ep:disabled {
             opacity: 0.3;
             cursor: not-allowed;
-            transform: none;
+        }
+
+        .next-episodes-section {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(126, 163, 255, 0.2);
+        }
+
+        .next-episodes-title {
+            color: #7EA3FF;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 14px;
+        }
+
+        .compact-ep-card {
+            display: flex;
+            gap: 12px;
+            background-color: #121B2D;
+            border: 1px solid #2554A3;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .compact-ep-card:hover {
+            background-color: #1A2740;
+        }
+
+        .compact-thumb {
+            width: 100px;
+            height: 56px;
+            background-color: #000;
+            border-radius: 8px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .compact-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        .compact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .compact-title {
+            color: #FF8A3D;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .compact-desc {
+            color: #94A3B8;
+            font-size: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-top: 4px;
         }
 
         @media (min-width: 768px) {
-            main {
+            .global-timer-container, main {
                 max-width: 900px;
             }
 
             .grid-container {
                 grid-template-columns: repeat(2, 1fr);
-            }
-
-            .title-primary {
-                font-size: 30px;
-            }
-
-            .episode-card-title {
-                font-size: 24px;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            main {
-                max-width: 1100px;
-            }
-
-            .grid-container {
-                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -389,49 +524,33 @@
         <div class="site-title-badge">GUMBALL<br>WORLD</div>
         <nav>
             <button class="nav-btn active" onclick="switchPage('home')">🏠 Accueil</button>
-            <button class="nav-btn" onclick="switchPage('seasons')">🎬 Épisodes</button>
+            <button class="nav-btn" onclick="switchPage('season6')">🎬 Épisodes</button>
             <button class="nav-btn" onclick="switchPage('games')">🎮 Jeux</button>
         </nav>
     </header>
+
+    <!-- MINUTEUR PLACE EN DEHORS DE LA NAVIGATION PAGE -->
+    <div class="global-timer-container">
+        <div class="timer-control-box">
+            <div class="timer-header">
+                <span>⏱️</span>
+                <span>Minuteur d'arrêt personnalisé</span>
+            </div>
+            <div class="timer-inputs">
+                <input type="number" id="customMinutesInput" class="timer-input" placeholder="Minutes..." min="1" max="600">
+                <button class="btn-set-timer" onclick="startCustomTimer()">Valider</button>
+                <button class="btn-cancel-timer" onclick="clearCustomTimer()">Annuler</button>
+            </div>
+            <div id="timerStatus" class="timer-status"></div>
+        </div>
+    </div>
 
     <main>
         <section id="home" class="page active">
             <div class="card" style="text-align: center;">
                 <h1 class="title-primary">Bienvenue dans Gumball World !</h1>
-                <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes du Monde Incroyable de Gumball, navigue à travers les saisons et teste tes connaissances.</p>
-                <button class="btn-orange" onclick="switchPage('seasons')">🎬 Voir les épisodes</button>
-            </div>
-        </section>
-
-        <section id="seasons" class="page">
-            <h2 class="title-primary">Gumball world - Saisons</h2>
-            <p class="subtitle-orange">Choisissez une saison pour voir les épisodes</p>
-
-            <div class="grid-container">
-                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 1</h3>
-                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
-                </div>
-                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 2</h3>
-                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
-                </div>
-                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 3</h3>
-                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
-                </div>
-                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 4</h3>
-                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
-                </div>
-                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 5</h3>
-                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
-                </div>
-                <div class="card season-card" onclick="switchPage('season6')">
-                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 6</h3>
-                    <p style="color: #7EA3FF; text-align: center; font-size: 13px;">44 Épisodes disponibles</p>
-                </div>
+                <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes du Monde Incroyable de Gumball.</p>
+                <button class="nav-btn active" style="margin: 0 auto;" onclick="switchPage('season6')">🎬 Voir les épisodes</button>
             </div>
         </section>
 
@@ -452,6 +571,11 @@
 
                 <div class="video-container">
                     <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+                    
+                    <div id="timeLimitOverlay" class="time-limit-overlay">
+                        <div class="time-limit-title">⏱️ Temps écoulé</div>
+                        <div class="time-limit-desc">Le minuteur réglé est arrivé à son terme. La vidéo a été coupée.</div>
+                    </div>
                 </div>
 
                 <div class="meta-tags">
@@ -472,6 +596,11 @@
                         Ép. <span id="nextEpNum"></span> →
                     </button>
                 </div>
+
+                <div class="next-episodes-section">
+                    <h3 class="next-episodes-title">Épisodes suivants</h3>
+                    <div id="nextEpisodesList"></div>
+                </div>
             </div>
         </section>
 
@@ -489,17 +618,34 @@
         const episodesS6 = [
             {
                 title: "1. La rivale",
-                desc: "À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature sinister et maléfique...",
+                desc: "À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature sinistre et maléfique...",
                 embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436850"
             },
             {
                 title: "2. La dame",
-                desc: "Gumball et Darwin découvrent que leur père Richard s'habille en femme pour passer du temps avec ses amies, ce qui les amène à croire à tort qu'il a une maîtresse.",
+                desc: "Gumball et Darwin découvrent que leur père Richard s'habille en femme pour passer du temps avec ses amies...",
                 embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436852"
+            },
+            {
+                title: "3. Le pigeon",
+                desc: "Darwin doit rester après l'école avec Julius, ce dernier pense que Darwin est facile à intimider, mais il s'est trompé. Il veut prouver à sa bande que Darwin est le pigeon parfait.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436853"
+            },
+            {
+                title: "4. La glande",
+                desc: "Aujourd'hui c'est la journée de la glande. Autant dire que Gumball et Darwin sont déterminés à ne rien faire, et ne veulent se déplacer sous aucun prétexte, mais leurs plans vont mal tourner.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436854"
+            },
+            {
+                title: "5. Le seul",
+                desc: "Gumball doit expliquer à Tobias qu'il est un bon copain pour lui, mais pas son meilleur ami. Tobias veut alors se débarrasser de tous ceux qui le précèdent pour s'assurer sa place en tête de liste.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436855"
             }
         ];
 
         let currentEpisodeIndex = 0;
+        let globalTimer = null;
+        let countdownInterval = null;
 
         function renderEpisodes() {
             const container = document.getElementById('episodesList');
@@ -534,8 +680,51 @@
 
             document.getElementById(pageId).classList.add('active');
 
-            const btnIndex = pageId === 'home' ? 0 : ((pageId.includes('season') || pageId === 'playerPage') ? 1 : 2);
+            const btnIndex = pageId === 'home' ? 0 : (pageId === 'season6' || pageId === 'playerPage' ? 1 : 2);
             document.querySelectorAll('.nav-btn')[btnIndex].classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function startCustomTimer() {
+            const inputVal = parseInt(document.getElementById('customMinutesInput').value);
+            
+            if (isNaN(inputVal) || inputVal <= 0) {
+                alert("Veuillez entrer un nombre de minutes valide.");
+                return;
+            }
+
+            clearCustomTimer();
+
+            let totalSeconds = inputVal * 60;
+            const statusDiv = document.getElementById('timerStatus');
+
+            statusDiv.innerText = `⏳ Minuteur programmé : ${inputVal} min restant(es)`;
+
+            countdownInterval = setInterval(() => {
+                totalSeconds--;
+                let m = Math.floor(totalSeconds / 60);
+                let s = totalSeconds % 60;
+                statusDiv.innerText = `⏳ Temps restant : ${m}m ${s < 10 ? '0' : ''}${s}s`;
+
+                if (totalSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                }
+            }, 1000);
+
+            globalTimer = setTimeout(() => {
+                stopVideoPlayback();
+                statusDiv.innerText = "❌ Temps écoulé ! La vidéo est arrêtée.";
+            }, inputVal * 60 * 1000);
+        }
+
+        function clearCustomTimer() {
+            if (globalTimer) clearTimeout(globalTimer);
+            if (countdownInterval) clearInterval(countdownInterval);
+            globalTimer = null;
+            countdownInterval = null;
+            document.getElementById('timerStatus').innerText = "";
+            document.getElementById('customMinutesInput').value = "";
         }
 
         function openPlayer(index) {
@@ -545,6 +734,7 @@
             document.getElementById('playerTitle').innerText = ep.title;
             document.getElementById('playerDesc').innerText = ep.desc;
             document.getElementById('videoIframe').src = ep.embedUrl;
+            document.getElementById('timeLimitOverlay').classList.remove('active');
 
             const prevBtn = document.getElementById('prevBtn');
             if (currentEpisodeIndex > 0) {
@@ -564,7 +754,43 @@
                 document.getElementById('nextEpNum').innerText = "";
             }
 
+            renderNextEpisodesList();
             switchPage('playerPage');
+        }
+
+        function stopVideoPlayback() {
+            document.getElementById('videoIframe').src = '';
+            document.getElementById('timeLimitOverlay').classList.add('active');
+        }
+
+        function renderNextEpisodesList() {
+            const nextContainer = document.getElementById('nextEpisodesList');
+            nextContainer.innerHTML = '';
+
+            const remainingEpisodes = episodesS6.slice(currentEpisodeIndex + 1);
+
+            if (remainingEpisodes.length === 0) {
+                nextContainer.innerHTML = `<p style="color: #94A3B8; font-size: 13px;">Dernier épisode de la saison.</p>`;
+                return;
+            }
+
+            remainingEpisodes.forEach((ep, relIndex) => {
+                const absoluteIndex = currentEpisodeIndex + 1 + relIndex;
+                const item = document.createElement('div');
+                item.className = 'compact-ep-card';
+                item.onclick = () => openPlayer(absoluteIndex);
+
+                item.innerHTML = `
+                    <div class="compact-thumb">
+                        <iframe src="${ep.embedUrl}" frameborder="0" tabindex="-1"></iframe>
+                    </div>
+                    <div class="compact-info">
+                        <div class="compact-title">${ep.title}</div>
+                        <div class="compact-desc">${ep.desc}</div>
+                    </div>
+                `;
+                nextContainer.appendChild(item);
+            });
         }
 
         function navigateEpisode(direction) {
