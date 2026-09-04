@@ -76,7 +76,6 @@
             color: #FFFFFF;
         }
 
-        /* BANDEAU DU MINUTEUR TOUJOURS VISIBLE */
         .global-timer-container {
             width: 100%;
             max-width: 500px;
@@ -254,30 +253,14 @@
             position: relative;
             width: 100%;
             padding-top: 56.25%;
-            background-color: #000;
+            background-color: #0A1128;
+            border: 1px solid #2554A3;
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 14px;
-        }
-
-        .preview-video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .click-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            cursor: pointer;
-            background: rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .synopsis-wrapper {
@@ -354,8 +337,9 @@
             justify-content: center;
             align-items: center;
             z-index: 20;
-            padding: 20px;
+            padding: 16px;
             text-align: center;
+            gap: 10px;
         }
 
         .time-limit-overlay.active {
@@ -364,14 +348,58 @@
 
         .time-limit-title {
             color: #F27329;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            margin-bottom: 8px;
         }
 
         .time-limit-desc {
             color: #CBD5E1;
-            font-size: 14px;
+            font-size: 13px;
+        }
+
+        .extend-box {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .extend-label {
+            font-size: 12px;
+            color: #7EA3FF;
+        }
+
+        .extend-inputs {
+            display: flex;
+            gap: 6px;
+        }
+
+        .extend-input {
+            width: 80px;
+            background-color: #0A1128;
+            border: 1px solid #7EA3FF;
+            border-radius: 6px;
+            padding: 6px;
+            color: #FFF;
+            font-size: 13px;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn-extend {
+            background-color: #2554A3;
+            color: #FFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .btn-extend:hover {
+            background-color: #3b82f6;
         }
 
         .meta-tags {
@@ -457,21 +485,22 @@
             background-color: #1A2740;
         }
 
+        /* NOUVEAU STYLE DE VIGNETTE SANS LE CERCLE BLANC SIBNET */
         .compact-thumb {
             width: 100px;
             height: 56px;
-            background-color: #000;
+            background-color: #0A1128;
+            border: 1px solid #2554A3;
             border-radius: 8px;
             flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .compact-thumb iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            pointer-events: none;
+        .thumb-placeholder {
+            color: #F27329;
+            font-size: 18px;
         }
 
         .compact-info {
@@ -529,7 +558,6 @@
         </nav>
     </header>
 
-    <!-- MINUTEUR PLACE EN DEHORS DE LA NAVIGATION PAGE -->
     <div class="global-timer-container">
         <div class="timer-control-box">
             <div class="timer-header">
@@ -574,7 +602,15 @@
                     
                     <div id="timeLimitOverlay" class="time-limit-overlay">
                         <div class="time-limit-title">⏱️ Temps écoulé</div>
-                        <div class="time-limit-desc">Le minuteur réglé est arrivé à son terme. La vidéo a été coupée.</div>
+                        <div class="time-limit-desc">Le temps est écoulé. La vidéo a été coupée.</div>
+                        
+                        <div class="extend-box">
+                            <span class="extend-label">Voulez-vous rajouter du temps ?</span>
+                            <div class="extend-inputs">
+                                <input type="number" id="extendMinutesInput" class="extend-input" placeholder="Min..." min="1" max="600">
+                                <button class="btn-extend" onclick="extendTimer()">➕ Rajouter</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -659,8 +695,7 @@
                 card.innerHTML = `
                     <h3 class="episode-card-title">${ep.title}</h3>
                     <div class="preview-video-container">
-                        <iframe src="${ep.embedUrl}" frameborder="0" tabindex="-1"></iframe>
-                        <div class="click-overlay"></div>
+                        <div class="thumb-placeholder">▶ Regarder</div>
                     </div>
                     <div class="synopsis-wrapper">
                         <p class="episode-desc">${ep.desc}</p>
@@ -686,8 +721,8 @@
             window.scrollTo(0, 0);
         }
 
-        function startCustomTimer() {
-            const inputVal = parseInt(document.getElementById('customMinutesInput').value);
+        function startCustomTimer(minutes = null) {
+            const inputVal = minutes || parseInt(document.getElementById('customMinutesInput').value);
             
             if (isNaN(inputVal) || inputVal <= 0) {
                 alert("Veuillez entrer un nombre de minutes valide.");
@@ -716,6 +751,21 @@
                 stopVideoPlayback();
                 statusDiv.innerText = "❌ Temps écoulé ! La vidéo est arrêtée.";
             }, inputVal * 60 * 1000);
+        }
+
+        function extendTimer() {
+            const minutesToAdd = parseInt(document.getElementById('extendMinutesInput').value);
+            if (isNaN(minutesToAdd) || minutesToAdd <= 0) {
+                alert("Veuillez entrer une durée en minutes.");
+                return;
+            }
+
+            const ep = episodesS6[currentEpisodeIndex];
+            document.getElementById('videoIframe').src = ep.embedUrl;
+            document.getElementById('timeLimitOverlay').classList.remove('active');
+            document.getElementById('extendMinutesInput').value = '';
+
+            startCustomTimer(minutesToAdd);
         }
 
         function clearCustomTimer() {
@@ -763,6 +813,7 @@
             document.getElementById('timeLimitOverlay').classList.add('active');
         }
 
+        /* FONCTION REVISITÉE : UTILISATION DE MINIATURES NETTES ET PROPRES */
         function renderNextEpisodesList() {
             const nextContainer = document.getElementById('nextEpisodesList');
             nextContainer.innerHTML = '';
@@ -782,7 +833,7 @@
 
                 item.innerHTML = `
                     <div class="compact-thumb">
-                        <iframe src="${ep.embedUrl}" frameborder="0" tabindex="-1"></iframe>
+                        <div class="thumb-placeholder">▶</div>
                     </div>
                     <div class="compact-info">
                         <div class="compact-title">${ep.title}</div>
