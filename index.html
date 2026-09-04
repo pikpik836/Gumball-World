@@ -197,6 +197,33 @@
             text-align: center;
         }
 
+        /* Styles de sélection des saisons */
+        .seasons-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .season-btn {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            color: #E1E7ED;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .season-btn.active, .season-btn:hover {
+            background-color: #F27329;
+            border-color: #F27329;
+            color: #FFFFFF;
+        }
+
         .btn-back {
             background-color: #121B2D;
             border: 1.5px solid #7EA3FF;
@@ -258,9 +285,16 @@
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        }
+
+        .preview-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
         }
 
         .synopsis-wrapper {
@@ -485,22 +519,21 @@
             background-color: #1A2740;
         }
 
-        /* NOUVEAU STYLE DE VIGNETTE SANS LE CERCLE BLANC SIBNET */
         .compact-thumb {
             width: 100px;
             height: 56px;
             background-color: #0A1128;
-            border: 1px solid #2554A3;
             border-radius: 8px;
+            overflow: hidden;
             flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
         }
 
-        .thumb-placeholder {
-            color: #F27329;
-            font-size: 18px;
+        .compact-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
         }
 
         .compact-info {
@@ -529,6 +562,26 @@
             margin-top: 4px;
         }
 
+        .not-available-box {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #121B2D;
+            border: 1.5px dashed #2554A3;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        .not-available-box h3 {
+            color: #F27329;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .not-available-box p {
+            color: #CBD5E1;
+            font-size: 14px;
+        }
+
         @media (min-width: 768px) {
             .global-timer-container, main {
                 max-width: 900px;
@@ -553,7 +606,7 @@
         <div class="site-title-badge">GUMBALL<br>WORLD</div>
         <nav>
             <button class="nav-btn active" onclick="switchPage('home')">🏠 Accueil</button>
-            <button class="nav-btn" onclick="switchPage('season6')">🎬 Épisodes</button>
+            <button class="nav-btn" onclick="switchPage('episodesPage')">🎬 Épisodes</button>
             <button class="nav-btn" onclick="switchPage('games')">🎮 Jeux</button>
         </nav>
     </header>
@@ -578,21 +631,36 @@
             <div class="card" style="text-align: center;">
                 <h1 class="title-primary">Bienvenue dans Gumball World !</h1>
                 <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes du Monde Incroyable de Gumball.</p>
-                <button class="nav-btn active" style="margin: 0 auto;" onclick="switchPage('season6')">🎬 Voir les épisodes</button>
+                <button class="nav-btn active" style="margin: 0 auto;" onclick="switchPage('episodesPage')">🎬 Voir les épisodes</button>
             </div>
         </section>
 
-        <section id="season6" class="page">
-            <h2 class="title-primary">Gumball world - Saison 6</h2>
-            <p class="subtitle-orange">44 épisodes</p>
+        <section id="episodesPage" class="page">
+            <h2 id="seasonMainTitle" class="title-primary">Gumball World - Saison 6</h2>
+            <p id="seasonSubTitle" class="subtitle-orange">44 épisodes</p>
 
-            <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode..." onkeyup="filterEpisodes()">
+            <div class="seasons-nav">
+                <button class="season-btn" onclick="selectSeason(1)">Saison 1</button>
+                <button class="season-btn" onclick="selectSeason(2)">Saison 2</button>
+                <button class="season-btn" onclick="selectSeason(3)">Saison 3</button>
+                <button class="season-btn" onclick="selectSeason(4)">Saison 4</button>
+                <button class="season-btn" onclick="selectSeason(5)">Saison 5</button>
+                <button class="season-btn active" onclick="selectSeason(6)">Saison 6</button>
+            </div>
 
-            <div id="episodesList" class="grid-container"></div>
+            <div id="seasonContentArea">
+                <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode..." onkeyup="filterEpisodes()">
+                <div id="episodesList" class="grid-container"></div>
+            </div>
+
+            <div id="notAvailableArea" class="not-available-box" style="display: none;">
+                <h3>Saison non disponible</h3>
+                <p>Cette saison n'est pas encore disponible pour le moment. Reviens plus tard !</p>
+            </div>
         </section>
 
         <section id="playerPage" class="page">
-            <button class="btn-back" onclick="switchPage('season6')">📋 Retour aux épisodes</button>
+            <button class="btn-back" onclick="switchPage('episodesPage')">📋 Retour aux épisodes</button>
 
             <div class="player-card">
                 <h2 id="playerTitle" class="episode-card-title" style="font-size: 24px; text-align: center;"></h2>
@@ -615,7 +683,7 @@
                 </div>
 
                 <div class="meta-tags">
-                    <span class="tag">SAISON 6</span>
+                    <span id="playerSeasonTag" class="tag">SAISON 6</span>
                     <span class="tag">11 MIN</span>
                     <span class="tag">HD</span>
                 </div>
@@ -647,7 +715,7 @@
     </main>
 
     <footer>
-        © 2026 Gumball world — Tous droits réservés.
+        © 2026 Gumball World — Tous droits réservés.
     </footer>
 
     <script>
@@ -679,9 +747,35 @@
             }
         ];
 
+        let currentSeason = 6;
         let currentEpisodeIndex = 0;
         let globalTimer = null;
         let countdownInterval = null;
+
+        function selectSeason(seasonNum) {
+            currentSeason = seasonNum;
+
+            document.querySelectorAll('.season-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx + 1 === seasonNum);
+            });
+
+            document.getElementById('seasonMainTitle').innerText = `Gumball World - Saison ${seasonNum}`;
+
+            const contentArea = document.getElementById('seasonContentArea');
+            const notAvailableArea = document.getElementById('notAvailableArea');
+            const subTitle = document.getElementById('seasonSubTitle');
+
+            if (seasonNum === 6) {
+                subTitle.innerText = "44 épisodes";
+                contentArea.style.display = "block";
+                notAvailableArea.style.display = "none";
+                renderEpisodes();
+            } else {
+                subTitle.innerText = "Non disponible";
+                contentArea.style.display = "none";
+                notAvailableArea.style.display = "block";
+            }
+        }
 
         function renderEpisodes() {
             const container = document.getElementById('episodesList');
@@ -695,7 +789,7 @@
                 card.innerHTML = `
                     <h3 class="episode-card-title">${ep.title}</h3>
                     <div class="preview-video-container">
-                        <div class="thumb-placeholder">▶ Regarder</div>
+                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
                     </div>
                     <div class="synopsis-wrapper">
                         <p class="episode-desc">${ep.desc}</p>
@@ -715,7 +809,7 @@
 
             document.getElementById(pageId).classList.add('active');
 
-            const btnIndex = pageId === 'home' ? 0 : (pageId === 'season6' || pageId === 'playerPage' ? 1 : 2);
+            const btnIndex = pageId === 'home' ? 0 : (pageId === 'episodesPage' || pageId === 'playerPage' ? 1 : 2);
             document.querySelectorAll('.nav-btn')[btnIndex].classList.add('active');
 
             window.scrollTo(0, 0);
@@ -784,6 +878,7 @@
             document.getElementById('playerTitle').innerText = ep.title;
             document.getElementById('playerDesc').innerText = ep.desc;
             document.getElementById('videoIframe').src = ep.embedUrl;
+            document.getElementById('playerSeasonTag').innerText = `SAISON ${currentSeason}`;
             document.getElementById('timeLimitOverlay').classList.remove('active');
 
             const prevBtn = document.getElementById('prevBtn');
@@ -813,7 +908,6 @@
             document.getElementById('timeLimitOverlay').classList.add('active');
         }
 
-        /* FONCTION REVISITÉE : UTILISATION DE MINIATURES NETTES ET PROPRES */
         function renderNextEpisodesList() {
             const nextContainer = document.getElementById('nextEpisodesList');
             nextContainer.innerHTML = '';
@@ -833,7 +927,7 @@
 
                 item.innerHTML = `
                     <div class="compact-thumb">
-                        <div class="thumb-placeholder">▶</div>
+                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
                     </div>
                     <div class="compact-info">
                         <div class="compact-title">${ep.title}</div>
@@ -865,7 +959,7 @@
             });
         }
 
-        renderEpisodes();
+        selectSeason(6);
     </script>
 </body>
 </html>
