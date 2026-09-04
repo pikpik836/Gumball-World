@@ -25,7 +25,7 @@
         header {
             background-color: rgba(10, 17, 40, 0.9);
             border-bottom: 2px solid #2554A3;
-            padding: 12px 16px;
+            padding: 12px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -36,28 +36,33 @@
         }
 
         .logo {
-            color: #7EA3FF;
-            font-size: 20px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(126, 163, 255, 0.4);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
         }
 
         nav {
             display: flex;
-            gap: 8px;
+            gap: 10px;
         }
 
         .nav-btn {
             background-color: #121B2D;
             border: 1.5px solid #2554A3;
             color: #E1E7ED;
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+            outline: none;
         }
 
         .nav-btn.active, .nav-btn:hover {
@@ -66,11 +71,12 @@
         }
 
         main {
-            max-width: 500px;
             width: 100%;
+            max-width: 500px;
             margin: 20px auto;
             padding: 0 16px;
             flex-grow: 1;
+            transition: max-width 0.3s ease;
         }
 
         .page {
@@ -121,19 +127,22 @@
             gap: 8px;
             margin-top: 10px;
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(242, 115, 41, 0.3);
         }
 
         .btn-back {
             background-color: #121B2D;
-            border: 1.5px solid #2554A3;
+            border: 1.5px solid #7EA3FF;
             color: #7EA3FF;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            display: block;
-            margin: 0 auto 20px auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
         }
 
         .search-box {
@@ -141,26 +150,70 @@
             background-color: #121B2D;
             border: 1.5px solid #F27329;
             border-radius: 10px;
-            padding: 10px 14px;
+            padding: 12px 16px;
             color: #FFFFFF;
-            font-size: 14px;
+            font-size: 15px;
             margin-bottom: 20px;
             outline: none;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
         }
 
         .season-card, .episode-preview {
             cursor: pointer;
             transition: transform 0.2s;
+            margin-bottom: 0;
         }
 
         .season-card:hover, .episode-preview:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
-        .season-card .disabled-text {
-            color: #94A3B8;
-            font-size: 13px;
-            text-align: center;
+        .thumbnail-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .play-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #F27329;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #FFF;
+            font-size: 22px;
+            box-shadow: 0 0 15px rgba(242, 115, 41, 0.6);
+        }
+
+        .player-card {
+            background: linear-gradient(145deg, #16223B 0%, #0E1726 100%);
+            border: 2px solid #7EA3FF;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
         }
 
         .video-container {
@@ -168,7 +221,7 @@
             width: 100%;
             padding-top: 56.25%;
             background-color: #000000;
-            border-radius: 10px;
+            border-radius: 14px;
             overflow: hidden;
             margin-bottom: 16px;
         }
@@ -182,18 +235,134 @@
             border: none;
         }
 
+        .player-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            margin-bottom: 12px;
+        }
+
+        .btn-nav-ep {
+            flex: 1;
+            background: rgba(18, 27, 45, 0.7);
+            border: 1.5px solid #2554A3;
+            color: #E1E7ED;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(8px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            user-select: none;
+        }
+
+        .btn-nav-ep:hover:not(:disabled) {
+            background: #2554A3;
+            color: #FFFFFF;
+            border-color: #7EA3FF;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 84, 163, 0.5);
+        }
+
+        .btn-nav-ep:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(37, 84, 163, 0.3);
+        }
+
+        .btn-nav-ep span {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        #prevBtn:hover:not(:disabled) span {
+            transform: translateX(-4px);
+        }
+
+        #nextBtn:hover:not(:disabled) span {
+            transform: translateX(4px);
+        }
+
+        .btn-nav-ep:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+            border-color: rgba(37, 84, 163, 0.3);
+            color: #64748B;
+            box-shadow: none;
+        }
+
+        .meta-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tag {
+            background-color: rgba(37, 84, 163, 0.4);
+            border: 1px solid #2554A3;
+            color: #7EA3FF;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
         .episode-title {
             color: #F27329;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 8px;
         }
 
         .episode-desc {
-            font-size: 13px;
+            font-size: 14px;
             color: #CBD5E1;
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 16px;
+            background: rgba(10, 17, 40, 0.4);
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 3px solid #F27329;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                max-width: 900px;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .title-primary {
+                font-size: 30px;
+            }
+
+            .player-layout {
+                display: grid;
+                grid-template-columns: 1.5fr 1fr;
+                gap: 20px;
+                align-items: start;
+            }
+
+            .player-layout .video-container {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            main {
+                max-width: 1100px;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         footer {
@@ -207,7 +376,9 @@
 <body>
 
     <header>
-        <div class="logo">Gumball world</div>
+        <div class="logo">
+            <img src="logo.png" alt="Le Monde Incroyable de Gumball">
+        </div>
         <nav>
             <button class="nav-btn active" onclick="switchPage('home')">🏠 Accueil</button>
             <button class="nav-btn" onclick="switchPage('seasons')">🎬 Épisodes</button>
@@ -230,29 +401,31 @@
             <h2 class="title-primary">Gumball world - Saisons</h2>
             <p class="subtitle-orange">Choisissez une saison pour voir les épisodes</p>
 
-            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 1</h3>
-                <p class="disabled-text">Bientôt disponible</p>
-            </div>
-            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 2</h3>
-                <p class="disabled-text">Bientôt disponible</p>
-            </div>
-            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 3</h3>
-                <p class="disabled-text">Bientôt disponible</p>
-            </div>
-            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 4</h3>
-                <p class="disabled-text">Bientôt disponible</p>
-            </div>
-            <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
-                <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 5</h3>
-                <p class="disabled-text">Bientôt disponible</p>
-            </div>
-            <div class="card season-card" onclick="switchPage('season6')">
-                <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 6</h3>
-                <p class="disabled-text" style="color: #7EA3FF;">44 Épisodes disponibles</p>
+            <div class="grid-container">
+                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
+                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 1</h3>
+                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
+                </div>
+                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
+                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 2</h3>
+                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
+                </div>
+                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
+                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 3</h3>
+                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
+                </div>
+                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
+                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 4</h3>
+                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
+                </div>
+                <div class="card season-card" onclick="alert('Aucun épisode disponible.')">
+                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 5</h3>
+                    <p style="color: #94A3B8; text-align: center; font-size: 13px;">Bientôt disponible</p>
+                </div>
+                <div class="card season-card" onclick="switchPage('season6')">
+                    <h3 class="subtitle-orange" style="margin-bottom: 4px;">Saison 6</h3>
+                    <p style="color: #7EA3FF; text-align: center; font-size: 13px;">44 Épisodes disponibles</p>
+                </div>
             </div>
         </section>
 
@@ -263,26 +436,39 @@
 
             <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode..." onkeyup="filterEpisodes()">
 
-            <div id="episodesList">
-                <div class="card episode-preview" onclick="openPlayer('1. La rivale', 'Retour sur l\'arrivée d\'Anaïs dans la famille Watterson et comment Gumball et Darwin accueillent leur petite soeur...', 'https://video.sibnet.ru/shell.php?videoid=5436850', 'https://video.sibnet.ru/video5436850')">
-                    <h3 class="episode-title">1. La rivale</h3>
-                    <p class="episode-desc">Retour sur l'arrivée d'Anaïs dans la famille Watterson...</p>
-                    <span style="color: #7EA3FF; font-size: 13px; font-weight: bold;">▶ Regarder l'épisode</span>
-                </div>
-            </div>
+            <div id="episodesList" class="grid-container"></div>
         </section>
 
-        <!-- PAGE LECTEUR DE L'ÉPISODE -->
+        <!-- PAGE LECTEUR D'ÉPISODE -->
         <section id="playerPage" class="page">
-            <button class="btn-back" onclick="switchPage('season6')">📋 Saisons</button>
+            <button class="btn-back" onclick="switchPage('season6')">📋 Retour aux saisons</button>
 
-            <div class="card">
-                <div class="video-container">
-                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+            <div class="player-card">
+                <div class="player-layout">
+                    <div class="video-container">
+                        <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <div class="meta-tags">
+                            <span class="tag">SAISON 6</span>
+                            <span class="tag">11 MIN</span>
+                            <span class="tag">HD</span>
+                        </div>
+                        <h2 id="playerTitle" class="episode-title"></h2>
+                        <p id="playerDesc" class="episode-desc"></p>
+                        
+                        <div class="player-controls">
+                            <button id="prevBtn" class="btn-nav-ep" onclick="navigateEpisode(-1)">
+                                <span>⬅</span> Précédent
+                            </button>
+                            <button id="nextBtn" class="btn-nav-ep" onclick="navigateEpisode(1)">
+                                Suivant <span>➡</span>
+                            </button>
+                        </div>
+
+                        <a id="downloadBtn" href="#" download class="btn-orange">📥 Télécharger l'épisode</a>
+                    </div>
                 </div>
-                <h2 id="playerTitle" class="episode-title"></h2>
-                <p id="playerDesc" class="episode-desc"></p>
-                <a id="downloadBtn" href="#" target="_blank" class="btn-orange">📩 Télécharger</a>
             </div>
         </section>
 
@@ -298,6 +484,45 @@
     </footer>
 
     <script>
+        const episodesS6 = [
+            {
+                title: "1. La rivale",
+                desc: "À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature sinister et maléfique...",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436850",
+                downloadUrl: "https://video.sibnet.ru/video5436850"
+            },
+            {
+                title: "2. La dame",
+                desc: "Gumball et Darwin découvrent que leur père Richard s'habille en femme pour passer du temps avec ses amies, ce qui les amène à croire à tort qu'il a une maîtresse.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436852",
+                downloadUrl: "https://video.sibnet.ru/video5436852"
+            }
+        ];
+
+        let currentEpisodeIndex = 0;
+
+        function renderEpisodes() {
+            const container = document.getElementById('episodesList');
+            container.innerHTML = '';
+
+            episodesS6.forEach((ep, index) => {
+                const card = document.createElement('div');
+                card.className = 'card episode-preview';
+                card.onclick = () => openPlayer(index);
+
+                card.innerHTML = `
+                    <div class="thumbnail-container">
+                        <div class="play-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </div>
+                    <h3 class="episode-title">${ep.title}</h3>
+                    <p class="episode-desc">${ep.desc}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
         function switchPage(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -308,12 +533,30 @@
             document.querySelectorAll('.nav-btn')[btnIndex].classList.add('active');
         }
 
-        function openPlayer(title, desc, videoUrl, downloadUrl) {
-            document.getElementById('playerTitle').innerText = title;
-            document.getElementById('playerDesc').innerText = desc;
-            document.getElementById('videoIframe').src = videoUrl;
-            document.getElementById('downloadBtn').href = downloadUrl;
+        function openPlayer(index) {
+            currentEpisodeIndex = index;
+            const ep = episodesS6[currentEpisodeIndex];
+
+            document.getElementById('playerTitle').innerText = ep.title;
+            document.getElementById('playerDesc').innerText = ep.desc;
+            document.getElementById('videoIframe').src = ep.embedUrl;
+
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.href = ep.downloadUrl;
+            downloadBtn.setAttribute('download', `${ep.title}.mp4`);
+            downloadBtn.onclick = null;
+
+            document.getElementById('prevBtn').disabled = (currentEpisodeIndex === 0);
+            document.getElementById('nextBtn').disabled = (currentEpisodeIndex === episodesS6.length - 1);
+
             switchPage('playerPage');
+        }
+
+        function navigateEpisode(direction) {
+            const newIndex = currentEpisodeIndex + direction;
+            if (newIndex >= 0 && newIndex < episodesS6.length) {
+                openPlayer(newIndex);
+            }
         }
 
         function filterEpisodes() {
@@ -329,6 +572,8 @@
                 }
             });
         }
+
+        renderEpisodes();
     </script>
 </body>
 </html>
