@@ -180,22 +180,17 @@
             background-color: #000;
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 12px;
-        }
-
-        .play-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            margin-bottom: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 50px;
             height: 50px;
             background-color: #F27329;
@@ -204,8 +199,9 @@
             justify-content: center;
             align-items: center;
             color: #FFF;
-            font-size: 22px;
+            font-size: 20px;
             box-shadow: 0 0 15px rgba(242, 115, 41, 0.6);
+            padding-left: 3px;
         }
 
         .player-card {
@@ -223,7 +219,7 @@
             background-color: #000000;
             border-radius: 14px;
             overflow: hidden;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .video-container iframe {
@@ -235,70 +231,10 @@
             border: none;
         }
 
-        .player-controls {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-            margin-bottom: 12px;
-        }
-
-        .btn-nav-ep {
-            flex: 1;
-            background: rgba(18, 27, 45, 0.7);
-            border: 1.5px solid #2554A3;
-            color: #E1E7ED;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(8px);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            user-select: none;
-        }
-
-        .btn-nav-ep:hover:not(:disabled) {
-            background: #2554A3;
-            color: #FFFFFF;
-            border-color: #7EA3FF;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 84, 163, 0.5);
-        }
-
-        .btn-nav-ep:active:not(:disabled) {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(37, 84, 163, 0.3);
-        }
-
-        .btn-nav-ep span {
-            display: inline-block;
-            transition: transform 0.2s ease;
-        }
-
-        #prevBtn:hover:not(:disabled) span {
-            transform: translateX(-4px);
-        }
-
-        #nextBtn:hover:not(:disabled) span {
-            transform: translateX(4px);
-        }
-
-        .btn-nav-ep:disabled {
-            opacity: 0.25;
-            cursor: not-allowed;
-            border-color: rgba(37, 84, 163, 0.3);
-            color: #64748B;
-            box-shadow: none;
-        }
-
         .meta-tags {
             display: flex;
             gap: 8px;
+            margin-top: 14px;
             margin-bottom: 12px;
         }
 
@@ -312,22 +248,73 @@
             border-radius: 6px;
         }
 
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 16px;
+            margin-bottom: 12px;
+        }
+
+        .btn-nav-ep {
+            flex: 1;
+            max-width: 140px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #prevBtn {
+            background-color: #2554A3;
+            color: #FFFFFF;
+        }
+
+        #prevBtn:hover:not(:disabled) {
+            background-color: #3b6edc;
+            transform: translateY(-2px);
+        }
+
+        #nextBtn {
+            background-color: #F27329;
+            color: #FFFFFF;
+        }
+
+        #nextBtn:hover:not(:disabled) {
+            background-color: #ff853c;
+            transform: translateY(-2px);
+        }
+
+        .btn-nav-ep:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .episode-title {
             color: #F27329;
             font-weight: bold;
             font-size: 20px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            text-align: left;
         }
 
         .episode-desc {
             font-size: 14px;
             color: #CBD5E1;
-            line-height: 1.6;
-            margin-bottom: 16px;
-            background: rgba(10, 17, 40, 0.4);
-            padding: 12px;
-            border-radius: 10px;
+            line-height: 1.5;
+            background: rgba(10, 17, 40, 0.5);
+            padding: 14px;
+            border-radius: 12px;
             border-left: 3px solid #F27329;
+            text-align: left;
         }
 
         @media (min-width: 768px) {
@@ -341,17 +328,6 @@
 
             .title-primary {
                 font-size: 30px;
-            }
-
-            .player-layout {
-                display: grid;
-                grid-template-columns: 1.5fr 1fr;
-                gap: 20px;
-                align-items: start;
-            }
-
-            .player-layout .video-container {
-                margin-bottom: 0;
             }
         }
 
@@ -444,31 +420,29 @@
             <button class="btn-back" onclick="switchPage('season6')">📋 Retour aux saisons</button>
 
             <div class="player-card">
-                <div class="player-layout">
-                    <div class="video-container">
-                        <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div>
-                        <div class="meta-tags">
-                            <span class="tag">SAISON 6</span>
-                            <span class="tag">11 MIN</span>
-                            <span class="tag">HD</span>
-                        </div>
-                        <h2 id="playerTitle" class="episode-title"></h2>
-                        <p id="playerDesc" class="episode-desc"></p>
-                        
-                        <div class="player-controls">
-                            <button id="prevBtn" class="btn-nav-ep" onclick="navigateEpisode(-1)">
-                                <span>⬅</span> Précédent
-                            </button>
-                            <button id="nextBtn" class="btn-nav-ep" onclick="navigateEpisode(1)">
-                                Suivant <span>➡</span>
-                            </button>
-                        </div>
-
-                        <a id="downloadBtn" href="#" download class="btn-orange">📥 Télécharger l'épisode</a>
-                    </div>
+                <div class="video-container">
+                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
                 </div>
+
+                <div class="meta-tags">
+                    <span class="tag">SAISON 6</span>
+                    <span class="tag">11 MIN</span>
+                    <span class="tag">HD</span>
+                </div>
+
+                <h2 id="playerTitle" class="episode-title"></h2>
+                <p id="playerDesc" class="episode-desc"></p>
+                
+                <div class="player-controls">
+                    <button id="prevBtn" class="btn-nav-ep" onclick="navigateEpisode(-1)">
+                        ← Ép. <span id="prevEpNum"></span>
+                    </button>
+                    <button id="nextBtn" class="btn-nav-ep" onclick="navigateEpisode(1)">
+                        Ép. <span id="nextEpNum"></span> →
+                    </button>
+                </div>
+
+                <a id="downloadBtn" href="#" download class="btn-orange">📥 Télécharger l'épisode</a>
             </div>
         </section>
 
@@ -512,9 +486,7 @@
 
                 card.innerHTML = `
                     <div class="thumbnail-container">
-                        <div class="play-overlay">
-                            <div class="play-icon">▶</div>
-                        </div>
+                        <div class="play-icon">▶</div>
                     </div>
                     <h3 class="episode-title">${ep.title}</h3>
                     <p class="episode-desc">${ep.desc}</p>
@@ -544,10 +516,24 @@
             const downloadBtn = document.getElementById('downloadBtn');
             downloadBtn.href = ep.downloadUrl;
             downloadBtn.setAttribute('download', `${ep.title}.mp4`);
-            downloadBtn.onclick = null;
 
-            document.getElementById('prevBtn').disabled = (currentEpisodeIndex === 0);
-            document.getElementById('nextBtn').disabled = (currentEpisodeIndex === episodesS6.length - 1);
+            const prevBtn = document.getElementById('prevBtn');
+            if (currentEpisodeIndex > 0) {
+                prevBtn.disabled = false;
+                document.getElementById('prevEpNum').innerText = currentEpisodeIndex;
+            } else {
+                prevBtn.disabled = true;
+                document.getElementById('prevEpNum').innerText = "";
+            }
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentEpisodeIndex < episodesS6.length - 1) {
+                nextBtn.disabled = false;
+                document.getElementById('nextEpNum').innerText = currentEpisodeIndex + 2;
+            } else {
+                nextBtn.disabled = true;
+                document.getElementById('nextEpNum').innerText = "";
+            }
 
             switchPage('playerPage');
         }
