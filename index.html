@@ -24,6 +24,15 @@
             justify-content: space-between;
         }
 
+        /* STYLES FOCUS TELECOMMANDE ANDROID TV */
+        :focus, .focusable:focus, button:focus, input:focus, .episode-preview:focus, .compact-ep-card:focus, .touch-btn:focus, .game-wrapper:focus {
+            outline: 4px solid #00FFCC !important;
+            outline-offset: 2px !important;
+            box-shadow: 0 0 15px #00FFCC !important;
+            transform: scale(1.03);
+            transition: transform 0.1s ease, outline 0.1s ease;
+        }
+
         header {
             background-color: rgba(10, 17, 40, 0.95);
             border-bottom: 2px solid #2554A3;
@@ -296,7 +305,7 @@
             line-height: 1.3;
         }
 
-        .preview-video-container {
+        .preview-thumbnail-container {
             position: relative;
             width: 100%;
             padding-top: 56.25%;
@@ -305,16 +314,23 @@
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .preview-video-container iframe {
+        .preview-play-btn {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            pointer-events: none;
+            width: 60px;
+            height: 60px;
+            background: rgba(242, 115, 41, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #FFF;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
         .synopsis-wrapper {
@@ -513,13 +529,9 @@
             overflow: hidden;
             flex-shrink: 0;
             position: relative;
-        }
-
-        .compact-thumb iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .compact-info {
@@ -557,7 +569,6 @@
             margin-top: 20px;
         }
 
-        /* CORRECTION PLEIN ÉCRAN JEU */
         .game-wrapper {
             position: relative;
             width: 100%;
@@ -571,23 +582,33 @@
         }
 
         .game-wrapper:fullscreen,
-        .game-wrapper:-webkit-full-screen {
+        .game-wrapper:-webkit-full-screen,
+        .game-wrapper:-moz-full-screen,
+        .game-wrapper:-ms-fullscreen {
             width: 100vw !important;
             height: 100vh !important;
             max-width: none !important;
+            max-height: none !important;
             aspect-ratio: auto !important;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #0A1128;
+            border: none !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #000 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
 
         .game-wrapper:fullscreen canvas,
-        .game-wrapper:-webkit-full-screen canvas {
+        .game-wrapper:-webkit-full-screen canvas,
+        .game-wrapper:-moz-full-screen canvas,
+        .game-wrapper:-ms-fullscreen canvas {
             width: 100% !important;
             height: 100% !important;
-            object-fit: contain;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain !important;
         }
 
         canvas {
@@ -595,7 +616,6 @@
             height: 100%;
             display: block;
             background: linear-gradient(180deg, #3B82F6 0%, #1E3A8A 100%);
-            object-fit: contain;
         }
 
         .game-overlay-menu {
@@ -693,10 +713,10 @@
         <div class="site-title-badge">GUMBALL<br>WORLD</div>
         
         <nav class="main-nav">
-            <button class="nav-btn active" onclick="switchPage('home')">🏠 Accueil</button>
-            <button class="nav-btn" onclick="switchPage('episodesPage')">🎬 Épisodes</button>
-            <button class="nav-btn" onclick="switchPage('games')">🎮 Jeux</button>
-            <button class="nav-btn" onclick="switchPage('timerPage')">⏱️ Minuteur</button>
+            <button class="nav-btn focusable" tabindex="0" onclick="switchPage('home')">🏠 Accueil</button>
+            <button class="nav-btn focusable" tabindex="0" onclick="switchPage('episodesPage')">🎬 Épisodes</button>
+            <button class="nav-btn focusable" tabindex="0" onclick="switchPage('games')">🎮 Jeux</button>
+            <button class="nav-btn focusable" tabindex="0" onclick="switchPage('timerPage')">⏱️ Minuteur</button>
         </nav>
     </header>
 
@@ -705,7 +725,7 @@
             <div class="card" style="text-align: center;">
                 <h1 class="title-primary">Bienvenue dans Gumball World !</h1>
                 <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes du Monde Incroyable de Gumball.</p>
-                <button class="nav-btn active" style="margin: 0 auto;" onclick="switchPage('episodesPage')">🎬 Voir les épisodes</button>
+                <button class="nav-btn active focusable" tabindex="0" style="margin: 0 auto;" onclick="switchPage('episodesPage')">🎬 Voir les épisodes</button>
             </div>
         </section>
 
@@ -717,10 +737,10 @@
                 </p>
                 
                 <div class="timer-form">
-                    <input type="number" id="customMinutesInput" class="timer-input-page" placeholder="Saisir la durée en minutes..." min="1" max="600">
+                    <input type="number" id="customMinutesInput" class="timer-input-page focusable" tabindex="0" placeholder="Saisir la durée en minutes..." min="1" max="600">
                     <div class="timer-actions">
-                        <button class="btn-timer-action btn-start" onclick="startCustomTimer()">▶ Lancer le minuteur</button>
-                        <button class="btn-timer-action btn-stop" onclick="clearCustomTimer()">❌ Réinitialiser</button>
+                        <button class="btn-timer-action btn-start focusable" tabindex="0" onclick="startCustomTimer()">▶ Lancer le minuteur</button>
+                        <button class="btn-timer-action btn-stop focusable" tabindex="0" onclick="clearCustomTimer()">❌ Réinitialiser</button>
                     </div>
                 </div>
 
@@ -734,7 +754,7 @@
         </section>
 
         <section id="episodesPage" class="page">
-            <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode dans toutes les saisons..." onkeyup="filterEpisodes()">
+            <input type="text" id="searchBar" class="search-box focusable" tabindex="0" placeholder="🔍 Rechercher un épisode dans toutes les saisons..." onkeyup="filterEpisodes()">
 
             <div class="season-header-box">
                 <h2 id="seasonMainTitle" class="title-primary" style="margin-bottom: 4px;">Gumball World - Saison 5</h2>
@@ -743,12 +763,12 @@
             </div>
 
             <div class="seasons-nav">
-                <button class="season-btn" onclick="selectSeason(1)">Saison 1</button>
-                <button class="season-btn" onclick="selectSeason(2)">Saison 2</button>
-                <button class="season-btn" onclick="selectSeason(3)">Saison 3</button>
-                <button class="season-btn" onclick="selectSeason(4)">Saison 4</button>
-                <button class="season-btn active" onclick="selectSeason(5)">Saison 5</button>
-                <button class="season-btn" onclick="selectSeason(6)">Saison 6</button>
+                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(1)">Saison 1</button>
+                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(2)">Saison 2</button>
+                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(3)">Saison 3</button>
+                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(4)">Saison 4</button>
+                <button class="season-btn active focusable" tabindex="0" onclick="selectSeason(5)">Saison 5</button>
+                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(6)">Saison 6</button>
             </div>
 
             <div id="seasonContentArea">
@@ -762,13 +782,13 @@
         </section>
 
         <section id="playerPage" class="page">
-            <button class="btn-back" onclick="switchPage('episodesPage')">📋 Retour aux épisodes</button>
+            <button class="btn-back focusable" tabindex="0" onclick="switchPage('episodesPage')">📋 Retour aux épisodes</button>
 
             <div class="player-card">
                 <h2 id="playerTitle" class="episode-card-title" style="font-size: 24px; text-align: center;"></h2>
 
-                <div class="video-container">
-                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+                <div class="video-container focusable" tabindex="0" id="videoContainerBox">
+                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
                     
                     <div id="timeLimitOverlay" class="time-limit-overlay">
                         <div class="time-limit-title">⏱️ Temps écoulé</div>
@@ -776,8 +796,8 @@
                         <div class="extend-box">
                             <span style="font-size: 12px; color: #7EA3FF;">Rajouter du temps ?</span>
                             <div class="extend-inputs">
-                                <input type="number" id="extendMinutesInput" class="extend-input" placeholder="Min..." min="1" max="600">
-                                <button class="btn-extend" onclick="extendTimer()">➕ Rajouter</button>
+                                <input type="number" id="extendMinutesInput" class="extend-input focusable" tabindex="0" placeholder="Min..." min="1" max="600">
+                                <button class="btn-extend focusable" tabindex="0" onclick="extendTimer()">➕ Rajouter</button>
                             </div>
                         </div>
                     </div>
@@ -794,10 +814,10 @@
                 </div>
                 
                 <div class="player-controls">
-                    <button id="prevBtn" class="btn-nav-ep" onclick="navigateEpisode(-1)">
+                    <button id="prevBtn" class="btn-nav-ep focusable" tabindex="0" onclick="navigateEpisode(-1)">
                         ← Ép. <span id="prevEpNum"></span>
                     </button>
-                    <button id="nextBtn" class="btn-nav-ep" onclick="navigateEpisode(1)">
+                    <button id="nextBtn" class="btn-nav-ep focusable" tabindex="0" onclick="navigateEpisode(1)">
                         Ép. <span id="nextEpNum"></span> →
                     </button>
                 </div>
@@ -813,27 +833,27 @@
             <h2 class="title-primary">🎮 Gumball : Le Parcours d'Elmore (3 Niveaux)</h2>
             <p style="color: #F27329; text-align: center; font-weight: bold; margin-bottom: 16px;">Atteins la porte de fin sur les 3 niveaux !</p>
             
-            <div class="game-wrapper" id="gameContainer">
-                <button class="game-btn-fullscreen" onclick="toggleFullScreen()">⛶ Plein écran</button>
+            <div class="game-wrapper focusable" tabindex="0" id="gameContainer">
+                <button class="game-btn-fullscreen focusable" tabindex="0" onclick="toggleFullScreen()">⛶ Plein écran</button>
                 <canvas id="gameCanvas" width="800" height="400"></canvas>
 
                 <div class="game-overlay-menu" id="gameOverlay">
                     <h2 id="overlayTitle" style="color: #7EA3FF; font-size: 22px;">Gumball Runner</h2>
                     <p id="overlaySub" style="color: #CBD5E1; font-size: 14px;">Prêt à traverser les 3 niveaux ?</p>
-                    <button class="game-btn-start" id="startBtn" onclick="startGame()">▶ DÉMARRER</button>
+                    <button class="game-btn-start focusable" tabindex="0" id="startBtn" onclick="startGame()">▶ DÉMARRER</button>
                 </div>
 
                 <div class="touch-controls">
                     <div class="touch-group">
-                        <div class="touch-btn" id="btnLeft">⬅️</div>
-                        <div class="touch-btn" id="btnRight">➡️</div>
+                        <div class="touch-btn focusable" tabindex="0" id="btnLeft">⬅️</div>
+                        <div class="touch-btn focusable" tabindex="0" id="btnRight">➡️</div>
                     </div>
                     <div class="touch-group">
-                        <div class="touch-btn" id="btnJump">⬆️</div>
+                        <div class="touch-btn focusable" tabindex="0" id="btnJump">⬆️</div>
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 12px; font-size: 13px; color: #7EA3FF;">PC/TV : Flèches Clavier | Mobile : Boutons à l'écran</p>
+            <p style="text-align: center; margin-top: 12px; font-size: 13px; color: #7EA3FF;">PC/TV : Flèches Clavier / Télécommande | Mobile : Boutons à l'écran</p>
         </section>
     </main>
 
@@ -955,13 +975,14 @@
                 const epSeason = ep.seasonKey || seasonKey;
 
                 const card = document.createElement('div');
-                card.className = 'card episode-preview';
+                card.className = 'card episode-preview focusable';
+                card.tabIndex = 0;
                 card.onclick = () => openPlayer(epIndex, epSeason);
 
                 card.innerHTML = `
                     <h3 class="episode-card-title">${ep.title}</h3>
-                    <div class="preview-video-container">
-                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
+                    <div class="preview-thumbnail-container">
+                        <div class="preview-play-btn">▶</div>
                     </div>
                     <div class="synopsis-wrapper">
                         <p class="episode-desc">${ep.desc}</p>
@@ -1142,12 +1163,13 @@
             remainingEpisodes.forEach((ep, relIndex) => {
                 const absoluteIndex = currentEpisodeIndex + 1 + relIndex;
                 const item = document.createElement('div');
-                item.className = 'compact-ep-card';
+                item.className = 'compact-ep-card focusable';
+                item.tabIndex = 0;
                 item.onclick = () => openPlayer(absoluteIndex);
 
                 item.innerHTML = `
                     <div class="compact-thumb">
-                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
+                        <span style="font-size:20px; color:#F27329;">▶</span>
                     </div>
                     <div class="compact-info">
                         <div class="compact-title">${ep.title}</div>
@@ -1168,25 +1190,53 @@
 
         selectSeason(5);
 
-        /* FONCTION PLEIN ÉCRAN MISE À JOUR */
         function toggleFullScreen() {
-            const container = document.getElementById('gameContainer');
-            const isFullScreen = document.fullscreenElement || document.webkitFullscreenElement;
+            const elem = document.getElementById('gameContainer');
+            
+            const isFullScreen = !!(document.fullscreenElement || 
+                                    document.webkitFullscreenElement || 
+                                    document.mozFullScreenElement || 
+                                    document.msFullscreenElement);
 
             if (!isFullScreen) {
-                if (container.requestFullscreen) {
-                    container.requestFullscreen();
-                } else if (container.webkitRequestFullscreen) {
-                    container.webkitRequestFullscreen();
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
                 }
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
                 }
             }
         }
+
+        ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(eventName => {
+            document.addEventListener(eventName, () => {
+                const isFullScreen = !!(document.fullscreenElement || 
+                                        document.webkitFullscreenElement || 
+                                        document.mozFullScreenElement || 
+                                        document.msFullscreenElement);
+                const gameContainer = document.getElementById('gameContainer');
+                if (isFullScreen) {
+                    gameContainer.style.width = '100vw';
+                    gameContainer.style.height = '100vh';
+                } else {
+                    gameContainer.style.width = '';
+                    gameContainer.style.height = '';
+                }
+            });
+        });
 
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -1268,6 +1318,17 @@
             if (['ArrowLeft', 'a', 'A'].includes(e.key)) keys.left = true;
             if (['ArrowRight', 'd', 'D'].includes(e.key)) keys.right = true;
             if (['ArrowUp', 'w', 'W', ' '].includes(e.key)) keys.up = true;
+
+            /* SUPPORT TOUCHE OK / ENTER / SPACE / DPAD_CENTER TELECOMMANDE ANDROID TV */
+            if (e.key === 'Enter' || e.keyCode === 13 || e.key === ' ' || e.keyCode === 32 || e.keyCode === 23) {
+                const activeElem = document.activeElement;
+                if (activeElem && activeElem.id === 'videoContainerBox') {
+                    const iframe = document.getElementById('videoIframe');
+                    if (iframe) iframe.focus();
+                } else if (activeElem && typeof activeElem.click === 'function') {
+                    activeElem.click();
+                }
+            }
         });
 
         window.addEventListener('keyup', (e) => {
@@ -1294,6 +1355,18 @@
                 btn.addEventListener('touchend', endAction, { passive: false });
                 btn.addEventListener('mousedown', startAction);
                 btn.addEventListener('mouseup', endAction);
+
+                /* ACTION D-PAD SUR BOUTONS DE JEU */
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.keyCode === 13 || e.key === ' ' || e.keyCode === 32 || e.keyCode === 23) {
+                        keys[keyName] = true;
+                    }
+                });
+                btn.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter' || e.keyCode === 13 || e.key === ' ' || e.keyCode === 32 || e.keyCode === 23) {
+                        keys[keyName] = false;
+                    }
+                });
             };
 
             bindBtn('btnLeft', 'left');
