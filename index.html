@@ -35,6 +35,7 @@
             top: 0;
             z-index: 100;
             backdrop-filter: blur(8px);
+            gap: 12px;
         }
 
         .site-title-badge {
@@ -51,12 +52,27 @@
             line-height: 1.2;
             text-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #2563eb;
             box-shadow: 0 0 8px #3b82f6, inset 0 0 8px rgba(59, 130, 246, 0.5);
-            margin-right: 14px;
+            flex-shrink: 0;
         }
 
-        nav {
+        .main-nav {
             display: flex;
             gap: 8px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 4px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
+
+        .main-nav::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .main-nav::-webkit-scrollbar-thumb {
+            background: #2554A3;
+            border-radius: 10px;
         }
 
         .nav-btn {
@@ -71,6 +87,7 @@
             align-items: center;
             gap: 6px;
             outline: none;
+            flex-shrink: 0;
         }
 
         .nav-btn.active, .nav-btn:hover {
@@ -78,79 +95,68 @@
             color: #FFFFFF;
         }
 
-        .global-timer-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 16px auto 0 auto;
-            padding: 0 16px;
+        .timer-card {
+            background-color: #121B2D;
+            border: 2px solid #2554A3;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
-        .timer-control-box {
-            background-color: #121B2D;
-            border: 1.5px solid #2554A3;
+        .timer-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #34D399;
+            margin: 20px 0;
+            background: #0A1128;
+            padding: 16px;
             border-radius: 12px;
-            padding: 14px 16px;
+            border: 1px solid #2554A3;
+        }
+
+        .timer-form {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
-        .timer-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #7EA3FF;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .timer-inputs {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .timer-input {
-            width: 100px;
+        .timer-input-page {
+            width: 100%;
             background-color: #0A1128;
-            border: 1px solid #7EA3FF;
-            border-radius: 6px;
-            padding: 8px 10px;
+            border: 1.5px solid #7EA3FF;
+            border-radius: 8px;
+            padding: 12px;
             color: #FFF;
-            font-size: 14px;
+            font-size: 16px;
+            text-align: center;
             outline: none;
         }
 
-        .timer-input:focus {
+        .timer-input-page:focus {
             border-color: #F27329;
         }
 
-        .btn-set-timer {
-            background-color: #F27329;
-            color: #FFF;
+        .timer-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-timer-action {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
             border: none;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
             font-weight: bold;
-            font-size: 13px;
-        }
-
-        .btn-cancel-timer {
-            background-color: #334155;
-            color: #CBD5E1;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
+            font-size: 14px;
             cursor: pointer;
-            font-size: 12px;
         }
 
-        .timer-status {
-            font-size: 12px;
-            color: #34D399;
-            font-weight: 600;
-        }
+        .btn-start { background-color: #F27329; color: #FFF; }
+        .btn-stop { background-color: #334155; color: #CBD5E1; }
 
         main {
             width: 100%;
@@ -184,19 +190,25 @@
             text-align: center;
         }
 
-        .subtitle-orange {
-            color: #F27329;
-            font-size: 16px;
-            font-weight: bold;
+        .season-header-box {
+            background: rgba(18, 27, 45, 0.8);
+            border: 1px solid #2554A3;
+            border-radius: 12px;
+            padding: 12px;
             margin-bottom: 16px;
             text-align: center;
         }
 
+        .season-info-text {
+            color: #94A3B8;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
         .seasons-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
             margin-bottom: 20px;
         }
 
@@ -204,11 +216,13 @@
             background-color: #121B2D;
             border: 1.5px solid #2554A3;
             color: #E1E7ED;
-            padding: 8px 14px;
+            padding: 10px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 13px;
             font-weight: bold;
+            text-align: center;
+            width: 100%;
         }
 
         .season-btn.active, .season-btn:hover {
@@ -240,7 +254,7 @@
             padding: 12px 16px;
             color: #FFFFFF;
             font-size: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             outline: none;
         }
 
@@ -256,10 +270,10 @@
             }
             header {
                 flex-direction: column;
-                gap: 10px;
+                align-items: stretch;
             }
             .site-title-badge {
-                margin-right: 0;
+                align-self: center;
             }
         }
 
@@ -543,7 +557,7 @@
             margin-top: 20px;
         }
 
-        /* STYLES PLEIN ÉCRAN CORRIGÉS POUR TOUS LES NAVIGATEURS */
+        /* CORRECTION PLEIN ÉCRAN JEU */
         .game-wrapper {
             position: relative;
             width: 100%;
@@ -557,19 +571,23 @@
         }
 
         .game-wrapper:fullscreen,
-        .game-wrapper:-webkit-full-screen,
-        .game-wrapper:-moz-full-screen,
-        .game-wrapper:-ms-fullscreen {
+        .game-wrapper:-webkit-full-screen {
             width: 100vw !important;
             height: 100vh !important;
             max-width: none !important;
-            aspect-ratio: unset !important;
-            border: none !important;
-            border-radius: 0 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            background: #000 !important;
+            aspect-ratio: auto !important;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0A1128;
+        }
+
+        .game-wrapper:fullscreen canvas,
+        .game-wrapper:-webkit-full-screen canvas {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain;
         }
 
         canvas {
@@ -641,28 +659,24 @@
         }
 
         .touch-btn {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             background: rgba(18, 27, 45, 0.85);
             border: 2px solid #7EA3FF;
             border-radius: 50%;
             color: #FFF;
-            font-size: 18px;
+            font-size: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .touch-btn:active {
             background: #F27329;
             border-color: #FFF;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            .touch-controls {
-                display: none;
-            }
         }
 
         footer {
@@ -677,27 +691,14 @@
 
     <header>
         <div class="site-title-badge">GUMBALL<br>WORLD</div>
-        <nav>
+        
+        <nav class="main-nav">
             <button class="nav-btn active" onclick="switchPage('home')">🏠 Accueil</button>
             <button class="nav-btn" onclick="switchPage('episodesPage')">🎬 Épisodes</button>
             <button class="nav-btn" onclick="switchPage('games')">🎮 Jeux</button>
+            <button class="nav-btn" onclick="switchPage('timerPage')">⏱️ Minuteur</button>
         </nav>
     </header>
-
-    <div class="global-timer-container">
-        <div class="timer-control-box">
-            <div class="timer-header">
-                <span>⏱️</span>
-                <span>Minuteur d'arrêt personnalisé</span>
-            </div>
-            <div class="timer-inputs">
-                <input type="number" id="customMinutesInput" class="timer-input" placeholder="Minutes..." min="1" max="600">
-                <button class="btn-set-timer" onclick="startCustomTimer()">Valider</button>
-                <button class="btn-cancel-timer" onclick="clearCustomTimer()">Annuler</button>
-            </div>
-            <div id="timerStatus" class="timer-status"></div>
-        </div>
-    </div>
 
     <main>
         <section id="home" class="page active">
@@ -708,21 +709,49 @@
             </div>
         </section>
 
+        <section id="timerPage" class="page">
+            <div class="timer-card">
+                <h2 class="title-primary">⏱️ Minuteur de lecture</h2>
+                <p style="color: #CBD5E1; font-size: 14px; margin-bottom: 16px;">
+                    Définis un temps de visionnage. La vidéo s'arrêtera automatiquement une fois le délai écoulé.
+                </p>
+                
+                <div class="timer-form">
+                    <input type="number" id="customMinutesInput" class="timer-input-page" placeholder="Saisir la durée en minutes..." min="1" max="600">
+                    <div class="timer-actions">
+                        <button class="btn-timer-action btn-start" onclick="startCustomTimer()">▶ Lancer le minuteur</button>
+                        <button class="btn-timer-action btn-stop" onclick="clearCustomTimer()">❌ Réinitialiser</button>
+                    </div>
+                </div>
+
+                <div id="timerDisplay" class="timer-display">
+                    -- : --
+                </div>
+                <div id="timerStatusPage" style="font-size: 13px; color: #94A3B8;">
+                    Aucun minuteur en cours
+                </div>
+            </div>
+        </section>
+
         <section id="episodesPage" class="page">
-            <h2 id="seasonMainTitle" class="title-primary">Gumball World - Saison 6</h2>
-            <p id="seasonSubTitle" class="subtitle-orange">44 épisodes</p>
+            <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode dans toutes les saisons..." onkeyup="filterEpisodes()">
+
+            <div class="season-header-box">
+                <h2 id="seasonMainTitle" class="title-primary" style="margin-bottom: 4px;">Gumball World - Saison 5</h2>
+                <div id="seasonDates" style="color: #F27329; font-weight: bold; font-size: 14px;">Diffusion : 2016 – 2018</div>
+                <div id="seasonInfoText" class="season-info-text">40 épisodes au total • 8 disponibles ici</div>
+            </div>
 
             <div class="seasons-nav">
                 <button class="season-btn" onclick="selectSeason(1)">Saison 1</button>
                 <button class="season-btn" onclick="selectSeason(2)">Saison 2</button>
                 <button class="season-btn" onclick="selectSeason(3)">Saison 3</button>
                 <button class="season-btn" onclick="selectSeason(4)">Saison 4</button>
-                <button class="season-btn" onclick="selectSeason(5)">Saison 5</button>
-                <button class="season-btn active" onclick="selectSeason(6)">Saison 6</button>
+                <button class="season-btn active" onclick="selectSeason(5)">Saison 5</button>
+                <button class="season-btn" onclick="selectSeason(6)">Saison 6</button>
             </div>
 
             <div id="seasonContentArea">
-                <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode..." onkeyup="filterEpisodes()">
                 <div id="episodesList" class="grid-container"></div>
             </div>
 
@@ -755,7 +784,7 @@
                 </div>
 
                 <div class="meta-tags">
-                    <span id="playerSeasonTag" class="tag">SAISON 6</span>
+                    <span id="playerSeasonTag" class="tag">SAISON 5</span>
                     <span class="tag">11 MIN</span>
                     <span class="tag">HD</span>
                 </div>
@@ -782,7 +811,7 @@
 
         <section id="games" class="page">
             <h2 class="title-primary">🎮 Gumball : Le Parcours d'Elmore (3 Niveaux)</h2>
-            <p class="subtitle-orange">Atteins la porte de fin sur les 3 niveaux !</p>
+            <p style="color: #F27329; text-align: center; font-weight: bold; margin-bottom: 16px;">Atteins la porte de fin sur les 3 niveaux !</p>
             
             <div class="game-wrapper" id="gameContainer">
                 <button class="game-btn-fullscreen" onclick="toggleFullScreen()">⛶ Plein écran</button>
@@ -804,7 +833,7 @@
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 12px; font-size: 13px; color: #7EA3FF;">PC/TV : Flèches Clavier pour vous déplacer et sauter</p>
+            <p style="text-align: center; margin-top: 12px; font-size: 13px; color: #7EA3FF;">PC/TV : Flèches Clavier | Mobile : Boutons à l'écran</p>
         </section>
     </main>
 
@@ -813,72 +842,121 @@
     </footer>
 
     <script>
+        const seasonsMeta = {
+            1: { title: "Gumball World - Saison 1", dates: "Diffusion : 2011 – 2012", total: "36 épisodes au total" },
+            2: { title: "Gumball World - Saison 2", dates: "Diffusion : 2012 – 2013", total: "40 épisodes au total" },
+            3: { title: "Gumball World - Saison 3", dates: "Diffusion : 2014 – 2016", total: "40 épisodes au total" },
+            4: { title: "Gumball World - Saison 4", dates: "Diffusion : 2015 – 2016", total: "40 épisodes au total" },
+            5: { title: "Gumball World - Saison 5", dates: "Diffusion : 2016 – 2018", total: "40 épisodes au total" },
+            6: { title: "Gumball World - Saison 6", dates: "Diffusion : 2018 – 2019", total: "44 épisodes au total" }
+        };
+
+        const episodesS5 = [
+            {
+                title: "1. Le flashback",
+                desc: "Dans la voiture avec ses parents, son frère et sa sœur, Gumball a une soudaine impression de déjà-vu. Il se rend compte qu'il peut voir l'avenir et que Rob est sur le point de gâcher sa vie.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436805"
+            },
+            {
+                title: "2. Les histoires",
+                desc: "Molly aime beaucoup raconter des histoires à ses amis. Le problème, c'est que ses histoires ne sont pas du tout intéressantes.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436806"
+            },
+            {
+                title: "3. L'ami",
+                desc: "Anaïs pense qu'elle s'est enfin fait un ami. Mais Gumball et Darwin trouvent ça beaucoup trop louche.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436807"
+            },
+            {
+                title: "4. L'ennui",
+                desc: "Gumball et Darwin s'ennuient. Ils trouvent qu'il ne se passe rien d'intéressant à Elmore.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436808"
+            },
+            {
+                title: "5. La vision",
+                desc: "Après le cours de sport, Gumball repart avec un sac qui n'est pas le sien, contenant le plan d'Alan.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436809"
+            },
+            {
+                title: "6. Les choix",
+                desc: "Alors qu'elle doit gérer une crise au moment du repas, maman fait le bilan de sa vie et de ses choix.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436810"
+            },
+            {
+                title: "7. Le code",
+                desc: "La famille réalise qu'ils ont piraté le Wi-Fi de leur voisin pendant des années, mais il vient de changer le mot de passe.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436811"
+            },
+            {
+                title: "8. Le test",
+                desc: "Gumball fait un test sur internet et le résultat l'horrifie : c'est un perdant. Il décide de changer de comportement.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436812"
+            }
+        ];
+
         const episodesS6 = [
             {
                 title: "1. La rivale",
-                desc: "À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature sinistre et maléfique...",
+                desc: "À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature...",
                 embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436850"
             },
             {
                 title: "2. La dame",
                 desc: "Gumball et Darwin découvrent que leur père Richard s'habille en femme pour passer du temps avec ses amies...",
                 embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436852"
-            },
-            {
-                title: "3. Le pigeon",
-                desc: "Darwin doit rester après l'école avec Julius, ce dernier pense que Darwin est facile à intimider...",
-                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436853"
-            },
-            {
-                title: "4. La glande",
-                desc: "Aujourd'hui c'est la journée de la glande. Gumball et Darwin sont déterminés à ne rien faire...",
-                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436854"
-            },
-            {
-                title: "5. Le seul",
-                desc: "Gumball doit expliquer à Tobias qu'il est un bon copain pour lui, mais pas son meilleur ami...",
-                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436855"
             }
         ];
 
-        let currentSeason = 6;
+        const seasonsData = { 5: episodesS5, 6: episodesS6 };
+
+        let currentSeason = 5;
         let currentEpisodeIndex = 0;
         let globalTimer = null;
         let countdownInterval = null;
 
-        function selectSeason(seasonNum) {
-            currentSeason = seasonNum;
+        function selectSeason(seasonKey) {
+            currentSeason = seasonKey;
+            document.getElementById('searchBar').value = '';
 
-            document.querySelectorAll('.season-btn').forEach((btn, idx) => {
-                btn.classList.toggle('active', idx + 1 === seasonNum);
-            });
+            const buttons = document.querySelectorAll('.season-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
 
-            document.getElementById('seasonMainTitle').innerText = `Gumball World - Saison ${seasonNum}`;
+            const selectedBtn = Array.from(buttons).find(btn => btn.innerText === `Saison ${seasonKey}`);
+            if (selectedBtn) selectedBtn.classList.add('active');
 
+            const meta = seasonsMeta[seasonKey];
+            document.getElementById('seasonMainTitle').innerText = meta ? meta.title : `Saison ${seasonKey}`;
+            document.getElementById('seasonDates').innerText = meta ? meta.dates : "";
+            
             const contentArea = document.getElementById('seasonContentArea');
             const notAvailableArea = document.getElementById('notAvailableArea');
-            const subTitle = document.getElementById('seasonSubTitle');
+            const infoText = document.getElementById('seasonInfoText');
 
-            if (seasonNum === 6) {
-                subTitle.innerText = "44 épisodes";
+            const activeEpisodes = seasonsData[seasonKey];
+
+            if (activeEpisodes && activeEpisodes.length > 0) {
+                infoText.innerText = `${meta ? meta.total + ' • ' : ''}${activeEpisodes.length} disponible(s) ici`;
                 contentArea.style.display = "block";
                 notAvailableArea.style.display = "none";
-                renderEpisodes();
+                renderEpisodes(activeEpisodes, seasonKey);
             } else {
-                subTitle.innerText = "Non disponible";
+                infoText.innerText = `${meta ? meta.total : 'Contenu non disponible'}`;
                 contentArea.style.display = "none";
                 notAvailableArea.style.display = "block";
             }
         }
 
-        function renderEpisodes() {
+        function renderEpisodes(listToRender, seasonKey) {
             const container = document.getElementById('episodesList');
             container.innerHTML = '';
 
-            episodesS6.forEach((ep, index) => {
+            listToRender.forEach((ep) => {
+                const epIndex = ep.originalIndex !== undefined ? ep.originalIndex : seasonsData[seasonKey].indexOf(ep);
+                const epSeason = ep.seasonKey || seasonKey;
+
                 const card = document.createElement('div');
                 card.className = 'card episode-preview';
-                card.onclick = () => openPlayer(index);
+                card.onclick = () => openPlayer(epIndex, epSeason);
 
                 card.innerHTML = `
                     <h3 class="episode-card-title">${ep.title}</h3>
@@ -897,14 +975,54 @@
             });
         }
 
+        function filterEpisodes() {
+            const query = document.getElementById('searchBar').value.toLowerCase().trim();
+            const contentArea = document.getElementById('seasonContentArea');
+            const notAvailableArea = document.getElementById('notAvailableArea');
+
+            if (query === '') {
+                selectSeason(currentSeason);
+                return;
+            }
+
+            contentArea.style.display = "block";
+            notAvailableArea.style.display = "none";
+
+            const results = [];
+            Object.keys(seasonsData).forEach(sKey => {
+                seasonsData[sKey].forEach((ep, index) => {
+                    if (ep.title.toLowerCase().includes(query) || ep.desc.toLowerCase().includes(query)) {
+                        results.push({
+                            ...ep,
+                            seasonKey: parseInt(sKey),
+                            originalIndex: index
+                        });
+                    }
+                });
+            });
+
+            const infoText = document.getElementById('seasonInfoText');
+            infoText.innerText = `Résultats de recherche : ${results.length} épisode(s) trouvé(s)`;
+
+            renderEpisodes(results);
+        }
+
         function switchPage(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.main-nav .nav-btn').forEach(btn => btn.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active');
 
-            const btnIndex = pageId === 'home' ? 0 : (pageId === 'episodesPage' || pageId === 'playerPage' ? 1 : 2);
-            document.querySelectorAll('.nav-btn')[btnIndex].classList.add('active');
+            const navMap = {
+                'home': 0,
+                'episodesPage': 1,
+                'playerPage': 1,
+                'games': 2,
+                'timerPage': 3
+            };
+            
+            const btnIndex = navMap[pageId] !== undefined ? navMap[pageId] : 0;
+            document.querySelectorAll('.main-nav .nav-btn')[btnIndex].classList.add('active');
 
             window.scrollTo(0, 0);
         }
@@ -916,22 +1034,32 @@
             clearCustomTimer();
 
             let totalSeconds = inputVal * 60;
-            const statusDiv = document.getElementById('timerStatus');
+            const displayDiv = document.getElementById('timerDisplay');
+            const statusDiv = document.getElementById('timerStatusPage');
 
-            statusDiv.innerText = `⏳ Minuteur programmé : ${inputVal} min restant(es)`;
+            statusDiv.innerText = `Minuteur actif : ${inputVal} minute(s)`;
+
+            const updateDisplay = (sec) => {
+                let m = Math.floor(sec / 60);
+                let s = sec % 60;
+                displayDiv.innerText = `${m < 10 ? '0' : ''}${m} : ${s < 10 ? '0' : ''}${s}`;
+            };
+
+            updateDisplay(totalSeconds);
 
             countdownInterval = setInterval(() => {
                 totalSeconds--;
-                let m = Math.floor(totalSeconds / 60);
-                let s = totalSeconds % 60;
-                statusDiv.innerText = `⏳ Temps restant : ${m}m ${s < 10 ? '0' : ''}${s}s`;
+                updateDisplay(totalSeconds);
 
-                if (totalSeconds <= 0) clearInterval(countdownInterval);
+                if (totalSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    displayDiv.innerText = "00 : 00";
+                    statusDiv.innerText = "❌ Temps écoulé ! Les vidéos sont coupées.";
+                }
             }, 1000);
 
             globalTimer = setTimeout(() => {
                 stopVideoPlayback();
-                statusDiv.innerText = "❌ Temps écoulé ! La vidéo a été coupée.";
             }, inputVal * 60 * 1000);
         }
 
@@ -939,7 +1067,8 @@
             const minutesToAdd = parseInt(document.getElementById('extendMinutesInput').value);
             if (isNaN(minutesToAdd) || minutesToAdd <= 0) return;
 
-            const ep = episodesS6[currentEpisodeIndex];
+            const episodesList = seasonsData[currentSeason];
+            const ep = episodesList[currentEpisodeIndex];
             document.getElementById('videoIframe').src = ep.embedUrl;
             document.getElementById('timeLimitOverlay').classList.remove('active');
             document.getElementById('extendMinutesInput').value = '';
@@ -952,13 +1081,18 @@
             if (countdownInterval) clearInterval(countdownInterval);
             globalTimer = null;
             countdownInterval = null;
-            document.getElementById('timerStatus').innerText = "";
+            document.getElementById('timerDisplay').innerText = "-- : --";
+            document.getElementById('timerStatusPage').innerText = "Aucun minuteur en cours";
             document.getElementById('customMinutesInput').value = "";
         }
 
-        function openPlayer(index) {
+        function openPlayer(index, seasonKey = null) {
+            if (seasonKey !== null) {
+                currentSeason = seasonKey;
+            }
             currentEpisodeIndex = index;
-            const ep = episodesS6[currentEpisodeIndex];
+            const episodesList = seasonsData[currentSeason];
+            const ep = episodesList[currentEpisodeIndex];
 
             document.getElementById('playerTitle').innerText = ep.title;
             document.getElementById('playerDesc').innerText = ep.desc;
@@ -976,7 +1110,7 @@
             }
 
             const nextBtn = document.getElementById('nextBtn');
-            if (currentEpisodeIndex < episodesS6.length - 1) {
+            if (currentEpisodeIndex < episodesList.length - 1) {
                 nextBtn.disabled = false;
                 document.getElementById('nextEpNum').innerText = currentEpisodeIndex + 2;
             } else {
@@ -997,7 +1131,8 @@
             const nextContainer = document.getElementById('nextEpisodesList');
             nextContainer.innerHTML = '';
 
-            const remainingEpisodes = episodesS6.slice(currentEpisodeIndex + 1);
+            const episodesList = seasonsData[currentSeason];
+            const remainingEpisodes = episodesList.slice(currentEpisodeIndex + 1);
 
             if (remainingEpisodes.length === 0) {
                 nextContainer.innerHTML = `<p style="color: #94A3B8; font-size: 13px;">Dernier épisode de la saison.</p>`;
@@ -1024,61 +1159,35 @@
         }
 
         function navigateEpisode(direction) {
+            const episodesList = seasonsData[currentSeason];
             const newIndex = currentEpisodeIndex + direction;
-            if (newIndex >= 0 && newIndex < episodesS6.length) {
+            if (newIndex >= 0 && newIndex < episodesList.length) {
                 openPlayer(newIndex);
             }
         }
 
-        function filterEpisodes() {
-            const input = document.getElementById('searchBar').value.toLowerCase();
-            const episodes = document.querySelectorAll('.episode-preview');
+        selectSeason(5);
 
-            episodes.forEach(ep => {
-                const title = ep.querySelector('.episode-card-title').innerText.toLowerCase();
-                if (title.includes(input)) {
-                    ep.style.display = "block";
-                } else {
-                    ep.style.display = "none";
-                }
-            });
-        }
-
-        selectSeason(6);
-
-        /* FONCTION PLEIN ÉCRAN CORRIGÉE POUR TOUS NAVIGATEURS (SAFARI, CHROME, FIREFOX, IE) */
+        /* FONCTION PLEIN ÉCRAN MISE À JOUR */
         function toggleFullScreen() {
             const container = document.getElementById('gameContainer');
-
-            const isFullScreen = !!(document.fullscreenElement || 
-                                    document.webkitFullscreenElement || 
-                                    document.mozFullScreenElement || 
-                                    document.msFullscreenElement);
+            const isFullScreen = document.fullscreenElement || document.webkitFullscreenElement;
 
             if (!isFullScreen) {
                 if (container.requestFullscreen) {
                     container.requestFullscreen();
-                } else if (container.webkitRequestFullscreen) { /* Safari / iOS */
+                } else if (container.webkitRequestFullscreen) {
                     container.webkitRequestFullscreen();
-                } else if (container.mozRequestFullScreen) { /* Firefox */
-                    container.mozRequestFullScreen();
-                } else if (container.msRequestFullscreen) { /* IE / Edge */
-                    container.msRequestFullscreen();
                 }
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
                 }
             }
         }
 
-        /* JEU 2D EN CANVAS */
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -1089,66 +1198,55 @@
 
         const player = {
             x: 50, y: 300, width: 30, height: 40, color: '#00BFFF',
-            vx: 0, vy: 0, speed: 4, jumpPower: -10, gravity: 0.5, grounded: false
+            vx: 0, vy: 0, speed: 4.5, jumpPower: -11, gravity: 0.55, grounded: false
         };
 
         const levelData = {
             1: {
                 platforms: [
                     { x: 0, y: 360, width: 800, height: 40 },
-                    { x: 150, y: 280, width: 100, height: 15 },
-                    { x: 300, y: 220, width: 120, height: 15 },
-                    { x: 180, y: 150, width: 90, height: 15 },
-                    { x: 470, y: 170, width: 110, height: 15 },
-                    { x: 620, y: 230, width: 100, height: 15 }
+                    { x: 150, y: 280, width: 120, height: 15 },
+                    { x: 320, y: 210, width: 120, height: 15 },
+                    { x: 500, y: 270, width: 100, height: 15 },
+                    { x: 650, y: 200, width: 110, height: 15 }
                 ],
                 coins: [
-                    { x: 180, y: 240, radius: 8, collected: false },
-                    { x: 350, y: 180, radius: 8, collected: false },
-                    { x: 220, y: 110, radius: 8, collected: false },
-                    { x: 520, y: 130, radius: 8, collected: false }
+                    { x: 200, y: 240, radius: 8, collected: false },
+                    { x: 370, y: 170, radius: 8, collected: false }
                 ],
-                goal: { x: 660, y: 170, width: 35, height: 60 }
+                goal: { x: 700, y: 140, width: 35, height: 60 }
             },
             2: {
                 platforms: [
-                    { x: 0, y: 360, width: 250, height: 40 },
-                    { x: 300, y: 320, width: 90, height: 15 },
-                    { x: 440, y: 260, width: 90, height: 15 },
-                    { x: 300, y: 190, width: 100, height: 15 },
-                    { x: 150, y: 140, width: 90, height: 15 },
-                    { x: 580, y: 180, width: 220, height: 200 }
+                    { x: 0, y: 360, width: 220, height: 40 },
+                    { x: 270, y: 300, width: 90, height: 15 },
+                    { x: 410, y: 230, width: 90, height: 15 },
+                    { x: 560, y: 160, width: 240, height: 240 }
                 ],
                 coins: [
-                    { x: 330, y: 280, radius: 8, collected: false },
-                    { x: 470, y: 220, radius: 8, collected: false },
-                    { x: 330, y: 150, radius: 8, collected: false },
-                    { x: 180, y: 100, radius: 8, collected: false }
+                    { x: 310, y: 260, radius: 8, collected: false },
+                    { x: 450, y: 190, radius: 8, collected: false }
                 ],
-                goal: { x: 720, y: 120, width: 35, height: 60 }
+                goal: { x: 700, y: 100, width: 35, height: 60 }
             },
             3: {
                 platforms: [
-                    { x: 0, y: 360, width: 150, height: 40 },
-                    { x: 200, y: 300, width: 70, height: 15 },
-                    { x: 320, y: 240, width: 70, height: 15 },
-                    { x: 440, y: 180, width: 70, height: 15 },
-                    { x: 560, y: 120, width: 70, height: 15 },
-                    { x: 680, y: 180, width: 120, height: 220 }
+                    { x: 0, y: 360, width: 140, height: 40 },
+                    { x: 190, y: 290, width: 80, height: 15 },
+                    { x: 320, y: 220, width: 80, height: 15 },
+                    { x: 460, y: 160, width: 80, height: 15 },
+                    { x: 600, y: 230, width: 200, height: 170 }
                 ],
                 coins: [
-                    { x: 230, y: 260, radius: 8, collected: false },
-                    { x: 350, y: 200, radius: 8, collected: false },
-                    { x: 470, y: 140, radius: 8, collected: false },
-                    { x: 590, y: 80, radius: 8, collected: false }
+                    { x: 220, y: 250, radius: 8, collected: false },
+                    { x: 350, y: 180, radius: 8, collected: false },
+                    { x: 490, y: 120, radius: 8, collected: false }
                 ],
-                goal: { x: 730, y: 120, width: 35, height: 60 }
+                goal: { x: 720, y: 170, width: 35, height: 60 }
             }
         };
 
-        let currentPlatforms = [];
-        let currentCoins = [];
-        let currentGoal = {};
+        let currentPlatforms = [], currentCoins = [], currentGoal = {};
 
         function loadLevel(levelNum) {
             currentLevel = levelNum;
@@ -1156,10 +1254,7 @@
             currentPlatforms = JSON.parse(JSON.stringify(lvl.platforms));
             currentCoins = JSON.parse(JSON.stringify(lvl.coins));
             currentGoal = JSON.parse(JSON.stringify(lvl.goal));
-            player.x = 50;
-            player.y = 300;
-            player.vx = 0;
-            player.vy = 0;
+            player.x = 40; player.y = 280; player.vx = 0; player.vy = 0;
         }
 
         function startGame() {
@@ -1169,33 +1264,44 @@
             document.getElementById('gameOverlay').style.display = 'none';
         }
 
-        function restartGame() {
-            startGame();
-        }
-
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
-            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
-            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') keys.up = true;
+            if (['ArrowLeft', 'a', 'A'].includes(e.key)) keys.left = true;
+            if (['ArrowRight', 'd', 'D'].includes(e.key)) keys.right = true;
+            if (['ArrowUp', 'w', 'W', ' '].includes(e.key)) keys.up = true;
         });
 
         window.addEventListener('keyup', (e) => {
-            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
-            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
-            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') keys.up = false;
+            if (['ArrowLeft', 'a', 'A'].includes(e.key)) keys.left = false;
+            if (['ArrowRight', 'd', 'D'].includes(e.key)) keys.right = false;
+            if (['ArrowUp', 'w', 'W', ' '].includes(e.key)) keys.up = false;
         });
 
-        function bindTouch(btnId, keyName) {
-            const btn = document.getElementById(btnId);
-            btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; });
-            btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; });
-            btn.addEventListener('mousedown', () => { keys[keyName] = true; });
-            btn.addEventListener('mouseup', () => { keys[keyName] = false; });
+        function setupTouchControls() {
+            const bindBtn = (id, keyName) => {
+                const btn = document.getElementById(id);
+                if (!btn) return;
+                
+                const startAction = (e) => {
+                    if (e.cancelable) e.preventDefault();
+                    keys[keyName] = true;
+                };
+                const endAction = (e) => {
+                    if (e.cancelable) e.preventDefault();
+                    keys[keyName] = false;
+                };
+
+                btn.addEventListener('touchstart', startAction, { passive: false });
+                btn.addEventListener('touchend', endAction, { passive: false });
+                btn.addEventListener('mousedown', startAction);
+                btn.addEventListener('mouseup', endAction);
+            };
+
+            bindBtn('btnLeft', 'left');
+            bindBtn('btnRight', 'right');
+            bindBtn('btnJump', 'up');
         }
 
-        bindTouch('btnLeft', 'left');
-        bindTouch('btnRight', 'right');
-        bindTouch('btnJump', 'up');
+        setupTouchControls();
 
         function updateGame() {
             if (!gameRunning) return;
@@ -1216,10 +1322,10 @@
             if (player.x < 0) player.x = 0;
             if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
 
-            if (player.y > canvas.height) {
-                player.x = 50;
-                player.y = 300;
-                player.vx = 0;
+            if (player.y > canvas.height + 50) {
+                player.x = 40; 
+                player.y = 280; 
+                player.vx = 0; 
                 player.vy = 0;
             }
 
@@ -1229,7 +1335,7 @@
                     player.x < plat.x + plat.width &&
                     player.x + player.width > plat.x &&
                     player.y + player.height >= plat.y &&
-                    player.y + player.height <= plat.y + plat.height &&
+                    player.y + player.height <= plat.y + plat.height + 10 &&
                     player.vy >= 0
                 ) {
                     player.y = plat.y - player.height;
@@ -1262,11 +1368,7 @@
                     const overlay = document.getElementById('gameOverlay');
                     document.getElementById('overlayTitle').innerText = "🎉 FÉLICITATIONS !";
                     document.getElementById('overlaySub').innerText = `Tu as fini tous les 3 niveaux ! Score : ${score} pts`;
-                    
-                    const startBtn = document.getElementById('startBtn');
-                    startBtn.innerText = "🔄 REJOUER";
-                    startBtn.onclick = restartGame;
-                    
+                    document.getElementById('startBtn').innerText = "🔄 REJOUER";
                     overlay.style.display = 'flex';
                 }
             }
@@ -1274,6 +1376,9 @@
 
         function drawGame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0A1128';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             if (!gameRunning) return;
 
@@ -1296,12 +1401,15 @@
 
             ctx.fillStyle = '#10B981';
             ctx.fillRect(currentGoal.x, currentGoal.y, currentGoal.width, currentGoal.height);
+            ctx.strokeStyle = '#FFF';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(currentGoal.x, currentGoal.y, currentGoal.width, currentGoal.height);
 
             ctx.fillStyle = player.color;
             ctx.fillRect(player.x, player.y, player.width, player.height);
 
             ctx.fillStyle = '#FFF';
-            ctx.font = '16px sans-serif';
+            ctx.font = 'bold 16px sans-serif';
             ctx.fillText(`Niveau : ${currentLevel} / 3`, 20, 30);
             ctx.fillText(`Score : ${score}`, 150, 30);
         }
