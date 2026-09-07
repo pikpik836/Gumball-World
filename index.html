@@ -543,7 +543,7 @@
             margin-top: 20px;
         }
 
-        /* JEU 2D EN PLEIN ÉCRAN CORRIGÉ */
+        /* STYLES PLEIN ÉCRAN CORRIGÉS POUR TOUS LES NAVIGATEURS */
         .game-wrapper {
             position: relative;
             width: 100%;
@@ -556,27 +556,20 @@
             margin: 0 auto;
         }
 
-        /* Style spécifique quand le conteneur passe en plein écran */
-        .game-wrapper:fullscreen {
+        .game-wrapper:fullscreen,
+        .game-wrapper:-webkit-full-screen,
+        .game-wrapper:-moz-full-screen,
+        .game-wrapper:-ms-fullscreen {
             width: 100vw !important;
             height: 100vh !important;
             max-width: none !important;
-            aspect-ratio: auto !important;
+            aspect-ratio: unset !important;
             border: none !important;
             border-radius: 0 !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #000;
-        }
-
-        .game-wrapper:-webkit-full-screen {
-            width: 100vw !important;
-            height: 100vh !important;
-            max-width: none !important;
-            aspect-ratio: auto !important;
-            border: none !important;
-            border-radius: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: #000 !important;
         }
 
         canvas {
@@ -584,6 +577,7 @@
             height: 100%;
             display: block;
             background: linear-gradient(180deg, #3B82F6 0%, #1E3A8A 100%);
+            object-fit: contain;
         }
 
         .game-overlay-menu {
@@ -1052,7 +1046,39 @@
 
         selectSeason(6);
 
-        /* ENGINE DU JEU 2D ET PLEIN ÉCRAN AMÉLIORÉ */
+        /* FONCTION PLEIN ÉCRAN CORRIGÉE POUR TOUS NAVIGATEURS (SAFARI, CHROME, FIREFOX, IE) */
+        function toggleFullScreen() {
+            const container = document.getElementById('gameContainer');
+
+            const isFullScreen = !!(document.fullscreenElement || 
+                                    document.webkitFullscreenElement || 
+                                    document.mozFullScreenElement || 
+                                    document.msFullscreenElement);
+
+            if (!isFullScreen) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) { /* Safari / iOS */
+                    container.webkitRequestFullscreen();
+                } else if (container.mozRequestFullScreen) { /* Firefox */
+                    container.mozRequestFullScreen();
+                } else if (container.msRequestFullscreen) { /* IE / Edge */
+                    container.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        /* JEU 2D EN CANVAS */
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -1145,34 +1171,6 @@
 
         function restartGame() {
             startGame();
-        }
-
-        /* FONCTION PLEIN ÉCRAN MULTI-COMPATIBLE */
-        function toggleFullScreen() {
-            const container = document.getElementById('gameContainer');
-            const isFullScreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
-
-            if (!isFullScreen) {
-                if (container.requestFullscreen) {
-                    container.requestFullscreen();
-                } else if (container.webkitRequestFullscreen) {
-                    container.webkitRequestFullscreen();
-                } else if (container.mozRequestFullScreen) {
-                    container.mozRequestFullScreen();
-                } else if (container.msRequestFullscreen) {
-                    container.msRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-            }
         }
 
         window.addEventListener('keydown', (e) => {
