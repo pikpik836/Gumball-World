@@ -24,15 +24,6 @@
             justify-content: space-between;
         }
 
-        /* STYLES FOCUS TELECOMMANDE ANDROID TV */
-        :focus, .focusable:focus, button:focus, input:focus, .episode-preview:focus, .compact-ep-card:focus, .touch-btn:focus, .game-wrapper:focus {
-            outline: 4px solid #00FFCC !important;
-            outline-offset: 2px !important;
-            box-shadow: 0 0 15px #00FFCC !important;
-            transform: scale(1.03);
-            transition: transform 0.1s ease, outline 0.1s ease;
-        }
-
         header {
             background-color: rgba(10, 17, 40, 0.95);
             border-bottom: 2px solid #2554A3;
@@ -102,6 +93,32 @@
         .nav-btn.active, .nav-btn:hover {
             background-color: #2554A3;
             color: #FFFFFF;
+        }
+
+        .nav-btn-live {
+            border-color: #EF4444;
+            color: #FCA5A5;
+        }
+
+        .nav-btn-live.active, .nav-btn-live:hover {
+            background-color: #DC2626;
+            border-color: #EF4444;
+            color: #FFF;
+        }
+
+        .live-badge-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #EF4444;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 6px #EF4444;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         .timer-card {
@@ -288,24 +305,59 @@
 
         .episode-preview {
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 2px solid #2554A3;
+            border-radius: 16px;
+            padding: 16px;
+            background: linear-gradient(145deg, #121B2D 0%, #1A2744 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         .episode-preview:hover {
-            transform: translateY(-3px);
+            transform: translateY(-6px);
+            border-color: #F27329;
+            box-shadow: 0 8px 20px rgba(242, 115, 41, 0.3);
         }
 
         .episode-card-title {
-            color: #FF8A3D;
-            font-size: 18px;
+            color: #FF9E53;
+            font-size: 20px;
             font-weight: 900;
-            margin-bottom: 12px;
-            text-shadow: 0 0 10px rgba(242, 115, 41, 0.5);
+            margin-bottom: 14px;
+            padding: 8px 12px;
+            background: rgba(10, 17, 40, 0.7);
+            border-left: 4px solid #F27329;
+            border-radius: 6px;
+            text-shadow: 0 0 8px rgba(242, 115, 41, 0.6);
             letter-spacing: 0.5px;
             line-height: 1.3;
         }
 
-        .preview-thumbnail-container {
+        #playerTitle {
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 16px;
+            padding: 10px 16px;
+            background: linear-gradient(90deg, rgba(242, 115, 41, 0.2) 0%, rgba(37, 84, 163, 0.3) 100%);
+            border: 2px solid #F27329;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(242, 115, 41, 0.4);
+            text-shadow: 0 0 10px #F27329;
+        }
+
+        .compact-title {
+            color: #FF8A3D;
+            font-size: 15px;
+            font-weight: 800;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: 0 0 5px rgba(242, 115, 41, 0.5);
+        }
+
+        .preview-video-container {
             position: relative;
             width: 100%;
             padding-top: 56.25%;
@@ -314,23 +366,16 @@
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .preview-play-btn {
+        .preview-video-container iframe {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            background: rgba(242, 115, 41, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #FFF;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
         }
 
         .synopsis-wrapper {
@@ -373,6 +418,81 @@
             padding: 20px;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
             margin-bottom: 30px;
+        }
+
+        /* SECTION LIVE STYLES */
+        .live-card {
+            background: linear-gradient(145deg, #1E122D 0%, #0E1726 100%);
+            border: 2px solid #EF4444;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 12px 30px rgba(239, 68, 68, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .live-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 10px;
+        }
+
+        .live-tag-pill {
+            background-color: #DC2626;
+            color: #FFF;
+            font-weight: 900;
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.6);
+        }
+
+        .live-fullscreen-btn {
+            background-color: #121B2D;
+            border: 1.5px solid #EF4444;
+            color: #FFF;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .live-fullscreen-btn:hover {
+            background-color: #EF4444;
+        }
+
+        .live-player-box {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background-color: #000;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            border: 1px solid #EF4444;
+        }
+
+        .live-player-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .live-title-box {
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 0 0 8px #EF4444;
         }
 
         .video-container {
@@ -529,9 +649,13 @@
             overflow: hidden;
             flex-shrink: 0;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        }
+
+        .compact-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
         }
 
         .compact-info {
@@ -539,15 +663,6 @@
             flex-direction: column;
             justify-content: center;
             overflow: hidden;
-        }
-
-        .compact-title {
-            color: #FF8A3D;
-            font-size: 14px;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .compact-desc {
@@ -582,33 +697,16 @@
         }
 
         .game-wrapper:fullscreen,
-        .game-wrapper:-webkit-full-screen,
-        .game-wrapper:-moz-full-screen,
-        .game-wrapper:-ms-fullscreen {
+        .game-wrapper:-webkit-full-screen {
             width: 100vw !important;
             height: 100vh !important;
             max-width: none !important;
-            max-height: none !important;
             aspect-ratio: auto !important;
-            border: none !important;
-            border-radius: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background: #000 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-
-        .game-wrapper:fullscreen canvas,
-        .game-wrapper:-webkit-full-screen canvas,
-        .game-wrapper:-moz-full-screen canvas,
-        .game-wrapper:-ms-fullscreen canvas {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-            object-fit: contain !important;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0A1128;
         }
 
         canvas {
@@ -616,6 +714,7 @@
             height: 100%;
             display: block;
             background: linear-gradient(180deg, #3B82F6 0%, #1E3A8A 100%);
+            object-fit: contain;
         }
 
         .game-overlay-menu {
@@ -713,10 +812,11 @@
         <div class="site-title-badge">GUMBALL<br>WORLD</div>
         
         <nav class="main-nav">
-            <button class="nav-btn focusable" tabindex="0" onclick="switchPage('home')">🏠 Accueil</button>
-            <button class="nav-btn focusable" tabindex="0" onclick="switchPage('episodesPage')">🎬 Épisodes</button>
-            <button class="nav-btn focusable" tabindex="0" onclick="switchPage('games')">🎮 Jeux</button>
-            <button class="nav-btn focusable" tabindex="0" onclick="switchPage('timerPage')">⏱️ Minuteur</button>
+            <button class="nav-btn active" onclick="switchPage('home')">🏠 Accueil</button>
+            <button class="nav-btn" onclick="switchPage('episodesPage')">🎬 Épisodes</button>
+            <button class="nav-btn" onclick="switchPage('games')">🎮 Jeux</button>
+            <button class="nav-btn nav-btn-live" onclick="switchPage('livePage')"><span class="live-badge-dot"></span> LIVE</button>
+            <button class="nav-btn" onclick="switchPage('timerPage')">⏱️ Minuteur</button>
         </nav>
     </header>
 
@@ -725,7 +825,37 @@
             <div class="card" style="text-align: center;">
                 <h1 class="title-primary">Bienvenue dans Gumball World !</h1>
                 <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes du Monde Incroyable de Gumball.</p>
-                <button class="nav-btn active focusable" tabindex="0" style="margin: 0 auto;" onclick="switchPage('episodesPage')">🎬 Voir les épisodes</button>
+                <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                    <button class="nav-btn active" onclick="switchPage('episodesPage')">🎬 Voir les épisodes</button>
+                    <button class="nav-btn nav-btn-live" onclick="switchPage('livePage')"><span class="live-badge-dot"></span> Regarder le LIVE</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="livePage" class="page">
+            <div class="live-card">
+                <div class="live-header">
+                    <div class="live-tag-pill">
+                        <span class="live-badge-dot"></span> EN DIRECT (SAISON 5)
+                    </div>
+                    <button class="live-fullscreen-btn" onclick="toggleLiveFullScreen()">⛶ Plein écran</button>
+                </div>
+
+                <div class="live-player-box" id="livePlayerBox">
+                    <iframe id="liveIframe" src="" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="live-title-box" id="liveTitle">Chargement du Direct...</div>
+                
+                <div class="meta-tags">
+                    <span class="tag">SAISON 5</span>
+                    <span class="tag">FLUX CONTINU 24/7</span>
+                    <span class="tag" id="liveNextTitle">Prochain épisode : --</span>
+                </div>
+
+                <div class="synopsis-wrapper">
+                    <p id="liveDesc" class="episode-desc">Le direct enchaîne automatiquement tous les épisodes de la Saison 5 en boucle.</p>
+                </div>
             </div>
         </section>
 
@@ -737,10 +867,10 @@
                 </p>
                 
                 <div class="timer-form">
-                    <input type="number" id="customMinutesInput" class="timer-input-page focusable" tabindex="0" placeholder="Saisir la durée en minutes..." min="1" max="600">
+                    <input type="number" id="customMinutesInput" class="timer-input-page" placeholder="Saisir la durée en minutes..." min="1" max="600">
                     <div class="timer-actions">
-                        <button class="btn-timer-action btn-start focusable" tabindex="0" onclick="startCustomTimer()">▶ Lancer le minuteur</button>
-                        <button class="btn-timer-action btn-stop focusable" tabindex="0" onclick="clearCustomTimer()">❌ Réinitialiser</button>
+                        <button class="btn-timer-action btn-start" onclick="startCustomTimer()">▶ Lancer le minuteur</button>
+                        <button class="btn-timer-action btn-stop" onclick="clearCustomTimer()">❌ Réinitialiser</button>
                     </div>
                 </div>
 
@@ -754,7 +884,7 @@
         </section>
 
         <section id="episodesPage" class="page">
-            <input type="text" id="searchBar" class="search-box focusable" tabindex="0" placeholder="🔍 Rechercher un épisode dans toutes les saisons..." onkeyup="filterEpisodes()">
+            <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode dans toutes les saisons..." onkeyup="filterEpisodes()">
 
             <div class="season-header-box">
                 <h2 id="seasonMainTitle" class="title-primary" style="margin-bottom: 4px;">Gumball World - Saison 5</h2>
@@ -763,12 +893,12 @@
             </div>
 
             <div class="seasons-nav">
-                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(1)">Saison 1</button>
-                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(2)">Saison 2</button>
-                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(3)">Saison 3</button>
-                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(4)">Saison 4</button>
-                <button class="season-btn active focusable" tabindex="0" onclick="selectSeason(5)">Saison 5</button>
-                <button class="season-btn focusable" tabindex="0" onclick="selectSeason(6)">Saison 6</button>
+                <button class="season-btn" onclick="selectSeason(1)">Saison 1</button>
+                <button class="season-btn" onclick="selectSeason(2)">Saison 2</button>
+                <button class="season-btn" onclick="selectSeason(3)">Saison 3</button>
+                <button class="season-btn" onclick="selectSeason(4)">Saison 4</button>
+                <button class="season-btn active" onclick="selectSeason(5)">Saison 5</button>
+                <button class="season-btn" onclick="selectSeason(6)">Saison 6</button>
             </div>
 
             <div id="seasonContentArea">
@@ -782,13 +912,13 @@
         </section>
 
         <section id="playerPage" class="page">
-            <button class="btn-back focusable" tabindex="0" onclick="switchPage('episodesPage')">📋 Retour aux épisodes</button>
+            <button class="btn-back" onclick="switchPage('episodesPage')">📋 Retour aux épisodes</button>
 
             <div class="player-card">
-                <h2 id="playerTitle" class="episode-card-title" style="font-size: 24px; text-align: center;"></h2>
+                <h2 id="playerTitle"></h2>
 
-                <div class="video-container focusable" tabindex="0" id="videoContainerBox">
-                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+                <div class="video-container">
+                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
                     
                     <div id="timeLimitOverlay" class="time-limit-overlay">
                         <div class="time-limit-title">⏱️ Temps écoulé</div>
@@ -796,8 +926,8 @@
                         <div class="extend-box">
                             <span style="font-size: 12px; color: #7EA3FF;">Rajouter du temps ?</span>
                             <div class="extend-inputs">
-                                <input type="number" id="extendMinutesInput" class="extend-input focusable" tabindex="0" placeholder="Min..." min="1" max="600">
-                                <button class="btn-extend focusable" tabindex="0" onclick="extendTimer()">➕ Rajouter</button>
+                                <input type="number" id="extendMinutesInput" class="extend-input" placeholder="Min..." min="1" max="600">
+                                <button class="btn-extend" onclick="extendTimer()">➕ Rajouter</button>
                             </div>
                         </div>
                     </div>
@@ -814,10 +944,10 @@
                 </div>
                 
                 <div class="player-controls">
-                    <button id="prevBtn" class="btn-nav-ep focusable" tabindex="0" onclick="navigateEpisode(-1)">
+                    <button id="prevBtn" class="btn-nav-ep" onclick="navigateEpisode(-1)">
                         ← Ép. <span id="prevEpNum"></span>
                     </button>
-                    <button id="nextBtn" class="btn-nav-ep focusable" tabindex="0" onclick="navigateEpisode(1)">
+                    <button id="nextBtn" class="btn-nav-ep" onclick="navigateEpisode(1)">
                         Ép. <span id="nextEpNum"></span> →
                     </button>
                 </div>
@@ -833,27 +963,27 @@
             <h2 class="title-primary">🎮 Gumball : Le Parcours d'Elmore (3 Niveaux)</h2>
             <p style="color: #F27329; text-align: center; font-weight: bold; margin-bottom: 16px;">Atteins la porte de fin sur les 3 niveaux !</p>
             
-            <div class="game-wrapper focusable" tabindex="0" id="gameContainer">
-                <button class="game-btn-fullscreen focusable" tabindex="0" onclick="toggleFullScreen()">⛶ Plein écran</button>
+            <div class="game-wrapper" id="gameContainer">
+                <button class="game-btn-fullscreen" onclick="toggleFullScreen()">⛶ Plein écran</button>
                 <canvas id="gameCanvas" width="800" height="400"></canvas>
 
                 <div class="game-overlay-menu" id="gameOverlay">
                     <h2 id="overlayTitle" style="color: #7EA3FF; font-size: 22px;">Gumball Runner</h2>
                     <p id="overlaySub" style="color: #CBD5E1; font-size: 14px;">Prêt à traverser les 3 niveaux ?</p>
-                    <button class="game-btn-start focusable" tabindex="0" id="startBtn" onclick="startGame()">▶ DÉMARRER</button>
+                    <button class="game-btn-start" id="startBtn" onclick="startGame()">▶ DÉMARRER</button>
                 </div>
 
                 <div class="touch-controls">
                     <div class="touch-group">
-                        <div class="touch-btn focusable" tabindex="0" id="btnLeft">⬅️</div>
-                        <div class="touch-btn focusable" tabindex="0" id="btnRight">➡️</div>
+                        <div class="touch-btn" id="btnLeft">⬅️</div>
+                        <div class="touch-btn" id="btnRight">➡️</div>
                     </div>
                     <div class="touch-group">
-                        <div class="touch-btn focusable" tabindex="0" id="btnJump">⬆️</div>
+                        <div class="touch-btn" id="btnJump">⬆️</div>
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 12px; font-size: 13px; color: #7EA3FF;">PC/TV : Flèches Clavier / Télécommande | Mobile : Boutons à l'écran</p>
+            <p style="text-align: center; margin-top: 12px; font-size: 13px; color: #7EA3FF;">PC/TV : Flèches Clavier | Mobile : Boutons à l'écran</p>
         </section>
     </main>
 
@@ -933,6 +1063,8 @@
         let currentEpisodeIndex = 0;
         let globalTimer = null;
         let countdownInterval = null;
+        let liveSyncInterval = null;
+        let currentLiveIndex = -1;
 
         function selectSeason(seasonKey) {
             currentSeason = seasonKey;
@@ -975,14 +1107,13 @@
                 const epSeason = ep.seasonKey || seasonKey;
 
                 const card = document.createElement('div');
-                card.className = 'card episode-preview focusable';
-                card.tabIndex = 0;
+                card.className = 'episode-preview';
                 card.onclick = () => openPlayer(epIndex, epSeason);
 
                 card.innerHTML = `
                     <h3 class="episode-card-title">${ep.title}</h3>
-                    <div class="preview-thumbnail-container">
-                        <div class="preview-play-btn">▶</div>
+                    <div class="preview-video-container">
+                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
                     </div>
                     <div class="synopsis-wrapper">
                         <p class="episode-desc">${ep.desc}</p>
@@ -1039,13 +1170,75 @@
                 'episodesPage': 1,
                 'playerPage': 1,
                 'games': 2,
-                'timerPage': 3
+                'livePage': 3,
+                'timerPage': 4
             };
             
             const btnIndex = navMap[pageId] !== undefined ? navMap[pageId] : 0;
             document.querySelectorAll('.main-nav .nav-btn')[btnIndex].classList.add('active');
 
+            if (pageId === 'livePage') {
+                startLiveStream();
+            } else {
+                stopLiveStream();
+            }
+
             window.scrollTo(0, 0);
+        }
+
+        /* GESTION DU FLUX EN DIRECT (PSEUDO-LIVE SAISON 5) */
+        function startLiveStream() {
+            updateLiveEpisode();
+            if (!liveSyncInterval) {
+                liveSyncInterval = setInterval(updateLiveEpisode, 5000);
+            }
+        }
+
+        function stopLiveStream() {
+            if (liveSyncInterval) {
+                clearInterval(liveSyncInterval);
+                liveSyncInterval = null;
+            }
+            const liveIframe = document.getElementById('liveIframe');
+            if (liveIframe) liveIframe.src = "";
+            currentLiveIndex = -1;
+        }
+
+        function updateLiveEpisode() {
+            const epDuration = 11 * 60; // 11 minutes par épisode
+            const nowInSeconds = Math.floor(Date.now() / 1000);
+            const totalEp = episodesS5.length;
+            
+            const activeIndex = Math.floor((nowInSeconds / epDuration) % totalEp);
+            const nextIndex = (activeIndex + 1) % totalEp;
+
+            if (activeIndex !== currentLiveIndex) {
+                currentLiveIndex = activeIndex;
+                const ep = episodesS5[activeIndex];
+                const nextEp = episodesS5[nextIndex];
+
+                document.getElementById('liveIframe').src = ep.embedUrl;
+                document.getElementById('liveTitle').innerText = ep.title;
+                document.getElementById('liveDesc').innerText = ep.desc;
+                document.getElementById('liveNextTitle').innerText = `Suivant : ${nextEp.title}`;
+            }
+        }
+
+        function toggleLiveFullScreen() {
+            const box = document.getElementById('livePlayerBox');
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                if (box.requestFullscreen) {
+                    box.requestFullscreen();
+                } else if (box.webkitRequestFullscreen) {
+                    box.webkitRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
         }
 
         function startCustomTimer(minutes = null) {
@@ -1145,6 +1338,7 @@
 
         function stopVideoPlayback() {
             document.getElementById('videoIframe').src = '';
+            document.getElementById('liveIframe').src = '';
             document.getElementById('timeLimitOverlay').classList.add('active');
         }
 
@@ -1163,13 +1357,12 @@
             remainingEpisodes.forEach((ep, relIndex) => {
                 const absoluteIndex = currentEpisodeIndex + 1 + relIndex;
                 const item = document.createElement('div');
-                item.className = 'compact-ep-card focusable';
-                item.tabIndex = 0;
+                item.className = 'compact-ep-card';
                 item.onclick = () => openPlayer(absoluteIndex);
 
                 item.innerHTML = `
                     <div class="compact-thumb">
-                        <span style="font-size:20px; color:#F27329;">▶</span>
+                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
                     </div>
                     <div class="compact-info">
                         <div class="compact-title">${ep.title}</div>
@@ -1191,52 +1384,21 @@
         selectSeason(5);
 
         function toggleFullScreen() {
-            const elem = document.getElementById('gameContainer');
-            
-            const isFullScreen = !!(document.fullscreenElement || 
-                                    document.webkitFullscreenElement || 
-                                    document.mozFullScreenElement || 
-                                    document.msFullscreenElement);
-
-            if (!isFullScreen) {
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.webkitRequestFullscreen) {
-                    elem.webkitRequestFullscreen();
-                } else if (elem.mozRequestFullScreen) {
-                    elem.mozRequestFullScreen();
-                } else if (elem.msRequestFullscreen) {
-                    elem.msRequestFullscreen();
+            const container = document.getElementById('gameContainer');
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
                 }
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
                 }
             }
         }
-
-        ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(eventName => {
-            document.addEventListener(eventName, () => {
-                const isFullScreen = !!(document.fullscreenElement || 
-                                        document.webkitFullscreenElement || 
-                                        document.mozFullScreenElement || 
-                                        document.msFullscreenElement);
-                const gameContainer = document.getElementById('gameContainer');
-                if (isFullScreen) {
-                    gameContainer.style.width = '100vw';
-                    gameContainer.style.height = '100vh';
-                } else {
-                    gameContainer.style.width = '';
-                    gameContainer.style.height = '';
-                }
-            });
-        });
 
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -1244,11 +1406,14 @@
         let score = 0;
         let currentLevel = 1;
         let gameRunning = false;
+        let animFrame = 0;
+        let particles = [];
         const keys = { left: false, right: false, up: false };
 
         const player = {
-            x: 50, y: 300, width: 30, height: 40, color: '#00BFFF',
-            vx: 0, vy: 0, speed: 4.5, jumpPower: -11, gravity: 0.55, grounded: false
+            x: 50, y: 300, width: 32, height: 42, color: '#00BFFF',
+            vx: 0, vy: 0, speed: 4.5, jumpPower: -11, gravity: 0.55, grounded: false,
+            facingRight: true, walkAnim: 0
         };
 
         const levelData = {
@@ -1264,6 +1429,7 @@
                     { x: 200, y: 240, radius: 8, collected: false },
                     { x: 370, y: 170, radius: 8, collected: false }
                 ],
+                enemies: [],
                 goal: { x: 700, y: 140, width: 35, height: 60 }
             },
             2: {
@@ -1276,6 +1442,9 @@
                 coins: [
                     { x: 310, y: 260, radius: 8, collected: false },
                     { x: 450, y: 190, radius: 8, collected: false }
+                ],
+                enemies: [
+                    { x: 570, y: 132, width: 28, height: 28, minX: 570, maxX: 750, speed: 2, dir: 1 }
                 ],
                 goal: { x: 700, y: 100, width: 35, height: 60 }
             },
@@ -1292,19 +1461,25 @@
                     { x: 350, y: 180, radius: 8, collected: false },
                     { x: 490, y: 120, radius: 8, collected: false }
                 ],
+                enemies: [
+                    { x: 190, y: 262, width: 28, height: 28, minX: 190, maxX: 250, speed: 1.5, dir: 1 },
+                    { x: 610, y: 202, width: 28, height: 28, minX: 610, maxX: 760, speed: 2.5, dir: 1 }
+                ],
                 goal: { x: 720, y: 170, width: 35, height: 60 }
             }
         };
 
-        let currentPlatforms = [], currentCoins = [], currentGoal = {};
+        let currentPlatforms = [], currentCoins = [], currentEnemies = [], currentGoal = {};
 
         function loadLevel(levelNum) {
             currentLevel = levelNum;
             const lvl = levelData[levelNum];
             currentPlatforms = JSON.parse(JSON.stringify(lvl.platforms));
             currentCoins = JSON.parse(JSON.stringify(lvl.coins));
+            currentEnemies = JSON.parse(JSON.stringify(lvl.enemies || []));
             currentGoal = JSON.parse(JSON.stringify(lvl.goal));
             player.x = 40; player.y = 280; player.vx = 0; player.vy = 0;
+            particles = [];
         }
 
         function startGame() {
@@ -1318,17 +1493,6 @@
             if (['ArrowLeft', 'a', 'A'].includes(e.key)) keys.left = true;
             if (['ArrowRight', 'd', 'D'].includes(e.key)) keys.right = true;
             if (['ArrowUp', 'w', 'W', ' '].includes(e.key)) keys.up = true;
-
-            /* SUPPORT TOUCHE OK / ENTER / SPACE / DPAD_CENTER TELECOMMANDE ANDROID TV */
-            if (e.key === 'Enter' || e.keyCode === 13 || e.key === ' ' || e.keyCode === 32 || e.keyCode === 23) {
-                const activeElem = document.activeElement;
-                if (activeElem && activeElem.id === 'videoContainerBox') {
-                    const iframe = document.getElementById('videoIframe');
-                    if (iframe) iframe.focus();
-                } else if (activeElem && typeof activeElem.click === 'function') {
-                    activeElem.click();
-                }
-            }
         });
 
         window.addEventListener('keyup', (e) => {
@@ -1355,18 +1519,6 @@
                 btn.addEventListener('touchend', endAction, { passive: false });
                 btn.addEventListener('mousedown', startAction);
                 btn.addEventListener('mouseup', endAction);
-
-                /* ACTION D-PAD SUR BOUTONS DE JEU */
-                btn.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.keyCode === 13 || e.key === ' ' || e.keyCode === 32 || e.keyCode === 23) {
-                        keys[keyName] = true;
-                    }
-                });
-                btn.addEventListener('keyup', (e) => {
-                    if (e.key === 'Enter' || e.keyCode === 13 || e.key === ' ' || e.keyCode === 32 || e.keyCode === 23) {
-                        keys[keyName] = false;
-                    }
-                });
             };
 
             bindBtn('btnLeft', 'left');
@@ -1376,12 +1528,34 @@
 
         setupTouchControls();
 
+        function createCoinParticles(x, y) {
+            for (let i = 0; i < 8; i++) {
+                particles.push({
+                    x: x, y: y,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 4,
+                    radius: Math.random() * 3 + 2,
+                    alpha: 1
+                });
+            }
+        }
+
         function updateGame() {
             if (!gameRunning) return;
+            animFrame++;
 
-            if (keys.left) player.vx = -player.speed;
-            else if (keys.right) player.vx = player.speed;
-            else player.vx = 0;
+            if (keys.left) {
+                player.vx = -player.speed;
+                player.facingRight = false;
+                player.walkAnim += 0.2;
+            } else if (keys.right) {
+                player.vx = player.speed;
+                player.facingRight = true;
+                player.walkAnim += 0.2;
+            } else {
+                player.vx = 0;
+                player.walkAnim = 0;
+            }
 
             if (keys.up && player.grounded) {
                 player.vy = player.jumpPower;
@@ -1424,8 +1598,34 @@
                     if (Math.sqrt(distX * distX + distY * distY) < coin.radius + player.width / 2) {
                         coin.collected = true;
                         score += 10;
+                        createCoinParticles(coin.x, coin.y);
                     }
                 }
+            });
+
+            currentEnemies.forEach(enemy => {
+                enemy.x += enemy.speed * enemy.dir;
+                if (enemy.x <= enemy.minX || enemy.x + enemy.width >= enemy.maxX) {
+                    enemy.dir *= -1;
+                }
+                if (
+                    player.x < enemy.x + enemy.width &&
+                    player.x + player.width > enemy.x &&
+                    player.y < enemy.y + enemy.height &&
+                    player.y + player.height > enemy.y
+                ) {
+                    player.x = 40;
+                    player.y = 280;
+                    player.vx = 0;
+                    player.vy = 0;
+                }
+            });
+
+            particles.forEach((p, idx) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.03;
+                if (p.alpha <= 0) particles.splice(idx, 1);
             });
 
             if (
@@ -1455,21 +1655,48 @@
 
             if (!gameRunning) return;
 
-            ctx.fillStyle = '#1E293B';
             currentPlatforms.forEach(plat => {
+                ctx.fillStyle = '#1E293B';
                 ctx.fillRect(plat.x, plat.y, plat.width, plat.height);
-                ctx.strokeStyle = '#F27329';
+                ctx.strokeStyle = '#2554A3';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(plat.x, plat.y, plat.width, plat.height);
+                ctx.fillStyle = '#F27329';
+                ctx.fillRect(plat.x, plat.y, plat.width, 3);
             });
 
-            ctx.fillStyle = '#FFD700';
             currentCoins.forEach(coin => {
                 if (!coin.collected) {
+                    const floatOffset = Math.sin(animFrame * 0.1) * 3;
+                    ctx.fillStyle = '#FFD700';
                     ctx.beginPath();
-                    ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+                    ctx.arc(coin.x, coin.y + floatOffset, coin.radius, 0, Math.PI * 2);
                     ctx.fill();
+                    ctx.strokeStyle = '#FFA500';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
                 }
+            });
+
+            particles.forEach(p => {
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = '#FFD700';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            currentEnemies.forEach(enemy => {
+                ctx.fillStyle = '#DC2626';
+                ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+                ctx.fillStyle = '#FFF';
+                ctx.fillRect(enemy.x + 4, enemy.y + 6, 6, 6);
+                ctx.fillRect(enemy.x + 16, enemy.y + 6, 6, 6);
+                ctx.fillStyle = '#000';
+                ctx.fillRect(enemy.x + 6, enemy.y + 8, 2, 2);
+                ctx.fillRect(enemy.x + 18, enemy.y + 8, 2, 2);
             });
 
             ctx.fillStyle = '#10B981';
@@ -1477,9 +1704,62 @@
             ctx.strokeStyle = '#FFF';
             ctx.lineWidth = 2;
             ctx.strokeRect(currentGoal.x, currentGoal.y, currentGoal.width, currentGoal.height);
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.arc(currentGoal.x + 8, currentGoal.y + 30, 3, 0, Math.PI * 2);
+            ctx.fill();
 
-            ctx.fillStyle = player.color;
-            ctx.fillRect(player.x, player.y, player.width, player.height);
+            ctx.save();
+            ctx.translate(player.x + player.width / 2, player.y + player.height / 2);
+            
+            if (player.vx !== 0) {
+                ctx.rotate(Math.sin(player.walkAnim) * 0.1);
+            }
+
+            const pW = player.width;
+            const pH = player.height;
+
+            ctx.fillStyle = '#00BFFF';
+            ctx.beginPath();
+            ctx.roundRect(-pW / 2, -pH / 2, pW, pH, 8);
+            ctx.fill();
+
+            ctx.fillStyle = '#00BFFF';
+            ctx.beginPath();
+            if (player.facingRight) {
+                ctx.moveTo(-pW / 4, -pH / 2);
+                ctx.lineTo(-pW / 2, -pH / 2 - 8);
+                ctx.lineTo(0, -pH / 2);
+            } else {
+                ctx.moveTo(pW / 4, -pH / 2);
+                ctx.lineTo(pW / 2, -pH / 2 - 8);
+                ctx.lineTo(0, -pH / 2);
+            }
+            ctx.fill();
+
+            ctx.fillStyle = '#FFF';
+            const eyeOffset = player.facingRight ? 2 : -6;
+            ctx.beginPath();
+            ctx.ellipse(-4 + eyeOffset, -6, 5, 7, 0, 0, Math.PI * 2);
+            ctx.ellipse(6 + eyeOffset, -6, 5, 7, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(-3 + eyeOffset + (player.facingRight ? 1 : -1), -6, 2, 0, Math.PI * 2);
+            ctx.arc(7 + eyeOffset + (player.facingRight ? 1 : -1), -6, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(1 + eyeOffset, 3, 4, 0, Math.PI);
+            ctx.stroke();
+
+            ctx.fillStyle = '#99E6FF';
+            ctx.fillRect(-pW / 2 + 4, pH / 2 - 6, pW - 8, 4);
+
+            ctx.restore();
 
             ctx.fillStyle = '#FFF';
             ctx.font = 'bold 16px sans-serif';
