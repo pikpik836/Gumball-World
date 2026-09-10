@@ -95,16 +95,68 @@
             color: #FFFFFF;
         }
 
-        .nav-btn-random {
-            border-color: #F27329;
-            color: #FF9E53;
+        .timer-card {
+            background-color: #121B2D;
+            border: 2px solid #2554A3;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
-        .nav-btn-random.active, .nav-btn-random:hover {
-            background-color: #F27329;
-            border-color: #F27329;
-            color: #FFF;
+        .timer-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #34D399;
+            margin: 20px 0;
+            background: #0A1128;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #2554A3;
         }
+
+        .timer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .timer-input-page {
+            width: 100%;
+            background-color: #0A1128;
+            border: 1.5px solid #7EA3FF;
+            border-radius: 8px;
+            padding: 12px;
+            color: #FFF;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+
+        .timer-input-page:focus {
+            border-color: #F27329;
+        }
+
+        .timer-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-timer-action {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-start { background-color: #F27329; color: #FFF; }
+        .btn-stop { background-color: #334155; color: #CBD5E1; }
 
         main {
             width: 100%;
@@ -179,6 +231,21 @@
             color: #FFFFFF;
         }
 
+        .btn-back {
+            background-color: #121B2D;
+            border: 1.5px solid #7EA3FF;
+            color: #7EA3FF;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
         .search-box {
             width: 100%;
             background-color: #121B2D;
@@ -212,30 +279,19 @@
 
         .episode-preview {
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            border: 2px solid #2554A3;
-            border-radius: 16px;
-            padding: 16px;
-            background: linear-gradient(145deg, #121B2D 0%, #1A2744 100%);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s;
         }
 
         .episode-preview:hover {
-            transform: translateY(-6px);
-            border-color: #F27329;
-            box-shadow: 0 8px 20px rgba(242, 115, 41, 0.3);
+            transform: translateY(-3px);
         }
 
         .episode-card-title {
-            color: #FF9E53;
-            font-size: 20px;
+            color: #FF8A3D;
+            font-size: 18px;
             font-weight: 900;
-            margin-bottom: 14px;
-            padding: 8px 12px;
-            background: rgba(10, 17, 40, 0.7);
-            border-left: 4px solid #F27329;
-            border-radius: 6px;
-            text-shadow: 0 0 8px rgba(242, 115, 41, 0.6);
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(242, 115, 41, 0.5);
             letter-spacing: 0.5px;
             line-height: 1.3;
         }
@@ -294,118 +350,13 @@
             border-radius: 5px;
         }
 
-        /* STYLE SHORTS */
-        .shorts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            justify-items: center;
-        }
-
-        .short-card {
-            background: linear-gradient(145deg, #121B2D 0%, #1A2744 100%);
-            border: 2px solid #2554A3;
-            border-radius: 16px;
-            padding: 16px;
-            width: 100%;
-            max-width: 310px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .short-card:hover {
-            transform: translateY(-6px);
-            border-color: #F27329;
-            box-shadow: 0 8px 20px rgba(242, 115, 41, 0.3);
-        }
-
-        .short-video-container {
-            position: relative;
-            width: 100%;
-            padding-top: 177.77%;
-            background-color: #0A1128;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 12px;
-            border: 1px solid #2554A3;
-        }
-
-        .short-video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* STYLE JEU CANVAS */
-        #gameCanvas {
-            background: #0A1128;
-            border: 2px solid #F27329;
-            border-radius: 12px;
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            touch-action: manipulation;
-        }
-
-        /* STYLE ÉPISODE ALÉATOIRE */
-        .random-card {
+        .player-card {
             background: linear-gradient(145deg, #16223B 0%, #0E1726 100%);
-            border: 2px solid #F27329;
+            border: 2px solid #7EA3FF;
             border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 12px 30px rgba(242, 115, 41, 0.25);
+            padding: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
             margin-bottom: 30px;
-        }
-
-        .random-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-            align-items: center;
-        }
-
-        .random-select {
-            width: 100%;
-            max-width: 320px;
-            background-color: #0A1128;
-            border: 1.5px solid #2554A3;
-            border-radius: 10px;
-            padding: 10px 14px;
-            color: #FFFFFF;
-            font-size: 15px;
-            outline: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn-random-generate {
-            background-color: #F27329;
-            color: #FFFFFF;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(242, 115, 41, 0.4);
-            transition: transform 0.2s ease;
-        }
-
-        .btn-random-generate:hover {
-            transform: scale(1.03);
-        }
-
-        .random-result-box {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .random-result-box.active {
-            display: block;
         }
 
         .video-container {
@@ -427,6 +378,68 @@
             border: none;
         }
 
+        .time-limit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 17, 40, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            padding: 16px;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .time-limit-overlay.active {
+            display: flex;
+        }
+
+        .time-limit-title {
+            color: #F27329;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .extend-box {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .extend-inputs {
+            display: flex;
+            gap: 6px;
+        }
+
+        .extend-input {
+            width: 80px;
+            background-color: #0A1128;
+            border: 1px solid #7EA3FF;
+            border-radius: 6px;
+            padding: 6px;
+            color: #FFF;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .btn-extend {
+            background-color: #2554A3;
+            color: #FFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
         .meta-tags {
             display: flex;
             gap: 8px;
@@ -443,6 +456,397 @@
             border-radius: 6px;
         }
 
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn-nav-ep {
+            flex: 1;
+            max-width: 140px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #prevBtn { background-color: #2554A3; color: #FFFFFF; }
+        #nextBtn { background-color: #F27329; color: #FFFFFF; }
+
+        .next-episodes-section {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(126, 163, 255, 0.2);
+        }
+
+        .next-episodes-title {
+            color: #7EA3FF;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 14px;
+        }
+
+        .compact-ep-card {
+            display: flex;
+            gap: 12px;
+            background-color: #121B2D;
+            border: 1px solid #2554A3;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .compact-thumb {
+            width: 100px;
+            height: 56px;
+            background-color: #0A1128;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .compact-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        .compact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .compact-title {
+            color: #FF8A3D;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .compact-desc {
+            color: #94A3B8;
+            font-size: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .not-available-box {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #121B2D;
+            border: 1.5px dashed #2554A3;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        /* ANIMATION EN HAUT DU JEU */
+        .rotate-banner {
+            background-color: #F27329;
+            color: #FFF;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            animation: pulseBanner 1.5s infinite alternate;
+        }
+
+        .phone-icon {
+            font-size: 1.2rem;
+            display: inline-block;
+            animation: rotatePhone 2s infinite ease-in-out;
+        }
+
+        @keyframes rotatePhone {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(-90deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes pulseBanner {
+            0% { background-color: #F27329; }
+            100% { background-color: #FF8A3D; }
+        }
+
+        .game-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 2 / 1;
+            border: 2px solid #2554A3;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            background: #000;
+            margin: 0 auto;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: linear-gradient(180deg, #3B82F6 0%, #1E3A8A 100%);
+            object-fit: contain;
+        }
+
+        .game-overlay-menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 17, 40, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            gap: 12px;
+        }
+
+        .game-btn-start {
+            background-color: #F27329;
+            color: #FFF;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(242, 115, 41, 0.4);
+        }
+
+        .game-btn-fullscreen {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(18, 27, 45, 0.85);
+            border: 1px solid #7EA3FF;
+            color: #FFF;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 25;
+        }
+
+        /* PANNEAU DE BOUTONS SOUS L'ÉCRAN DE JEU */
+        .controls-panel {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        .game-control-btn {
+            background-color: #2554A3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex: 1;
+            max-width: 150px;
+        }
+
+        .game-control-btn:active {
+            background-color: #F27329;
+        }
+
+        .quiz-card {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .quiz-option {
+            background-color: #0A1128;
+            border: 1.5px solid #2554A3;
+            color: #FFF;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover {
+            background-color: #2554A3;
+        }
+
+        .random-container {
+            background-color: #121B2D;
+            border: 2px solid #F27329;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 24px auto;
+        }
+
+        .select-season-dropdown {
+            background-color: #0A1128;
+            border: 1.5px solid #7EA3FF;
+            color: #FFF;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 15px;
+            margin: 12px 0;
+            width: 100%;
+            max-width: 300px;
+            outline: none;
+        }
+
+        /* NAVIGATION INTERNE DES JEUX */
+        .games-subnav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .game-tab-btn {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            color: #E1E7ED;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .game-tab-btn.active, .game-tab-btn:hover {
+            background-color: #F27329;
+            border-color: #F27329;
+            color: #FFFFFF;
+        }
+
+        .game-section-item {
+            display: none;
+        }
+
+        .game-section-item.active {
+            display: block;
+        }
+
+        /* JEU 3D STYLES & OVERLAY UI */
+        .game3d-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border: 2px solid #2554A3;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #game3dCanvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .ui-3d {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #fff;
+            background: rgba(0, 163, 224, 0.9);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            max-width: 280px;
+            pointer-events: none;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .ui-3d h3 {
+            margin: 0 0 6px 0;
+            font-size: 15px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 0px #000;
+        }
+
+        .ui-3d p {
+            margin: 0 0 8px 0;
+            font-size: 11px;
+            line-height: 1.2;
+        }
+
+        .ui-3d ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 12px;
+        }
+
+        .ui-3d li {
+            margin-bottom: 3px;
+            font-weight: bold;
+        }
+
+        .ui-3d .done {
+            text-decoration: line-through;
+            color: #72ff72;
+        }
+
+        .win-overlay-3d {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 20;
+        }
+
+        .win-overlay-3d h1 {
+            font-size: 36px;
+            color: #00d2ff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -450,6 +854,14 @@
             color: rgba(225, 231, 237, 0.6);
         }
     </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
 </head>
 <body>
 
@@ -459,9 +871,8 @@
         <nav class="main-nav">
             <button class="nav-btn active" onclick="switchPage('home')">🏠 Accueil</button>
             <button class="nav-btn" onclick="switchPage('episodesPage')">🎬 Épisodes</button>
-            <button class="nav-btn" onclick="switchPage('shortsPage')">📱 Shorts</button>
+            <button class="nav-btn" onclick="switchPage('randomPage')">🎲 Épisode aléatoire</button>
             <button class="nav-btn" onclick="switchPage('games')">🎮 Jeux</button>
-            <button class="nav-btn nav-btn-random" onclick="switchPage('randomPage')">🎲 Épisode aléatoire</button>
             <button class="nav-btn" onclick="switchPage('timerPage')">⏱️ Minuteur</button>
         </nav>
     </header>
@@ -470,118 +881,49 @@
         <section id="home" class="page active">
             <div class="card" style="text-align: center;">
                 <h1 class="title-primary">Bienvenue dans Gumball World !</h1>
-                <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes et les meilleurs extraits de Gumball.</p>
-                <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-                    <button class="nav-btn active" onclick="switchPage('episodesPage')">🎬 Voir les épisodes</button>
-                    <button class="nav-btn" onclick="switchPage('shortsPage')">📱 Shorts YouTube</button>
-                    <button class="nav-btn" onclick="switchPage('games')">🎮 Jeux</button>
-                    <button class="nav-btn nav-btn-random" onclick="switchPage('randomPage')">🎲 Épisode aléatoire</button>
-                </div>
+                <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes du Monde Incroyable de Gumball.</p>
+                <button class="nav-btn active" style="margin: 0 auto;" onclick="switchPage('episodesPage')">🎬 Voir les épisodes</button>
             </div>
         </section>
 
-        <!-- PAGE SHORTS YOUTUBE -->
-        <section id="shortsPage" class="page">
-            <div class="season-header-box">
-                <h2 class="title-primary" style="margin-bottom: 4px;">📱 Gumball Shorts</h2>
-                <div style="color: #F27329; font-weight: bold; font-size: 14px;">Les meilleurs moments au format court !</div>
-            </div>
-
-            <div class="shorts-grid">
-                <!-- Short 1 -->
-                <div class="short-card">
-                    <h3 class="episode-card-title" style="font-size: 15px; margin-bottom: 10px;">#1 L’invitation de Masami 🎂🎉🎁</h3>
-                    <div class="short-video-container">
-                        <iframe src="https://www.youtube.com/embed/8V5F99x27zI" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <!-- Short 2 -->
-                <div class="short-card">
-                    <h3 class="episode-card-title" style="font-size: 15px; margin-bottom: 10px;">#2 Le vase est invincible 🏺💪</h3>
-                    <div class="short-video-container">
-                        <iframe src="https://www.youtube.com/embed/jGB7czIoY8g" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <!-- Short 3 -->
-                <div class="short-card">
-                    <h3 class="episode-card-title" style="font-size: 15px; margin-bottom: 10px;">#3 Les histoires de feu de camp 🔥 ⛺️</h3>
-                    <div class="short-video-container">
-                        <iframe src="https://www.youtube.com/embed/4_lNAHuOCrE" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE JEUX (COMPLET) -->
-        <section id="games" class="page">
-            <div class="card" style="text-align: center;">
-                <h2 class="title-primary">🎮 Gumball : Le Parcours d'Elmore</h2>
-                <p style="color: #F27329; font-weight: bold; margin-bottom: 16px;">Clique sur l'écran ou appuie sur ESPACE pour sauter !</p>
-                
-                <canvas id="gameCanvas" width="600" height="250"></canvas>
-                
-                <div style="margin-top: 16px;">
-                    <button class="btn-random-generate" onclick="restartGame()">🔄 Relancer le jeu</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE ÉPISODE ALÉATOIRE -->
         <section id="randomPage" class="page">
-            <div class="random-card">
-                <h2 class="title-primary">🎲 Tirer un épisode au hasard</h2>
-                <p style="text-align: center; color: #CBD5E1; font-size: 14px; margin-bottom: 16px;">
-                    Choisis la saison que tu veux cibler ou mélange toutes les saisons disponibles !
-                </p>
-
-                <div class="random-controls">
-                    <select id="randomSeasonSelect" class="random-select">
-                        <option value="all">Toutes les saisons confondues</option>
+            <div class="random-container">
+                <h2 class="title-primary">🎲 Lancer un Épisode Aléatoire</h2>
+                <p style="color: #CBD5E1; font-size: 14px;">Choisis une saison spécifique ou tire un épisode au hasard parmi toutes les saisons !</p>
+                
+                <div style="margin: 20px 0;">
+                    <select id="randomSeasonSelect" class="select-season-dropdown">
+                        <option value="all">Toutes les saisons</option>
                         <option value="5">Saison 5 uniquement</option>
                         <option value="6">Saison 6 uniquement</option>
                     </select>
-
-                    <button class="btn-random-generate" onclick="generateRandomEpisode()">🎲 Lancer le tirage</button>
                 </div>
 
-                <div id="randomResultBox" class="random-result-box">
-                    <h3 id="randomEpisodeTitle" class="episode-card-title" style="text-align: center; margin-bottom: 16px;"></h3>
+                <button class="btn-timer-action btn-start" style="max-width: 250px; margin: 0 auto;" onclick="generateRandomEpisode()">🎲 Tirer un épisode</button>
+            </div>
 
-                    <div class="video-container">
-                        <iframe id="randomIframe" src="" frameborder="0" allowfullscreen></iframe>
-                    </div>
-
-                    <div class="meta-tags">
-                        <span id="randomSeasonTag" class="tag">SAISON --</span>
-                        <span class="tag">11 MIN</span>
-                        <span class="tag">HD</span>
-                    </div>
-
-                    <div class="synopsis-wrapper">
-                        <p id="randomDesc" class="episode-desc"></p>
-                    </div>
-                </div>
+            <div id="randomEpisodeResult" style="display: none;">
+                <h3 style="color: #7EA3FF; text-align: center; margin-bottom: 12px;">Résultat du tirage :</h3>
+                <div id="randomCardContainer"></div>
             </div>
         </section>
 
         <section id="timerPage" class="page">
-            <div class="timer-card" style="background:#121B2D; border:2px solid #2554A3; border-radius:16px; padding:24px; max-width:500px; margin:0 auto; text-align:center;">
+            <div class="timer-card">
                 <h2 class="title-primary">⏱️ Minuteur de lecture</h2>
                 <p style="color: #CBD5E1; font-size: 14px; margin-bottom: 16px;">
                     Définis un temps de visionnage. La vidéo s'arrêtera automatiquement une fois le délai écoulé.
                 </p>
                 
-                <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:16px;">
-                    <input type="number" id="customMinutesInput" style="width:100%; background:#0A1128; border:1.5px solid #7EA3FF; border-radius:8px; padding:12px; color:#FFF; font-size:16px; text-align:center;" placeholder="Saisir la durée en minutes..." min="1" max="600">
-                    <div style="display:flex; gap:10px;">
-                        <button style="flex:1; padding:12px; border-radius:8px; border:none; font-weight:bold; background:#F27329; color:#FFF; cursor:pointer;" onclick="startCustomTimer()">▶ Lancer</button>
-                        <button style="flex:1; padding:12px; border-radius:8px; border:none; font-weight:bold; background:#334155; color:#CBD5E1; cursor:pointer;" onclick="clearCustomTimer()">❌ Réinitialiser</button>
+                <div class="timer-form">
+                    <input type="number" id="customMinutesInput" class="timer-input-page" placeholder="Saisir la durée en minutes..." min="1" max="600">
+                    <div class="timer-actions">
+                        <button class="btn-timer-action btn-start" onclick="startCustomTimer()">▶ Lancer le minuteur</button>
+                        <button class="btn-timer-action btn-stop" onclick="clearCustomTimer()">❌ Réinitialiser</button>
                     </div>
                 </div>
 
-                <div id="timerDisplay" style="font-size:32px; font-weight:bold; color:#34D399; margin:20px 0; background:#0A1128; padding:16px; border-radius:12px; border:1px solid #2554A3;">
+                <div id="timerDisplay" class="timer-display">
                     -- : --
                 </div>
                 <div id="timerStatusPage" style="font-size: 13px; color: #94A3B8;">
@@ -612,9 +954,145 @@
                 <div id="episodesList" class="grid-container"></div>
             </div>
 
-            <div id="notAvailableArea" class="not-available-box" style="display: none; text-align:center; padding:40px 20px; background:#121B2D; border:1.5px dashed #2554A3; border-radius:16px; margin-top:20px;">
+            <div id="notAvailableArea" class="not-available-box" style="display: none;">
                 <h3 style="color: #F27329; font-size: 20px; margin-bottom: 10px;">Saison non disponible</h3>
                 <p style="color: #CBD5E1; font-size: 14px;">Cette saison n'est pas encore disponible pour le moment.</p>
+            </div>
+        </section>
+
+        <section id="playerPage" class="page">
+            <button class="btn-back" onclick="switchPage('episodesPage')">📋 Retour aux épisodes</button>
+
+            <div class="player-card">
+                <h2 id="playerTitle" class="episode-card-title" style="font-size: 24px; text-align: center;"></h2>
+
+                <div class="video-container">
+                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+                    
+                    <div id="timeLimitOverlay" class="time-limit-overlay">
+                        <div class="time-limit-title">⏱️ Temps écoulé</div>
+                        <div style="color: #CBD5E1; font-size: 13px;">Le temps est écoulé. La vidéo a été coupée.</div>
+                        <div class="extend-box">
+                            <span style="font-size: 12px; color: #7EA3FF;">Rajouter du temps ?</span>
+                            <div class="extend-inputs">
+                                <input type="number" id="extendMinutesInput" class="extend-input" placeholder="Min..." min="1" max="600">
+                                <button class="btn-extend" onclick="extendTimer()">➕ Rajouter</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="meta-tags">
+                    <span id="playerSeasonTag" class="tag">SAISON 5</span>
+                    <span class="tag">11 MIN</span>
+                    <span class="tag">HD</span>
+                </div>
+
+                <div class="synopsis-wrapper">
+                    <p id="playerDesc" class="episode-desc"></p>
+                </div>
+                
+                <div class="player-controls">
+                    <button id="prevBtn" class="btn-nav-ep" onclick="navigateEpisode(-1)">
+                        ← Ép. <span id="prevEpNum"></span>
+                    </button>
+                    <button id="nextBtn" class="btn-nav-ep" onclick="navigateEpisode(1)">
+                        Ép. <span id="nextEpNum"></span> →
+                    </button>
+                </div>
+
+                <div class="next-episodes-section">
+                    <h3 class="next-episodes-title">Épisodes suivants</h3>
+                    <div id="nextEpisodesList"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIE JEUX UNIFIÉE AVEC NAVIGATION SÉPARÉE -->
+        <section id="games" class="page">
+            <div class="games-subnav">
+                <button class="game-tab-btn active" onclick="switchGameTab('game2d')">🏃 Gumball Runner (2D)</button>
+                <button class="game-tab-btn" onclick="switchGameTab('game3d')">🧊 Opération Anti-Grounded (3D)</button>
+                <button class="game-tab-btn" onclick="switchGameTab('quiz')">🧠 Quiz (20 Qs)</button>
+            </div>
+
+            <!-- JEU 1 : RUNNER 2D -->
+            <div id="game2d" class="game-section-item active">
+                <h2 class="title-primary">🎮 Gumball : Le Parcours d'Elmore (3 Niveaux)</h2>
+                
+                <div class="rotate-banner">
+                    <span class="phone-icon">📱</span>
+                    <span>Pense à tourner ton appareil en mode paysage !</span>
+                </div>
+
+                <div class="game-wrapper" id="gameContainer">
+                    <button class="game-btn-fullscreen" onclick="toggleFullScreen()">⛶ Plein écran</button>
+                    <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+                    <div class="game-overlay-menu" id="gameOverlay">
+                        <h2 id="overlayTitle" style="color: #7EA3FF; font-size: 22px;">Gumball Runner</h2>
+                        <p id="overlaySub" style="color: #CBD5E1; font-size: 14px;">Prêt à traverser les 3 niveaux ?</p>
+                        <button class="game-btn-start" id="startBtn" onclick="startGame()">▶ DÉMARRER</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel">
+                    <button class="game-control-btn" id="btnLeft">← Gauche</button>
+                    <button class="game-control-btn" id="btnJump">⬆️ Sauter</button>
+                    <button class="game-control-btn" id="btnRight">Droite →</button>
+                </div>
+            </div>
+
+            <!-- JEU 2 : 3D ANTI-GROUNDED -->
+            <div id="game3d" class="game-section-item">
+                <h2 class="title-primary">🎮 Gumball 3D : Opération Anti-Grounded</h2>
+                
+                <div class="game3d-container" id="game3dContainer">
+                    <div class="ui-3d">
+                        <h3>Opération Anti-Grounded</h3>
+                        <p>Nicole arrive ! Récupère vite le bazar disséminé :</p>
+                        <ul>
+                            <li id="item3d-0">GameChild de Darwin</li>
+                            <li id="item3d-1">Casquette d'Anaïs</li>
+                            <li id="item3d-2">Daisy la Donut</li>
+                            <li id="item3d-3">Télécommande universelle</li>
+                            <li id="item3d-4">Chaussette de Richard</li>
+                        </ul>
+                    </div>
+
+                    <div id="winOverlay3d" class="win-overlay-3d">
+                        <h1>VICTOIRE !</h1>
+                        <p>Tout est rangé ! Nicole ne saura jamais rien.</p>
+                        <button class="game-btn-start" onclick="reset3DGame()">Rejouer</button>
+                    </div>
+
+                    <div id="game3dCanvasContainer" style="width: 100%; height: 100%;"></div>
+                </div>
+                
+                <div class="controls-panel">
+                    <button class="game-control-btn" id="btn3dLeft">← Gauche</button>
+                    <button class="game-control-btn" id="btn3dUp">↑ Avancer</button>
+                    <button class="game-control-btn" id="btn3dDown">↓ Reculer</button>
+                    <button class="game-control-btn" id="btn3dRight">Droite →</button>
+                    <button class="game-control-btn" id="btn3dJump">⬆️ Saut</button>
+                </div>
+            </div>
+
+            <!-- JEU 3 : QUIZ -->
+            <div id="quiz" class="game-section-item">
+                <div class="quiz-card" style="margin-top: 0;">
+                    <h2 class="title-primary">🧠 Quiz Le Monde Incroyable de Gumball (20 Questions)</h2>
+                    <div id="quizContainer">
+                        <div id="quizProgress" style="margin-bottom: 10px; color: #F27329; font-weight: bold;">Question 1/20</div>
+                        <h3 id="quizQuestion" style="margin-bottom: 15px; color: #FFF;"></h3>
+                        <div id="quizOptions"></div>
+                    </div>
+                    <div id="quizResult" style="display: none; text-align: center;">
+                        <h2 style="color: #34D399; margin-bottom: 10px;">Quiz Terminé !</h2>
+                        <p id="quizScoreText" style="font-size: 18px; color: #FFF; margin-bottom: 20px;"></p>
+                        <button class="btn-timer-action btn-start" style="max-width: 200px; margin: 0 auto;" onclick="initQuiz()">🔄 Recommencer</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -690,171 +1168,16 @@
         ];
 
         const seasonsData = { 5: episodesS5, 6: episodesS6 };
+
         let currentSeason = 5;
-
-        function switchPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.querySelectorAll('.main-nav .nav-btn').forEach(btn => btn.classList.remove('active'));
-
-            document.getElementById(pageId).classList.add('active');
-
-            const navMap = {
-                'home': 0,
-                'episodesPage': 1,
-                'shortsPage': 2,
-                'games': 3,
-                'randomPage': 4,
-                'timerPage': 5
-            };
-            
-            const btnIndex = navMap[pageId] !== undefined ? navMap[pageId] : 0;
-            document.querySelectorAll('.main-nav .nav-btn')[btnIndex].classList.add('active');
-            window.scrollTo(0, 0);
-
-            if(pageId === 'games' && !gameInterval) {
-                restartGame();
-            }
-        }
-
-        /* --- SCRIPT MOTEUR DE JEU CANVAS --- */
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        let player, obstacles, score, gameOver, gameInterval;
-
-        function initGame() {
-            player = { x: 50, y: 180, width: 30, height: 30, dy: 0, gravity: 0.6, jumpPower: -10, isGrounded: false };
-            obstacles = [];
-            score = 0;
-            gameOver = false;
-        }
-
-        function jump() {
-            if (player.isGrounded && !gameOver) {
-                player.dy = player.jumpPower;
-                player.isGrounded = false;
-            }
-        }
-
-        function restartGame() {
-            clearInterval(gameInterval);
-            initGame();
-            gameInterval = setInterval(updateGame, 1000 / 60);
-        }
-
-        function updateGame() {
-            if (gameOver) return;
-
-            // Gravité et joueur
-            player.dy += player.gravity;
-            player.y += player.dy;
-
-            if (player.y + player.height >= 210) {
-                player.y = 210 - player.height;
-                player.dy = 0;
-                player.isGrounded = true;
-            }
-
-            // Génération obstacles
-            if (Math.random() < 0.02 && (obstacles.length === 0 || obstacles[obstacles.length - 1].x < 420)) {
-                obstacles.push({ x: 600, y: 180, width: 20, height: 30 });
-            }
-
-            // Mise à jour obstacles
-            for (let i = 0; i < obstacles.length; i++) {
-                obstacles[i].x -= 5;
-
-                // Collision
-                if (
-                    player.x < obstacles[i].x + obstacles[i].width &&
-                    player.x + player.width > obstacles[i].x &&
-                    player.y < obstacles[i].y + obstacles[i].height &&
-                    player.y + player.height > obstacles[i].y
-                ) {
-                    gameOver = true;
-                }
-            }
-
-            // Nettoyage obstacles et score
-            if (obstacles.length > 0 && obstacles[0].x < -20) {
-                obstacles.shift();
-                score += 10;
-            }
-
-            drawGame();
-        }
-
-        function drawGame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Sol
-            ctx.fillStyle = "#2554A3";
-            ctx.fillRect(0, 210, canvas.width, 40);
-
-            // Joueur (Gumball Bleu)
-            ctx.fillStyle = "#3B82F6";
-            ctx.fillRect(player.x, player.y, player.width, player.height);
-
-            // Obstacles (Orange)
-            ctx.fillStyle = "#F27329";
-            obstacles.forEach(obs => ctx.fillRect(obs.x, obs.y, obs.width, obs.height));
-
-            // Score
-            ctx.fillStyle = "#FFFFFF";
-            ctx.font = "16px sans-serif";
-            ctx.fillText("Score : " + score, 15, 25);
-
-            if (gameOver) {
-                ctx.fillStyle = "#F27329";
-                ctx.font = "bold 24px sans-serif";
-                ctx.textAlign = "center";
-                ctx.fillText("PARTIE TERMINÉE !", canvas.width / 2, 110);
-                ctx.font = "14px sans-serif";
-                ctx.fillStyle = "#FFFFFF";
-                ctx.fillText("Clique sur Relancer pour rejouer", canvas.width / 2, 140);
-                ctx.textAlign = "left";
-            }
-        }
-
-        // Événements contrôles jeu
-        window.addEventListener('keydown', e => { if (e.code === 'Space') jump(); });
-        canvas.addEventListener('click', jump);
-        canvas.addEventListener('touchstart', e => { e.preventDefault(); jump(); });
-
-        /* --- SCRIPT ÉPISODES & ALEATOIRE --- */
-        function generateRandomEpisode() {
-            const selectedVal = document.getElementById('randomSeasonSelect').value;
-            let pool = [];
-
-            if (selectedVal === 'all') {
-                Object.keys(seasonsData).forEach(sKey => {
-                    seasonsData[sKey].forEach(ep => {
-                        pool.push({ ...ep, seasonKey: sKey });
-                    });
-                });
-            } else {
-                const sKey = parseInt(selectedVal);
-                if (seasonsData[sKey]) {
-                    seasonsData[sKey].forEach(ep => {
-                        pool.push({ ...ep, seasonKey: sKey });
-                    });
-                }
-            }
-
-            if (pool.length === 0) return;
-
-            const randomIndex = Math.floor(Math.random() * pool.length);
-            const chosenEp = pool[randomIndex];
-
-            document.getElementById('randomEpisodeTitle').innerText = chosenEp.title;
-            document.getElementById('randomIframe').src = chosenEp.embedUrl;
-            document.getElementById('randomDesc').innerText = chosenEp.desc;
-            document.getElementById('randomSeasonTag').innerText = `SAISON ${chosenEp.seasonKey}`;
-
-            document.getElementById('randomResultBox').classList.add('active');
-        }
+        let currentEpisodeIndex = 0;
+        let globalTimer = null;
+        let countdownInterval = null;
 
         function selectSeason(seasonKey) {
             currentSeason = seasonKey;
+            document.getElementById('searchBar').value = '';
+
             const buttons = document.querySelectorAll('.season-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
@@ -888,8 +1211,12 @@
             container.innerHTML = '';
 
             listToRender.forEach((ep) => {
+                const epIndex = ep.originalIndex !== undefined ? ep.originalIndex : seasonsData[seasonKey].indexOf(ep);
+                const epSeason = ep.seasonKey || seasonKey;
+
                 const card = document.createElement('div');
-                card.className = 'episode-preview';
+                card.className = 'card episode-preview';
+                card.onclick = () => openPlayer(epIndex, epSeason);
 
                 card.innerHTML = `
                     <h3 class="episode-card-title">${ep.title}</h3>
@@ -908,7 +1235,751 @@
             });
         }
 
+        function filterEpisodes() {
+            const query = document.getElementById('searchBar').value.toLowerCase().trim();
+            const contentArea = document.getElementById('seasonContentArea');
+            const notAvailableArea = document.getElementById('notAvailableArea');
+
+            if (query === '') {
+                selectSeason(currentSeason);
+                return;
+            }
+
+            contentArea.style.display = "block";
+            notAvailableArea.style.display = "none";
+
+            const results = [];
+            Object.keys(seasonsData).forEach(sKey => {
+                seasonsData[sKey].forEach((ep, index) => {
+                    if (ep.title.toLowerCase().includes(query) || ep.desc.toLowerCase().includes(query)) {
+                        results.push({
+                            ...ep,
+                            seasonKey: parseInt(sKey),
+                            originalIndex: index
+                        });
+                    }
+                });
+            });
+
+            const infoText = document.getElementById('seasonInfoText');
+            infoText.innerText = `Résultats de recherche : ${results.length} épisode(s) trouvé(s)`;
+
+            renderEpisodes(results);
+        }
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.main-nav .nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+
+            const navMap = {
+                'home': 0,
+                'episodesPage': 1,
+                'playerPage': 1,
+                'randomPage': 2,
+                'games': 3,
+                'timerPage': 4
+            };
+            
+            const btnIndex = navMap[pageId] !== undefined ? navMap[pageId] : 0;
+            document.querySelectorAll('.main-nav .nav-btn')[btnIndex].classList.add('active');
+
+            if (pageId === 'games' && !window.threeInitialized) {
+                init3DGame();
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function switchGameTab(tabId) {
+            document.querySelectorAll('.game-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.game-section-item').forEach(sec => sec.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            
+            const btnMap = { 'game2d': 0, 'game3d': 1, 'quiz': 2 };
+            document.querySelectorAll('.game-tab-btn')[btnMap[tabId]].classList.add('active');
+
+            if (tabId === 'game3d' && window.resize3D) {
+                window.resize3D();
+            }
+        }
+
+        function generateRandomEpisode() {
+            const seasonChoice = document.getElementById('randomSeasonSelect').value;
+            let pool = [];
+
+            if (seasonChoice === 'all') {
+                Object.keys(seasonsData).forEach(sKey => {
+                    seasonsData[sKey].forEach((ep, idx) => {
+                        pool.push({ ...ep, seasonKey: parseInt(sKey), originalIndex: idx });
+                    });
+                });
+            } else {
+                const sKey = parseInt(seasonChoice);
+                if (seasonsData[sKey]) {
+                    seasonsData[sKey].forEach((ep, idx) => {
+                        pool.push({ ...ep, seasonKey: sKey, originalIndex: idx });
+                    });
+                }
+            }
+
+            if (pool.length === 0) return;
+
+            const randomEp = pool[Math.floor(Math.random() * pool.length)];
+            const resultContainer = document.getElementById('randomCardContainer');
+            const resultBox = document.getElementById('randomEpisodeResult');
+
+            resultContainer.innerHTML = '';
+
+            const card = document.createElement('div');
+            card.className = 'card episode-preview';
+            card.onclick = () => openPlayer(randomEp.originalIndex, randomEp.seasonKey);
+
+            card.innerHTML = `
+                <h3 class="episode-card-title">${randomEp.title} (Saison ${randomEp.seasonKey})</h3>
+                <div class="preview-video-container">
+                    <iframe src="${randomEp.embedUrl}" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="synopsis-wrapper">
+                    <p class="episode-desc">${randomEp.desc}</p>
+                    <div class="synopsis-tags">
+                        <span class="synopsis-tag">11 MIN</span>
+                        <span class="synopsis-tag">HD</span>
+                    </div>
+                </div>
+            `;
+
+            resultContainer.appendChild(card);
+            resultBox.style.display = 'block';
+        }
+
+        function startCustomTimer(minutes = null) {
+            const inputVal = minutes || parseInt(document.getElementById('customMinutesInput').value);
+            if (isNaN(inputVal) || inputVal <= 0) return;
+
+            clearCustomTimer();
+
+            let totalSeconds = inputVal * 60;
+            const displayDiv = document.getElementById('timerDisplay');
+            const statusDiv = document.getElementById('timerStatusPage');
+
+            statusDiv.innerText = `Minuteur actif : ${inputVal} minute(s)`;
+
+            const updateDisplay = (sec) => {
+                let m = Math.floor(sec / 60);
+                let s = sec % 60;
+                displayDiv.innerText = `${m < 10 ? '0' : ''}${m} : ${s < 10 ? '0' : ''}${s}`;
+            };
+
+            updateDisplay(totalSeconds);
+
+            countdownInterval = setInterval(() => {
+                totalSeconds--;
+                updateDisplay(totalSeconds);
+
+                if (totalSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    displayDiv.innerText = "00 : 00";
+                    statusDiv.innerText = "❌ Temps écoulé ! Les vidéos sont coupées.";
+                }
+            }, 1000);
+
+            globalTimer = setTimeout(() => {
+                stopVideoPlayback();
+            }, inputVal * 60 * 1000);
+        }
+
+        function extendTimer() {
+            const minutesToAdd = parseInt(document.getElementById('extendMinutesInput').value);
+            if (isNaN(minutesToAdd) || minutesToAdd <= 0) return;
+
+            const episodesList = seasonsData[currentSeason];
+            const ep = episodesList[currentEpisodeIndex];
+            document.getElementById('videoIframe').src = ep.embedUrl;
+            document.getElementById('timeLimitOverlay').classList.remove('active');
+            document.getElementById('extendMinutesInput').value = '';
+
+            startCustomTimer(minutesToAdd);
+        }
+
+        function clearCustomTimer() {
+            if (globalTimer) clearTimeout(globalTimer);
+            if (countdownInterval) clearInterval(countdownInterval);
+            globalTimer = null;
+            countdownInterval = null;
+            document.getElementById('timerDisplay').innerText = "-- : --";
+            document.getElementById('timerStatusPage').innerText = "Aucun minuteur en cours";
+            document.getElementById('customMinutesInput').value = "";
+        }
+
+        function openPlayer(index, seasonKey = null) {
+            if (seasonKey !== null) {
+                currentSeason = seasonKey;
+            }
+            currentEpisodeIndex = index;
+            const episodesList = seasonsData[currentSeason];
+            const ep = episodesList[currentEpisodeIndex];
+
+            document.getElementById('playerTitle').innerText = ep.title;
+            document.getElementById('playerDesc').innerText = ep.desc;
+            document.getElementById('videoIframe').src = ep.embedUrl;
+            document.getElementById('playerSeasonTag').innerText = `SAISON ${currentSeason}`;
+            document.getElementById('timeLimitOverlay').classList.remove('active');
+
+            const prevBtn = document.getElementById('prevBtn');
+            if (currentEpisodeIndex > 0) {
+                prevBtn.disabled = false;
+                document.getElementById('prevEpNum').innerText = currentEpisodeIndex;
+            } else {
+                prevBtn.disabled = true;
+                document.getElementById('prevEpNum').innerText = "";
+            }
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentEpisodeIndex < episodesList.length - 1) {
+                nextBtn.disabled = false;
+                document.getElementById('nextEpNum').innerText = currentEpisodeIndex + 2;
+            } else {
+                nextBtn.disabled = true;
+                document.getElementById('nextEpNum').innerText = "";
+            }
+
+            renderNextEpisodesList();
+            switchPage('playerPage');
+        }
+
+        function stopVideoPlayback() {
+            document.getElementById('videoIframe').src = '';
+            document.getElementById('timeLimitOverlay').classList.add('active');
+        }
+
+        function renderNextEpisodesList() {
+            const nextContainer = document.getElementById('nextEpisodesList');
+            nextContainer.innerHTML = '';
+
+            const episodesList = seasonsData[currentSeason];
+            const remainingEpisodes = episodesList.slice(currentEpisodeIndex + 1);
+
+            if (remainingEpisodes.length === 0) {
+                nextContainer.innerHTML = `<p style="color: #94A3B8; font-size: 13px;">Dernier épisode de la saison.</p>`;
+                return;
+            }
+
+            remainingEpisodes.forEach((ep, relIndex) => {
+                const absoluteIndex = currentEpisodeIndex + 1 + relIndex;
+                const item = document.createElement('div');
+                item.className = 'compact-ep-card';
+                item.onclick = () => openPlayer(absoluteIndex);
+
+                item.innerHTML = `
+                    <div class="compact-thumb">
+                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                    <div class="compact-info">
+                        <div class="compact-title">${ep.title}</div>
+                        <div class="compact-desc">${ep.desc}</div>
+                    </div>
+                `;
+                nextContainer.appendChild(item);
+            });
+        }
+
+        function navigateEpisode(direction) {
+            const episodesList = seasonsData[currentSeason];
+            const newIndex = currentEpisodeIndex + direction;
+            if (newIndex >= 0 && newIndex < episodesList.length) {
+                openPlayer(newIndex);
+            }
+        }
+
         selectSeason(5);
+
+        function toggleFullScreen() {
+            const container = document.getElementById('gameContainer');
+            const isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+
+            if (!isFullScreen) {
+                if (container.requestFullscreen) container.requestFullscreen();
+                else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            }
+        }
+
+        /* LOGIQUE DU JEU CANVAS AVEC LIAISON DES BOUTONS EN BAS */
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let score = 0;
+        let currentLevel = 1;
+        let gameRunning = false;
+        const keys = { left: false, right: false, up: false };
+
+        const player = {
+            x: 50, y: 300, width: 30, height: 40, color: '#00BFFF',
+            vx: 0, vy: 0, speed: 4, jumpPower: -10, gravity: 0.5, grounded: false
+        };
+
+        const levelData = {
+            1: {
+                platforms: [
+                    { x: 0, y: 360, width: 800, height: 40 },
+                    { x: 150, y: 280, width: 100, height: 15 },
+                    { x: 300, y: 220, width: 120, height: 15 },
+                    { x: 620, y: 230, width: 100, height: 15 }
+                ],
+                coins: [{ x: 180, y: 240, radius: 8, collected: false }],
+                goal: { x: 660, y: 170, width: 35, height: 60 }
+            },
+            2: {
+                platforms: [
+                    { x: 0, y: 360, width: 250, height: 40 },
+                    { x: 300, y: 320, width: 90, height: 15 },
+                    { x: 580, y: 180, width: 220, height: 200 }
+                ],
+                coins: [{ x: 330, y: 280, radius: 8, collected: false }],
+                goal: { x: 720, y: 120, width: 35, height: 60 }
+            },
+            3: {
+                platforms: [
+                    { x: 0, y: 360, width: 150, height: 40 },
+                    { x: 200, y: 300, width: 70, height: 15 },
+                    { x: 680, y: 180, width: 120, height: 220 }
+                ],
+                coins: [{ x: 230, y: 260, radius: 8, collected: false }],
+                goal: { x: 730, y: 120, width: 35, height: 60 }
+            }
+        };
+
+        let currentPlatforms = [], currentCoins = [], currentGoal = {};
+
+        function loadLevel(levelNum) {
+            currentLevel = levelNum;
+            const lvl = levelData[levelNum];
+            currentPlatforms = JSON.parse(JSON.stringify(lvl.platforms));
+            currentCoins = JSON.parse(JSON.stringify(lvl.coins));
+            currentGoal = JSON.parse(JSON.stringify(lvl.goal));
+            player.x = 50; player.y = 300; player.vx = 0; player.vy = 0;
+        }
+
+        function startGame() {
+            score = 0;
+            loadLevel(1);
+            gameRunning = true;
+            document.getElementById('gameOverlay').style.display = 'none';
+        }
+
+        // Gestion Clavier
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
+            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') keys.up = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
+            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') keys.up = false;
+        });
+
+        // Gestion des boutons sous l'écran
+        const btnLeft = document.getElementById('btnLeft');
+        const btnRight = document.getElementById('btnRight');
+        const btnJump = document.getElementById('btnJump');
+
+        const bindBtn = (btn, keyName) => {
+            btn.addEventListener('mousedown', () => keys[keyName] = true);
+            btn.addEventListener('mouseup', () => keys[keyName] = false);
+            btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; });
+            btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; });
+        };
+
+        bindBtn(btnLeft, 'left');
+        bindBtn(btnRight, 'right');
+
+        btnJump.addEventListener('click', () => {
+            if (player.grounded) player.vy = player.jumpPower;
+        });
+        btnJump.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (player.grounded) player.vy = player.jumpPower;
+        });
+
+        function updateGame() {
+            if (!gameRunning) return;
+
+            if (keys.left) player.vx = -player.speed;
+            else if (keys.right) player.vx = player.speed;
+            else player.vx = 0;
+
+            if (keys.up && player.grounded) {
+                player.vy = player.jumpPower;
+                player.grounded = false;
+            }
+
+            player.vy += player.gravity;
+            player.x += player.vx;
+            player.y += player.vy;
+
+            if (player.x < 0) player.x = 0;
+            if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+
+            if (player.y > canvas.height) {
+                player.x = 50; player.y = 300; player.vx = 0; player.vy = 0;
+            }
+
+            player.grounded = false;
+            currentPlatforms.forEach(plat => {
+                if (
+                    player.x < plat.x + plat.width &&
+                    player.x + player.width > plat.x &&
+                    player.y + player.height >= plat.y &&
+                    player.y + player.height <= plat.y + plat.height &&
+                    player.vy >= 0
+                ) {
+                    player.y = plat.y - player.height;
+                    player.vy = 0;
+                    player.grounded = true;
+                }
+            });
+
+            currentCoins.forEach(coin => {
+                if (!coin.collected) {
+                    const distX = (player.x + player.width / 2) - coin.x;
+                    const distY = (player.y + player.height / 2) - coin.y;
+                    if (Math.sqrt(distX * distX + distY * distY) < coin.radius + player.width / 2) {
+                        coin.collected = true;
+                        score += 10;
+                    }
+                }
+            });
+
+            if (
+                player.x < currentGoal.x + currentGoal.width &&
+                player.x + player.width > currentGoal.x &&
+                player.y < currentGoal.y + currentGoal.height &&
+                player.y + player.height > currentGoal.y
+            ) {
+                if (currentLevel < 3) {
+                    loadLevel(currentLevel + 1);
+                } else {
+                    gameRunning = false;
+                    const overlay = document.getElementById('gameOverlay');
+                    document.getElementById('overlayTitle').innerText = "🎉 FÉLICITATIONS !";
+                    document.getElementById('overlaySub').innerText = `Tu as fini tous les 3 niveaux ! Score : ${score} pts`;
+                    document.getElementById('startBtn').innerText = "🔄 REJOUER";
+                    overlay.style.display = 'flex';
+                }
+            }
+        }
+
+        function drawGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (!gameRunning) return;
+
+            ctx.fillStyle = '#1E293B';
+            currentPlatforms.forEach(plat => {
+                ctx.fillRect(plat.x, plat.y, plat.width, plat.height);
+                ctx.strokeStyle = '#F27329';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(plat.x, plat.y, plat.width, plat.height);
+            });
+
+            ctx.fillStyle = '#FFD700';
+            currentCoins.forEach(coin => {
+                if (!coin.collected) {
+                    ctx.beginPath();
+                    ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+
+            ctx.fillStyle = '#10B981';
+            ctx.fillRect(currentGoal.x, currentGoal.y, currentGoal.width, currentGoal.height);
+
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+
+            ctx.fillStyle = '#FFF';
+            ctx.font = '16px sans-serif';
+            ctx.fillText(`Niveau : ${currentLevel} / 3`, 20, 30);
+            ctx.fillText(`Score : ${score}`, 150, 30);
+        }
+
+        function gameLoop() {
+            updateGame();
+            drawGame();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+
+        /* JEU QUIZ 20 QUESTIONS */
+        const quizData = [
+            { q: "Quel est le prénom complet de Gumball ?", options: ["Gumball Tristopher Watterson", "Gumball Zach Watterson", "Gumball Christopher Watterson"], ans: 0 },
+            { q: "Quel animal est Darwin à l'origine ?", options: ["Un chien", "Un poisson rouge", "Une grenouille"], ans: 1 },
+            { q: "Comment s'appelle la ville de la série ?", options: ["Springfield", "Elmore", "Dimmsdale"], ans: 1 },
+            { q: "Quel est le métier du père (Richard) ?", options: ["Boulanger", "Il n'en a pas", "Chauffeur de bus"], ans: 1 },
+            { q: "De quelle couleur est le pull de Gumball ?", options: ["Jaune", "Gris/Marron clair", "Rouge"], ans: 1 },
+            { q: "Qui est le principal du collège d'Elmore ?", options: ["M. Small", "Principal Brown", "Mlle Simian"], ans: 1 },
+            { q: "Quel est le type de créature de Penny ?", options: ["Une fée/cacahuète", "Un fantôme", "Un nuage"], ans: 0 },
+            { q: "Comment s'appelle le dinosaure du collège ?", options: ["Tina Rex", "Dino", "Bob"], ans: 0 },
+            { q: "Qui est le rival/ennemi juré buggé de Gumball ?", options: ["Tobias", "Rob", "Banana Joe"], ans: 1 },
+            { q: "Quelle est la passion de Banana Joe ?", options: ["Les blagues", "Le chant", "La peinture"], ans: 0 },
+            { q: "Quel est le pouvoir secret d'Anaïs ?", options: ["Super force", "Très grande intelligence", "Invisibilité"], ans: 1 },
+            { q: "Quelle est la couleur de peau de Nicole Watterson ?", options: ["Rose", "Bleue", "Verte"], ans: 1 },
+            { q: "Comment s'appelle le conseiller d'orientation hippie ?", options: ["M. Corneille", "M. Small", "M. Steve"], ans: 1 },
+            { q: "Quel personnage est fait de pâte à modeler ?", options: ["Sussie", "Clayton", "Bobert"], ans: 1 },
+            { q: "Quel est le type de robot qu'est Bobert ?", options: ["High-tech", "Un robot ménager", "Un supercalculateur"], ans: 0 },
+            { q: "De quel aliment Richard est-il passionné ?", options: ["Les salades", "Les burgers", "Les pommes"], ans: 1 },
+            { q: "Comment s'appelle la petite amie de Darwin ?", options: ["Carrie", "Penny", "Carmen"], ans: 0 },
+            { q: "Quelle matière enseigne Mlle Simian ?", options: ["Histoire", "Toutes les matières", "Sport"], ans: 1 },
+            { q: "Quel personnage est une patate ?", options: ["Idaho", "Hector", "Anton"], ans: 0 },
+            { q: "Quelle est la particularité du monde de Gumball ?", options: ["Mix de styles 2D/3D/réel", "Uniquement du noir et blanc", "En pixel art"], ans: 0 }
+        ];
+
+        let currentQ = 0, quizScore = 0;
+
+        function initQuiz() {
+            currentQ = 0;
+            quizScore = 0;
+            document.getElementById('quizResult').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = quizData[currentQ];
+            document.getElementById('quizProgress').innerText = `Question ${currentQ + 1}/20`;
+            document.getElementById('quizQuestion').innerText = q.q;
+            
+            const optionsDiv = document.getElementById('quizOptions');
+            optionsDiv.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option';
+                btn.innerText = opt;
+                btn.onclick = () => checkQuizAnswer(idx);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkQuizAnswer(selected) {
+            if (selected === quizData[currentQ].ans) {
+                quizScore++;
+            }
+            currentQ++;
+            if (currentQ < quizData.length) {
+                showQuestion();
+            } else {
+                document.getElementById('quizContainer').style.display = 'none';
+                document.getElementById('quizResult').style.display = 'block';
+                document.getElementById('quizScoreText').innerText = `Ton score : ${quizScore} / 20 !`;
+            }
+        }
+
+        initQuiz();
+    </script>
+
+    <!-- INTÉGRATION MOTEUR DU JEU 3D -->
+    <script type="module">
+        import * as THREE from 'three';
+
+        window.threeInitialized = false;
+
+        let scene, camera, renderer, gumball;
+        let velocityY = 0, isGrounded = true;
+        const gravity = -0.015, speed = 0.22;
+        const keys3D = { left: false, right: false, up: false, down: false, jump: false };
+        let items = [], score3D = 0;
+
+        const itemsData = [
+            { name: "GameChild", color: 0xff3333, pos: [-12, 0.8, -10] },
+            { name: "Casquette", color: 0xffff33, pos: [10, 0.8, -25] },
+            { name: "Daisy", color: 0xff9900, pos: [-10, 0.8, 18] },
+            { name: "Télécommande", color: 0xaa00ff, pos: [0, 0.8, -45] },
+            { name: "Chaussette", color: 0x33ff33, pos: [11, 0.8, 20] }
+        ];
+
+        window.init3DGame = function() {
+            if (window.threeInitialized) return;
+            window.threeInitialized = true;
+
+            const container = document.getElementById('game3dCanvasContainer');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87ceeb);
+            scene.fog = new THREE.Fog(0x87ceeb, 20, 100);
+
+            camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xfffaed, 0.9);
+            dirLight.position.set(30, 50, 20);
+            dirLight.castShadow = true;
+            scene.add(dirLight);
+
+            // Environnement
+            const road = new THREE.Mesh(
+                new THREE.PlaneGeometry(16, 160),
+                new THREE.MeshStandardMaterial({ color: 0x3d3d3d, roughness: 0.8 })
+            );
+            road.rotation.x = -Math.PI / 2;
+            scene.add(road);
+
+            const lawn = new THREE.Mesh(
+                new THREE.PlaneGeometry(140, 160),
+                new THREE.MeshStandardMaterial({ color: 0x7ec850, roughness: 0.9 })
+            );
+            lawn.rotation.x = -Math.PI / 2;
+            lawn.position.y = -0.01;
+            scene.add(lawn);
+
+            // Gumball
+            gumball = new THREE.Group();
+            const head = new THREE.Mesh(
+                new THREE.SphereGeometry(0.75, 16, 16),
+                new THREE.MeshStandardMaterial({ color: 0x00a3e0 })
+            );
+            head.position.y = 1.6;
+            gumball.add(head);
+
+            const body = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.35, 0.45, 1),
+                new THREE.MeshStandardMaterial({ color: 0xa67c52 })
+            );
+            body.position.y = 0.8;
+            gumball.add(body);
+
+            gumball.position.set(0, 0, 30);
+            scene.add(gumball);
+
+            // Création des objets à ramasser
+            itemsData.forEach((data, index) => {
+                const mesh = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.7, 0.7, 0.7),
+                    new THREE.MeshStandardMaterial({ color: data.color, emissive: data.color, emissiveIntensity: 0.5 })
+                );
+                mesh.position.set(...data.pos);
+                scene.add(mesh);
+                items.push({ mesh, id: index });
+            });
+
+            // Événements Clavier 3D
+            window.addEventListener('keydown', (e) => {
+                const k = e.key.toLowerCase();
+                if (k === 'z' || k === 'arrowup') keys3D.up = true;
+                if (k === 's' || k === 'arrowdown') keys3D.down = true;
+                if (k === 'q' || k === 'arrowleft') keys3D.left = true;
+                if (k === 'd' || k === 'arrowright') keys3D.right = true;
+                if (e.code === 'Space' && isGrounded) {
+                    velocityY = 0.35;
+                    isGrounded = false;
+                }
+            });
+
+            window.addEventListener('keyup', (e) => {
+                const k = e.key.toLowerCase();
+                if (k === 'z' || k === 'arrowup') keys3D.up = false;
+                if (k === 's' || k === 'arrowdown') keys3D.down = false;
+                if (k === 'q' || k === 'arrowleft') keys3D.left = false;
+                if (k === 'd' || k === 'arrowright') keys3D.right = false;
+            });
+
+            // Liaisons Boutons tactiles sous l'écran 3D
+            const bind3DBtn = (btnId, keyProp) => {
+                const btn = document.getElementById(btnId);
+                btn.addEventListener('mousedown', () => keys3D[keyProp] = true);
+                btn.addEventListener('mouseup', () => keys3D[keyProp] = false);
+                btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys3D[keyProp] = true; });
+                btn.addEventListener('touchend', (e) => { e.preventDefault(); keys3D[keyProp] = false; });
+            };
+
+            bind3DBtn('btn3dLeft', 'left');
+            bind3DBtn('btn3dRight', 'right');
+            bind3DBtn('btn3dUp', 'up');
+            bind3DBtn('btn3dDown', 'down');
+
+            const btnJump3D = document.getElementById('btn3dJump');
+            const triggerJump = () => { if (isGrounded) { velocityY = 0.35; isGrounded = false; } };
+            btnJump3D.addEventListener('click', triggerJump);
+            btnJump3D.addEventListener('touchstart', (e) => { e.preventDefault(); triggerJump(); });
+
+            window.resize3D = function() {
+                if (!renderer) return;
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            };
+
+            function animate3D() {
+                requestAnimationFrame(animate3D);
+
+                let moveX = 0, moveZ = 0;
+                if (keys3D.up) moveZ -= speed;
+                if (keys3D.down) moveZ += speed;
+                if (keys3D.left) moveX -= speed;
+                if (keys3D.right) moveX += speed;
+
+                gumball.position.x += moveX;
+                gumball.position.z += moveZ;
+
+                if (moveX !== 0 || moveZ !== 0) {
+                    gumball.rotation.y = Math.atan2(moveX, moveZ) + Math.PI;
+                }
+
+                gumball.position.y += velocityY;
+                if (!isGrounded) {
+                    velocityY += gravity;
+                    if (gumball.position.y <= 0) {
+                        gumball.position.y = 0;
+                        velocityY = 0;
+                        isGrounded = true;
+                    }
+                }
+
+                camera.position.set(gumball.position.x, gumball.position.y + 6, gumball.position.z + 14);
+                camera.lookAt(gumball.position.x, gumball.position.y + 1, gumball.position.z);
+
+                items.forEach(itemObj => {
+                    if (itemObj.mesh.visible) {
+                        itemObj.mesh.rotation.y += 0.03;
+                        if (gumball.position.distanceTo(itemObj.mesh.position) < 1.4) {
+                            itemObj.mesh.visible = false;
+                            document.getElementById(`item3d-${itemObj.id}`).classList.add('done');
+                            score3D++;
+
+                            if (score3D === itemsData.length) {
+                                document.getElementById('winOverlay3d').style.display = 'flex';
+                            }
+                        }
+                    }
+                });
+
+                renderer.render(scene, camera);
+            }
+
+            animate3D();
+        };
+
+        window.reset3DGame = function() {
+            score3D = 0;
+            gumball.position.set(0, 0, 30);
+            items.forEach(itemObj => {
+                itemObj.mesh.visible = true;
+                document.getElementById(`item3d-${itemObj.id}`).classList.remove('done');
+            });
+            document.getElementById('winOverlay3d').style.display = 'none';
+        };
     </script>
 </body>
 </html>
