@@ -205,30 +205,57 @@
             margin-top: 4px;
         }
 
-        .seasons-nav {
+        /* MODIFIÉ : 3 COLONNES DE 2 SAISONS POUR FAIRE EXACTEMENT 3 LIGNES DE 2 SUR TOUS LES ÉCRANS */
+        .seasons-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
-        .season-btn {
+        .season-poster-card {
             background-color: #121B2D;
-            border: 1.5px solid #2554A3;
-            color: #E1E7ED;
-            padding: 10px;
-            border-radius: 8px;
+            border-radius: 12px;
+            padding: 6px;
             cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
             text-align: center;
-            width: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid #00d2ff;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.6), 0 0 20px rgba(242, 115, 41, 0.4), inset 0 0 8px rgba(0, 210, 255, 0.4);
         }
 
-        .season-btn.active, .season-btn:hover {
-            background-color: #F27329;
+        .season-poster-card:hover {
+            transform: translateY(-4px);
             border-color: #F27329;
-            color: #FFFFFF;
+            box-shadow: 0 0 15px rgba(242, 115, 41, 0.9), 0 0 25px rgba(0, 210, 255, 0.6);
+        }
+
+        .season-poster-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background-color: #0A1128;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .season-poster-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .season-poster-title {
+            color: #FF8A3D;
+            font-size: 14px;
+            font-weight: 900;
+            text-shadow: 0 0 6px rgba(242, 115, 41, 0.7);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .btn-back {
@@ -557,7 +584,6 @@
             margin-top: 20px;
         }
 
-        /* ANIMATION EN HAUT DU JEU */
         .rotate-banner {
             background-color: #F27329;
             color: #FFF;
@@ -652,7 +678,6 @@
             z-index: 25;
         }
 
-        /* PANNEAU DE BOUTONS SOUS L'ÉCRAN DE JEU */
         .controls-panel {
             display: flex;
             justify-content: center;
@@ -729,7 +754,6 @@
             outline: none;
         }
 
-        /* NAVIGATION INTERNE DES JEUX */
         .games-subnav {
             display: flex;
             gap: 10px;
@@ -763,7 +787,6 @@
             display: block;
         }
 
-        /* JEU 3D STYLES & OVERLAY UI - Optimisé plus grand et épuré */
         .game3d-container {
             position: relative;
             width: 100%;
@@ -933,34 +956,84 @@
             </div>
         </section>
 
+        <!-- PAGE ÉPISODES / SAISONS -->
         <section id="episodesPage" class="page">
             <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode dans toutes les saisons..." onkeyup="filterEpisodes()">
 
-            <div class="season-header-box">
-                <h2 id="seasonMainTitle" class="title-primary" style="margin-bottom: 4px;">Gumball World - Saison 5</h2>
-                <div id="seasonDates" style="color: #F27329; font-weight: bold; font-size: 14px;">Diffusion : 2016 – 2018</div>
-                <div id="seasonInfoText" class="season-info-text">40 épisodes au total • 12 disponibles ici</div>
+            <!-- VUE PRINCIPALE : LA GRILLE DES 6 SAISONS EN 3x2 -->
+            <div id="seasonsHomeView">
+                <div class="season-header-box">
+                    <h2 class="title-primary" style="margin-bottom: 4px;">Choisis une Saison</h2>
+                    <div class="season-info-text">Clique sur une saison pour voir ses épisodes</div>
+                </div>
+
+                <div class="seasons-grid">
+                    <div class="season-poster-card" onclick="selectSeason(1)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho-1.png" alt="Saison 1">
+                        </div>
+                        <div class="season-poster-title">Saison 1</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(2)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 2.png" alt="Saison 2">
+                        </div>
+                        <div class="season-poster-title">Saison 2</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(3)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 3.png" alt="Saison 3">
+                        </div>
+                        <div class="season-poster-title">Saison 3</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(4)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 4.png" alt="Saison 4">
+                        </div>
+                        <div class="season-poster-title">Saison 4</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(5)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 5.png" alt="Saison 5">
+                        </div>
+                        <div class="season-poster-title">Saison 5</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(6)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 6.png" alt="Saison 6">
+                        </div>
+                        <div class="season-poster-title">Saison 6</div>
+                    </div>
+                </div>
             </div>
 
-            <div class="seasons-nav">
-                <button class="season-btn" onclick="selectSeason(1)">Saison 1</button>
-                <button class="season-btn" onclick="selectSeason(2)">Saison 2</button>
-                <button class="season-btn" onclick="selectSeason(3)">Saison 3</button>
-                <button class="season-btn" onclick="selectSeason(4)">Saison 4</button>
-                <button class="season-btn active" onclick="selectSeason(5)">Saison 5</button>
-                <button class="season-btn" onclick="selectSeason(6)">Saison 6</button>
-            </div>
+            <!-- VUE DÉTAILLÉE DES ÉPISODES D'UNE SAISON -->
+            <div id="episodesListView" style="display: none;">
+                <button class="btn-back" onclick="backToSeasonsHome()">⬅️ Retour aux saisons</button>
 
-            <div id="seasonContentArea">
-                <div id="episodesList" class="grid-container"></div>
-            </div>
+                <div class="season-header-box">
+                    <h2 id="seasonMainTitle" class="title-primary" style="margin-bottom: 4px;">Gumball World - Saison</h2>
+                    <div id="seasonDates" style="color: #F27329; font-weight: bold; font-size: 14px;"></div>
+                    <div id="seasonInfoText" class="season-info-text"></div>
+                </div>
 
-            <div id="notAvailableArea" class="not-available-box" style="display: none;">
-                <h3 style="color: #F27329; font-size: 20px; margin-bottom: 10px;">Saison non disponible</h3>
-                <p style="color: #CBD5E1; font-size: 14px;">Cette saison n'est pas encore disponible pour le moment.</p>
+                <div id="seasonContentArea">
+                    <div id="episodesList" class="grid-container"></div>
+                </div>
+
+                <div id="notAvailableArea" class="not-available-box" style="display: none;">
+                    <h3 style="color: #F27329; font-size: 20px; margin-bottom: 10px;">Saison non disponible</h3>
+                    <p style="color: #CBD5E1; font-size: 14px;">Cette saison n'est pas encore disponible pour le moment (Saisons 1 à 4 vides).</p>
+                </div>
             </div>
         </section>
 
+        <!-- LECTEUR VIDÉO -->
         <section id="playerPage" class="page">
             <button class="btn-back" onclick="switchPage('episodesPage')">📋 Retour aux épisodes</button>
 
@@ -1009,7 +1082,7 @@
             </div>
         </section>
 
-        <!-- CATEGORIE JEUX UNIFIÉE AVEC NAVIGATION SÉPARÉE -->
+        <!-- SECTION JEUX -->
         <section id="games" class="page">
             <div class="games-subnav">
                 <button class="game-tab-btn active" onclick="switchGameTab('game2d')">🏃 Gumball Runner (2D)</button>
@@ -1044,7 +1117,7 @@
                 </div>
             </div>
 
-            <!-- JEU 2 : 3D ANTI-GROUNDED (Rénové et amélioré) -->
+            <!-- JEU 2 : 3D ANTI-GROUNDED -->
             <div id="game3d" class="game-section-item">
                 <h2 class="title-primary">🎮 Gumball 3D : Opération Anti-Grounded</h2>
                 
@@ -1188,7 +1261,14 @@
             }
         ];
 
-        const seasonsData = { 5: episodesS5, 6: episodesS6 };
+        const seasonsData = { 
+            1: [], 
+            2: [], 
+            3: [], 
+            4: [], 
+            5: episodesS5, 
+            6: episodesS6 
+        };
 
         let currentSeason = 5;
         let currentEpisodeIndex = 0;
@@ -1199,14 +1279,11 @@
             currentSeason = seasonKey;
             document.getElementById('searchBar').value = '';
 
-            const buttons = document.querySelectorAll('.season-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-
-            const selectedBtn = Array.from(buttons).find(btn => btn.innerText === `Saison ${seasonKey}`);
-            if (selectedBtn) selectedBtn.classList.add('active');
+            document.getElementById('seasonsHomeView').style.display = 'none';
+            document.getElementById('episodesListView').style.display = 'block';
 
             const meta = seasonsMeta[seasonKey];
-            document.getElementById('seasonMainTitle').innerText = meta ? meta.title : `Saison ${seasonKey}`;
+            document.getElementById('seasonMainTitle').innerText = meta ? meta.title : `Gumball World - Saison ${seasonKey}`;
             document.getElementById('seasonDates').innerText = meta ? meta.dates : "";
             
             const contentArea = document.getElementById('seasonContentArea');
@@ -1221,10 +1298,16 @@
                 notAvailableArea.style.display = "none";
                 renderEpisodes(activeEpisodes, seasonKey);
             } else {
-                infoText.innerText = `${meta ? meta.total : 'Contenu non disponible'}`;
+                infoText.innerText = `${meta ? meta.total : 'Contenu non disponible'} • 0 disponible ici`;
                 contentArea.style.display = "none";
                 notAvailableArea.style.display = "block";
             }
+        }
+
+        function backToSeasonsHome() {
+            document.getElementById('episodesListView').style.display = 'none';
+            document.getElementById('seasonsHomeView').style.display = 'block';
+            document.getElementById('searchBar').value = '';
         }
 
         function renderEpisodes(listToRender, seasonKey) {
@@ -1258,13 +1341,19 @@
 
         function filterEpisodes() {
             const query = document.getElementById('searchBar').value.toLowerCase().trim();
-            const contentArea = document.getElementById('seasonContentArea');
-            const notAvailableArea = document.getElementById('notAvailableArea');
-
+            
             if (query === '') {
-                selectSeason(currentSeason);
+                if (document.getElementById('episodesListView').style.display === 'block') {
+                    selectSeason(currentSeason);
+                }
                 return;
             }
+
+            document.getElementById('seasonsHomeView').style.display = 'none';
+            document.getElementById('episodesListView').style.display = 'block';
+
+            const contentArea = document.getElementById('seasonContentArea');
+            const notAvailableArea = document.getElementById('notAvailableArea');
 
             contentArea.style.display = "block";
             notAvailableArea.style.display = "none";
@@ -1282,8 +1371,10 @@
                 });
             });
 
+            document.getElementById('seasonMainTitle').innerText = "Résultats de recherche";
+            document.getElementById('seasonDates').innerText = "";
             const infoText = document.getElementById('seasonInfoText');
-            infoText.innerText = `Résultats de recherche : ${results.length} épisode(s) trouvé(s)`;
+            infoText.innerText = `${results.length} épisode(s) trouvé(s) pour "${query}"`;
 
             renderEpisodes(results);
         }
@@ -1305,6 +1396,10 @@
             
             const btnIndex = navMap[pageId] !== undefined ? navMap[pageId] : 0;
             document.querySelectorAll('.main-nav .nav-btn')[btnIndex].classList.add('active');
+
+            if (pageId === 'episodesPage') {
+                backToSeasonsHome();
+            }
 
             if (pageId === 'games' && !window.threeInitialized) {
                 init3DGame();
@@ -1515,8 +1610,6 @@
             }
         }
 
-        selectSeason(5);
-
         function toggleFullScreen() {
             const container = document.getElementById('gameContainer');
             const isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
@@ -1526,11 +1619,11 @@
                 else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
             } else {
                 if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                else if (document.webkitExitFullscreen) document.exitFullscreen();
             }
         }
 
-        /* LOGIQUE DU JEU CANVAS AVEC LIAISON DES BOUTONS EN BAS */
+        /* LOGIQUE DU JEU CANVAS */
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -1736,7 +1829,7 @@
 
         gameLoop();
 
-        /* JEU QUIZ 20 QUESTIONS */
+        /* QUIZ */
         const quizData = [
             { q: "Quel est le prénom complet de Gumball ?", options: ["Gumball Tristopher Watterson", "Gumball Zach Watterson", "Gumball Christopher Watterson"], ans: 0 },
             { q: "Quel animal est Darwin à l'origine ?", options: ["Un chien", "Un poisson rouge", "Une grenouille"], ans: 1 },
@@ -1804,7 +1897,7 @@
         initQuiz();
     </script>
 
-    <!-- INTÉGRATION MOTEUR DU JEU 3D AMÉLIORÉ (Maison Watterson, Robinson, décors et Gumball détaillé) -->
+    <!-- MOTEUR 3D -->
     <script type="module">
         import * as THREE from 'three';
 
@@ -1847,7 +1940,6 @@
             dirLight.castShadow = true;
             scene.add(dirLight);
 
-            // --- RUE DÉTAILLÉE ---
             const road = new THREE.Mesh(
                 new THREE.PlaneGeometry(16, 180),
                 new THREE.MeshStandardMaterial({ color: 0x2e2e2e, roughness: 0.9 })
@@ -1855,7 +1947,6 @@
             road.rotation.x = -Math.PI / 2;
             scene.add(road);
 
-            // Trottoirs
             const sidewalkMat = new THREE.MeshStandardMaterial({ color: 0xb5b5b5, roughness: 0.8 });
             const leftSidewalk = new THREE.Mesh(new THREE.PlaneGeometry(4, 180), sidewalkMat);
             leftSidewalk.rotation.x = -Math.PI / 2;
@@ -1867,7 +1958,6 @@
             rightSidewalk.position.set(10, 0.02, 0);
             scene.add(rightSidewalk);
 
-            // Pelouses
             const lawnMat = new THREE.MeshStandardMaterial({ color: 0x5dbb46, roughness: 0.9 });
             const leftLawn = new THREE.Mesh(new THREE.PlaneGeometry(80, 180), lawnMat);
             leftLawn.rotation.x = -Math.PI / 2;
@@ -1879,10 +1969,8 @@
             rightLawn.position.set(52, 0.01, 0);
             scene.add(rightLawn);
 
-            // --- MAISON DE GUMBALL (Watterson House - Style beige/jaune pastel typique) ---
             const createWattersonHouse = (x, z, rotY) => {
                 const houseGroup = new THREE.Group();
-                // Corps de la maison
                 const body = new THREE.Mesh(
                     new THREE.BoxGeometry(10, 6, 12),
                     new THREE.MeshStandardMaterial({ color: 0xf4e2bb, roughness: 0.8 })
@@ -1890,7 +1978,6 @@
                 body.position.y = 3;
                 houseGroup.add(body);
 
-                // Toit
                 const roof = new THREE.Mesh(
                     new THREE.ConeGeometry(8, 4, 4),
                     new THREE.MeshStandardMaterial({ color: 0xcc4444, roughness: 0.7 })
@@ -1899,7 +1986,6 @@
                 roof.position.y = 7;
                 houseGroup.add(roof);
 
-                // Porte et fenêtres
                 const door = new THREE.Mesh(
                     new THREE.BoxGeometry(1.8, 3, 0.2),
                     new THREE.MeshStandardMaterial({ color: 0x8b5a2b })
@@ -1912,7 +1998,6 @@
                 scene.add(houseGroup);
             };
 
-            // --- MAISON DES ROBINSON (Maison voisine un peu plus sombre/caractéristique) ---
             const createRobinsonHouse = (x, z, rotY) => {
                 const houseGroup = new THREE.Group();
                 const body = new THREE.Mesh(
@@ -1934,16 +2019,13 @@
                 scene.add(houseGroup);
             };
 
-            // Générer les maisons le long de la rue
             createWattersonHouse(-18, -10, Math.PI / 2);
             createRobinsonHouse(-18, 25, Math.PI / 2);
             createWattersonHouse(18, -30, -Math.PI / 2);
             createRobinsonHouse(18, 10, -Math.PI / 2);
 
-            // --- GUMBALL PLUS DÉTAILLÉ ---
             gumball = new THREE.Group();
             
-            // Tête bleue sphérique
             const head = new THREE.Mesh(
                 new THREE.SphereGeometry(0.7, 24, 24),
                 new THREE.MeshStandardMaterial({ color: 0x00a3e0, roughness: 0.4 })
@@ -1951,7 +2033,6 @@
             head.position.y = 1.6;
             gumball.add(head);
 
-            // Oreilles pointues caractéristiques
             const earMat = new THREE.MeshStandardMaterial({ color: 0x0088cc });
             const leftEar = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.6, 12), earMat);
             leftEar.position.set(-0.4, 2.2, 0);
@@ -1963,7 +2044,6 @@
             rightEar.rotation.z = 0.3;
             gumball.add(rightEar);
 
-            // Corps (Pull rouge)
             const body = new THREE.Mesh(
                 new THREE.CylinderGeometry(0.3, 0.4, 0.9),
                 new THREE.MeshStandardMaterial({ color: 0xcc2222 })
@@ -1971,7 +2051,6 @@
             body.position.y = 0.8;
             gumball.add(body);
 
-            // Pantalon beige/marron
             const pants = new THREE.Mesh(
                 new THREE.CylinderGeometry(0.28, 0.28, 0.5),
                 new THREE.MeshStandardMaterial({ color: 0xa67c52 })
@@ -1982,35 +2061,29 @@
             gumball.position.set(0, 0, 30);
             scene.add(gumball);
 
-            // --- OBJETS DÉTAILLÉS ---
             itemsData.forEach((data, index) => {
                 let mesh;
                 if (data.shape === 'console') {
-                    // GameChild : forme de console portable
                     mesh = new THREE.Mesh(
                         new THREE.BoxGeometry(0.9, 0.2, 0.5),
                         new THREE.MeshStandardMaterial({ color: data.color, roughness: 0.3 })
                     );
                 } else if (data.shape === 'cap') {
-                    // Casquette
                     mesh = new THREE.Mesh(
                         new THREE.SphereGeometry(0.4, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2),
                         new THREE.MeshStandardMaterial({ color: data.color })
                     );
                 } else if (data.shape === 'donut') {
-                    // Daisy la Donut
                     mesh = new THREE.Mesh(
                         new THREE.TorusGeometry(0.35, 0.15, 12, 24),
                         new THREE.MeshStandardMaterial({ color: data.color })
                     );
                 } else if (data.shape === 'remote') {
-                    // Télécommande
                     mesh = new THREE.Mesh(
                         new THREE.BoxGeometry(0.3, 0.1, 0.7),
                         new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.5 })
                     );
                 } else {
-                    // Chaussette
                     mesh = new THREE.Mesh(
                         new THREE.CylinderGeometry(0.15, 0.2, 0.6),
                         new THREE.MeshStandardMaterial({ color: data.color })
@@ -2022,7 +2095,6 @@
                 items.push({ mesh, id: index });
             });
 
-            // Événements Clavier 3D
             window.addEventListener('keydown', (e) => {
                 const k = e.key.toLowerCase();
                 if (k === 'z' || k === 'arrowup') keys3D.up = true;
@@ -2043,7 +2115,6 @@
                 if (k === 'd' || k === 'arrowright') keys3D.right = false;
             });
 
-            // Liaisons Boutons tactiles
             const bind3DBtn = (btnId, keyProp) => {
                 const btn = document.getElementById(btnId);
                 if (!btn) return;
@@ -2120,6 +2191,10 @@
             }
 
             animate3D();
+        };
+
+        window.reset3DGroup = function() {
+            // function stub if needed
         };
 
         window.reset3DGame = function() {
