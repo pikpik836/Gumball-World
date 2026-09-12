@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gumball World</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(180deg, #0A1128 0%, #B84A1B 100%);
+            background-attachment: fixed;
+            color: #E1E7ED;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header {
+            background-color: rgba(10, 17, 40, 0.95);
+            border-bottom: 2px solid #2554A3;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            gap: 12px;
+        }
+
+        .site-title-badge {
+            background-color: #0d1627;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 4px 10px;
+            color: #93c5fd;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.2;
+            text-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #2563eb;
+            box-shadow: 0 0 8px #3b82f6, inset 0 0 8px rgba(59, 130, 246, 0.5);
+            flex-shrink: 0;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 4px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
+
+        .main-nav::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .main-nav::-webkit-scrollbar-thumb {
+            background: #2554A3;
+            border-radius: 10px;
+        }
+
+        .nav-btn {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            color: #E1E7ED;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            outline: none;
+            flex-shrink: 0;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            background-color: #2554A3;
+            color: #FFFFFF;
+        }
+
+        .timer-card {
+            background-color: #121B2D;
+            border: 2px solid #2554A3;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        .timer-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #34D399;
+            margin: 20px 0;
+            background: #0A1128;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #2554A3;
+        }
+
+        .timer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .timer-input-page {
+            width: 100%;
+            background-color: #0A1128;
+            border: 1.5px solid #7EA3FF;
+            border-radius: 8px;
+            padding: 12px;
+            color: #FFF;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+
+        .timer-input-page:focus {
+            border-color: #F27329;
+        }
+
+        .timer-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-timer-action {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-start { background-color: #F27329; color: #FFF; }
+        .btn-stop { background-color: #334155; color: #CBD5E1; }
+
+        main {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 16px;
+            flex-grow: 1;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .card {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .title-primary {
+            color: #7EA3FF;
+            font-size: 24px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .season-header-box {
+            background: rgba(18, 27, 45, 0.8);
+            border: 1px solid #2554A3;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .season-info-text {
+            color: #94A3B8;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .seasons-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .season-poster-card {
+            background-color: #121B2D;
+            border-radius: 12px;
+            padding: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid #00d2ff;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.6), 0 0 20px rgba(242, 115, 41, 0.4), inset 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+
+        .season-poster-card:hover {
+            transform: translateY(-4px);
+            border-color: #F27329;
+            box-shadow: 0 0 15px rgba(242, 115, 41, 0.9), 0 0 25px rgba(0, 210, 255, 0.6);
+        }
+
+        .season-poster-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background-color: #0A1128;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .season-poster-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .season-poster-title {
+            color: #FF8A3D;
+            font-size: 14px;
+            font-weight: 900;
+            text-shadow: 0 0 6px rgba(242, 115, 41, 0.7);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn-back {
+            background-color: #121B2D;
+            border: 1.5px solid #7EA3FF;
+            color: #7EA3FF;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .search-box {
+            width: 100%;
+            background-color: #121B2D;
+            border: 1.5px solid #F27329;
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: #FFFFFF;
+            font-size: 15px;
+            margin-bottom: 16px;
+            outline: none;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 650px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .site-title-badge {
+                align-self: center;
+            }
+        }
+
+        .episode-preview {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .episode-preview:hover {
+            transform: translateY(-3px);
+        }
+
+        .episode-card-title {
+            color: #FF8A3D;
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(242, 115, 41, 0.5);
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        .preview-video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background-color: #0A1128;
+            border: 1px solid #2554A3;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .preview-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        .synopsis-wrapper {
+            position: relative;
+            background: rgba(10, 17, 40, 0.5);
+            padding: 12px 12px 34px 12px;
+            border-radius: 12px;
+            border-left: 3px solid #F27329;
+        }
+
+        .episode-desc {
+            font-size: 13px;
+            color: #CBD5E1;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .synopsis-tags {
+            position: absolute;
+            bottom: 8px;
+            right: 10px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .synopsis-tag {
+            background-color: rgba(37, 84, 163, 0.4);
+            border: 1px solid #2554A3;
+            color: #7EA3FF;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+
+        .player-card {
+            background: linear-gradient(145deg, #16223B 0%, #0E1726 100%);
+            border: 2px solid #7EA3FF;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            margin-bottom: 30px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background-color: #000000;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .time-limit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 17, 40, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            padding: 16px;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .time-limit-overlay.active {
+            display: flex;
+        }
+
+        .time-limit-title {
+            color: #F27329;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .extend-box {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .extend-inputs {
+            display: flex;
+            gap: 6px;
+        }
+
+        .extend-input {
+            width: 80px;
+            background-color: #0A1128;
+            border: 1px solid #7EA3FF;
+            border-radius: 6px;
+            padding: 6px;
+            color: #FFF;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .btn-extend {
+            background-color: #2554A3;
+            color: #FFF;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .meta-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tag {
+            background-color: rgba(37, 84, 163, 0.4);
+            border: 1px solid #2554A3;
+            color: #7EA3FF;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn-nav-ep {
+            flex: 1;
+            max-width: 140px;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #prevBtn { background-color: #2554A3; color: #FFFFFF; }
+        #nextBtn { background-color: #F27329; color: #FFFFFF; }
+
+        .next-episodes-section {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(126, 163, 255, 0.2);
+        }
+
+        .next-episodes-title {
+            color: #7EA3FF;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 14px;
+        }
+
+        .compact-ep-card {
+            display: flex;
+            gap: 12px;
+            background-color: #121B2D;
+            border: 1px solid #2554A3;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .compact-thumb {
+            width: 100px;
+            height: 56px;
+            background-color: #0A1128;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .compact-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        .compact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .compact-title {
+            color: #FF8A3D;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .compact-desc {
+            color: #94A3B8;
+            font-size: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .not-available-box {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #121B2D;
+            border: 1.5px dashed #2554A3;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        .rotate-banner {
+            background-color: #F27329;
+            color: #FFF;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            animation: pulseBanner 1.5s infinite alternate;
+        }
+
+        .phone-icon {
+            font-size: 1.2rem;
+            display: inline-block;
+            animation: rotatePhone 2s infinite ease-in-out;
+        }
+
+        @keyframes rotatePhone {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(-90deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes pulseBanner {
+            0% { background-color: #F27329; }
+            100% { background-color: #FF8A3D; }
+        }
+
+        .game-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 2 / 1;
+            border: 2px solid #2554A3;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            background: #000;
+            margin: 0 auto;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: linear-gradient(180deg, #3B82F6 0%, #1E3A8A 100%);
+            object-fit: contain;
+        }
+
+        .game-overlay-menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 17, 40, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            gap: 12px;
+        }
+
+        .game-btn-start {
+            background-color: #F27329;
+            color: #FFF;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(242, 115, 41, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .game-btn-fullscreen {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(18, 27, 45, 0.85);
+            border: 1px solid #7EA3FF;
+            color: #FFF;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 25;
+        }
+
+        .controls-panel {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        .game-control-btn {
+            background-color: #2554A3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex: 1;
+            max-width: 150px;
+        }
+
+        .game-control-btn:active {
+            background-color: #F27329;
+        }
+
+        .quiz-card {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .quiz-option {
+            background-color: #0A1128;
+            border: 1.5px solid #2554A3;
+            color: #FFF;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover {
+            background-color: #2554A3;
+        }
+
+        .random-container {
+            background-color: #121B2D;
+            border: 2px solid #F27329;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 24px auto;
+        }
+
+        .select-season-dropdown {
+            background-color: #0A1128;
+            border: 1.5px solid #7EA3FF;
+            color: #FFF;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 15px;
+            margin: 12px 0;
+            width: 100%;
+            max-width: 300px;
+            outline: none;
+        }
+
+        .games-subnav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .game-tab-btn {
+            background-color: #121B2D;
+            border: 1.5px solid #2554A3;
+            color: #E1E7ED;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .game-tab-btn.active, .game-tab-btn:hover {
+            background-color: #F27329;
+            border-color: #F27329;
+            color: #FFFFFF;
+        }
+
+        .game-section-item {
+            display: none;
+        }
+
+        .game-section-item.active {
+            display: block;
+        }
+
+        .game3d-container {
+            position: relative;
+            width: 100%;
+            height: 65vh;
+            min-height: 480px;
+            border: 2px solid #2554A3;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #game3dCanvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .ui-3d {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            background: rgba(0, 163, 224, 0.85);
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            max-width: 240px;
+            pointer-events: none;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .ui-3d h3 {
+            margin: 0 0 4px 0;
+            font-size: 13px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 0px #000;
+        }
+
+        .ui-3d p {
+            margin: 0 0 6px 0;
+            font-size: 10px;
+            line-height: 1.2;
+        }
+
+        .ui-3d ul {
+            margin: 0;
+            padding-left: 14px;
+            font-size: 11px;
+        }
+
+        .ui-3d li {
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+
+        .ui-3d .done {
+            text-decoration: line-through;
+            color: #72ff72;
+        }
+
+        .win-overlay-3d {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 20;
+        }
+
+        .win-overlay-3d h1 {
+            font-size: 36px;
+            color: #00d2ff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: rgba(225, 231, 237, 0.6);
+        }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="site-title-badge">GUMBALL<br>WORLD</div>
+        
+        <nav class="main-nav">
+            <button class="nav-btn active" onclick="switchPage('home')">🏠 Accueil</button>
+            <button class="nav-btn" onclick="switchPage('episodesPage')">🎬 Épisodes</button>
+            <button class="nav-btn" onclick="switchPage('randomPage')">🎲 Épisode aléatoire</button>
+            <button class="nav-btn" onclick="switchPage('games')">🎮 Jeux</button>
+            <button class="nav-btn" onclick="switchPage('timerPage')">⏱️ Minuteur</button>
+            <button class="nav-btn" onclick="switchPage('downloadPage')">📥 Téléchargement</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="page active">
+            <div class="card" style="text-align: center;">
+                <h1 class="title-primary">Bienvenue dans Gumball World !</h1>
+                <p style="margin-bottom: 20px; color: #CBD5E1;">Découvre les épisodes du Monde Incroyable de Gumball.</p>
+                <button class="nav-btn active" style="margin: 0 auto;" onclick="switchPage('episodesPage')">🎬 Voir les épisodes</button>
+            </div>
+        </section>
+
+        <!-- PAGE TÉLÉCHARGEMENT AJOUTÉE -->
+        <section id="downloadPage" class="page">
+            <div class="timer-card">
+                <h2 class="title-primary">📥 Espace Téléchargement</h2>
+                <p style="color: #CBD5E1; font-size: 14px; margin-bottom: 24px;">
+                    Télécharge ton épisode gratuit directement sur ton appareil.
+                </p>
+                <a href="v.mp4" class="game-btn-start" download style="display: inline-block; text-decoration: none;">Télécharger</a>
+            </div>
+        </section>
+
+        <section id="randomPage" class="page">
+            <div class="random-container">
+                <h2 class="title-primary">🎲 Lancer un Épisode Aléatoire</h2>
+                <p style="color: #CBD5E1; font-size: 14px;">Choisis une saison spécifique ou tire un épisode au hasard parmi toutes les saisons !</p>
+                
+                <div style="margin: 20px 0;">
+                    <select id="randomSeasonSelect" class="select-season-dropdown">
+                        <option value="all">Toutes les saisons</option>
+                        <option value="5">Saison 5 uniquement</option>
+                        <option value="6">Saison 6 uniquement</option>
+                    </select>
+                </div>
+
+                <button class="btn-timer-action btn-start" style="max-width: 250px; margin: 0 auto;" onclick="generateRandomEpisode()">🎲 Tirer un épisode</button>
+            </div>
+
+            <div id="randomEpisodeResult" style="display: none;">
+                <h3 style="color: #7EA3FF; text-align: center; margin-bottom: 12px;">Résultat du tirage :</h3>
+                <div id="randomCardContainer"></div>
+            </div>
+        </section>
+
+        <section id="timerPage" class="page">
+            <div class="timer-card">
+                <h2 class="title-primary">⏱️ Minuteur de lecture</h2>
+                <p style="color: #CBD5E1; font-size: 14px; margin-bottom: 16px;">
+                    Définis un temps de visionnage. La vidéo s'arrêtera automatiquement une fois le délai écoulé.
+                </p>
+                
+                <div class="timer-form">
+                    <input type="number" id="customMinutesInput" class="timer-input-page" placeholder="Saisir la durée en minutes..." min="1" max="600">
+                    <div class="timer-actions">
+                        <button class="btn-timer-action btn-start" onclick="startCustomTimer()">▶ Lancer le minuteur</button>
+                        <button class="btn-timer-action btn-stop" onclick="clearCustomTimer()">❌ Réinitialiser</button>
+                    </div>
+                </div>
+
+                <div id="timerDisplay" class="timer-display">
+                    -- : --
+                </div>
+                <div id="timerStatusPage" style="font-size: 13px; color: #94A3B8;">
+                    Aucun minuteur en cours
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE ÉPISODES / SAISONS -->
+        <section id="episodesPage" class="page">
+            <input type="text" id="searchBar" class="search-box" placeholder="🔍 Rechercher un épisode dans toutes les saisons..." onkeyup="filterEpisodes()">
+
+            <!-- VUE PRINCIPALE : LA GRILLE DES 6 SAISONS EN 3x2 -->
+            <div id="seasonsHomeView">
+                <div class="season-header-box">
+                    <h2 class="title-primary" style="margin-bottom: 4px;">Choisis une Saison</h2>
+                    <div class="season-info-text">Clique sur une saison pour voir ses épisodes</div>
+                </div>
+
+                <div class="seasons-grid">
+                    <div class="season-poster-card" onclick="selectSeason(1)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho-1.png" alt="Saison 1">
+                        </div>
+                        <div class="season-poster-title">Saison 1</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(2)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 2.png" alt="Saison 2">
+                        </div>
+                        <div class="season-poster-title">Saison 2</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(3)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 3.png" alt="Saison 3">
+                        </div>
+                        <div class="season-poster-title">Saison 3</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(4)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 4.png" alt="Saison 4">
+                        </div>
+                        <div class="season-poster-title">Saison 4</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(5)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 5.png" alt="Saison 5">
+                        </div>
+                        <div class="season-poster-title">Saison 5</div>
+                    </div>
+
+                    <div class="season-poster-card" onclick="selectSeason(6)">
+                        <div class="season-poster-wrapper">
+                            <img src="photho 6.png" alt="Saison 6">
+                        </div>
+                        <div class="season-poster-title">Saison 6</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VUE DÉTAILLÉE DES ÉPISODES D'UNE SAISON -->
+            <div id="episodesListView" style="display: none;">
+                <button class="btn-back" onclick="backToSeasonsHome()">⬅️ Retour aux saisons</button>
+
+                <div class="season-header-box">
+                    <h2 id="seasonMainTitle" class="title-primary" style="margin-bottom: 4px;">Gumball World - Saison</h2>
+                    <div id="seasonDates" style="color: #F27329; font-weight: bold; font-size: 14px;"></div>
+                    <div id="seasonInfoText" class="season-info-text"></div>
+                </div>
+
+                <div id="seasonContentArea">
+                    <div id="episodesList" class="grid-container"></div>
+                </div>
+
+                <div id="notAvailableArea" class="not-available-box" style="display: none;">
+                    <h3 style="color: #F27329; font-size: 20px; margin-bottom: 10px;">Saison non disponible</h3>
+                    <p style="color: #CBD5E1; font-size: 14px;">Cette saison n'est pas encore disponible pour le moment (Saisons 1 à 4 vides).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LECTEUR VIDÉO -->
+        <section id="playerPage" class="page">
+            <button class="btn-back" onclick="switchPage('episodesPage')">📋 Retour aux épisodes</button>
+
+            <div class="player-card">
+                <h2 id="playerTitle" class="episode-card-title" style="font-size: 24px; text-align: center;"></h2>
+
+                <div class="video-container">
+                    <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+                    
+                    <div id="timeLimitOverlay" class="time-limit-overlay">
+                        <div class="time-limit-title">⏱️ Temps écoulé</div>
+                        <div style="color: #CBD5E1; font-size: 13px;">Le temps est écoulé. La vidéo a été coupée.</div>
+                        <div class="extend-box">
+                            <span style="font-size: 12px; color: #7EA3FF;">Rajouter du temps ?</span>
+                            <div class="extend-inputs">
+                                <input type="number" id="extendMinutesInput" class="extend-input" placeholder="Min..." min="1" max="600">
+                                <button class="btn-extend" onclick="extendTimer()">➕ Rajouter</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="meta-tags">
+                    <span id="playerSeasonTag" class="tag">SAISON 5</span>
+                    <span class="tag">11 MIN</span>
+                    <span class="tag">HD</span>
+                </div>
+
+                <div class="synopsis-wrapper">
+                    <p id="playerDesc" class="episode-desc"></p>
+                </div>
+                
+                <div class="player-controls">
+                    <button id="prevBtn" class="btn-nav-ep" onclick="navigateEpisode(-1)">
+                        ← Ép. <span id="prevEpNum"></span>
+                    </button>
+                    <button id="nextBtn" class="btn-nav-ep" onclick="navigateEpisode(1)">
+                        Ép. <span id="nextEpNum"></span> →
+                    </button>
+                </div>
+
+                <div class="next-episodes-section">
+                    <h3 class="next-episodes-title">Épisodes suivants</h3>
+                    <div id="nextEpisodesList"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION JEUX -->
+        <section id="games" class="page">
+            <div class="games-subnav">
+                <button class="game-tab-btn active" onclick="switchGameTab('game2d')">🏃 Gumball Runner (2D)</button>
+                <button class="game-tab-btn" onclick="switchGameTab('game3d')">🧊 Opération Anti-Grounded (3D)</button>
+                <button class="game-tab-btn" onclick="switchGameTab('quiz')">🧠 Quiz (20 Qs)</button>
+            </div>
+
+            <!-- JEU 1 : RUNNER 2D -->
+            <div id="game2d" class="game-section-item active">
+                <h2 class="title-primary">🎮 Gumball : Le Parcours d'Elmore (3 Niveaux)</h2>
+                
+                <div class="rotate-banner">
+                    <span class="phone-icon">📱</span>
+                    <span>Pense à tourner ton appareil en mode paysage !</span>
+                </div>
+
+                <div class="game-wrapper" id="gameContainer">
+                    <button class="game-btn-fullscreen" onclick="toggleFullScreen()">⛶ Plein écran</button>
+                    <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+                    <div class="game-overlay-menu" id="gameOverlay">
+                        <h2 id="overlayTitle" style="color: #7EA3FF; font-size: 22px;">Gumball Runner</h2>
+                        <p id="overlaySub" style="color: #CBD5E1; font-size: 14px;">Prêt à traverser les 3 niveaux ?</p>
+                        <button class="game-btn-start" id="startBtn" onclick="startGame()">▶ DÉMARRER</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel">
+                    <button class="game-control-btn" id="btnLeft">← Gauche</button>
+                    <button class="game-control-btn" id="btnJump">⬆️ Sauter</button>
+                    <button class="game-control-btn" id="btnRight">Droite →</button>
+                </div>
+            </div>
+
+            <!-- JEU 2 : 3D ANTI-GROUNDED -->
+            <div id="game3d" class="game-section-item">
+                <h2 class="title-primary">🎮 Gumball 3D : Opération Anti-Grounded</h2>
+                
+                <div class="game3d-container" id="game3dContainer">
+                    <div class="ui-3d">
+                        <h3>Opération Anti-Grounded</h3>
+                        <p>Nicole arrive ! Récupère le bazar dans la rue :</p>
+                        <ul>
+                            <li id="item3d-0">GameChild de Darwin</li>
+                            <li id="item3d-1">Casquette d'Anaïs</li>
+                            <li id="item3d-2">Daisy la Donut</li>
+                            <li id="item3d-3">Télécommande universelle</li>
+                            <li id="item3d-4">Chaussette de Richard</li>
+                        </ul>
+                    </div>
+
+                    <div id="winOverlay3d" class="win-overlay-3d">
+                        <h1>VICTOIRE !</h1>
+                        <p>Tout est rangé ! Nicole ne saura jamais rien.</p>
+                        <button class="game-btn-start" onclick="reset3DGame()">Rejouer</button>
+                    </div>
+
+                    <div id="game3dCanvasContainer" style="width: 100%; height: 100%;"></div>
+                </div>
+                
+                <div class="controls-panel" style="padding: 10px; gap: 8px;">
+                    <button class="game-control-btn" id="btn3dLeft" style="padding: 8px; font-size: 14px;">← Gauche</button>
+                    <button class="game-control-btn" id="btn3dUp" style="padding: 8px; font-size: 14px;">↑ Avancer</button>
+                    <button class="game-control-btn" id="btn3dDown" style="padding: 8px; font-size: 14px;">↓ Reculer</button>
+                    <button class="game-control-btn" id="btn3dRight" style="padding: 8px; font-size: 14px;">Droite →</button>
+                    <button class="game-control-btn" id="btn3dJump" style="padding: 8px; font-size: 14px;">⬆️ Saut</button>
+                </div>
+            </div>
+
+            <!-- JEU 3 : QUIZ -->
+            <div id="quiz" class="game-section-item">
+                <div class="quiz-card" style="margin-top: 0;">
+                    <h2 class="title-primary">🧠 Quiz Le Monde Incroyable de Gumball (20 Questions)</h2>
+                    <div id="quizContainer">
+                        <div id="quizProgress" style="margin-bottom: 10px; color: #F27329; font-weight: bold;">Question 1/20</div>
+                        <h3 id="quizQuestion" style="margin-bottom: 15px; color: #FFF;"></h3>
+                        <div id="quizOptions"></div>
+                    </div>
+                    <div id="quizResult" style="display: none; text-align: center;">
+                        <h2 style="color: #34D399; margin-bottom: 10px;">Quiz Terminé !</h2>
+                        <p id="quizScoreText" style="font-size: 18px; color: #FFF; margin-bottom: 20px;"></p>
+                        <button class="btn-timer-action btn-start" style="max-width: 200px; margin: 0 auto;" onclick="initQuiz()">🔄 Recommencer</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Gumball World — Tous droits réservés.
+    </footer>
+
+    <script>
+        const seasonsMeta = {
+            1: { title: "Gumball World - Saison 1", dates: "Diffusion : 2011 – 2012", total: "36 épisodes au total" },
+            2: { title: "Gumball World - Saison 2", dates: "Diffusion : 2012 – 2013", total: "40 épisodes au total" },
+            3: { title: "Gumball World - Saison 3", dates: "Diffusion : 2014 – 2016", total: "40 épisodes au total" },
+            4: { title: "Gumball World - Saison 4", dates: "Diffusion : 2015 – 2016", total: "40 épisodes au total" },
+            5: { title: "Gumball World - Saison 5", dates: "Diffusion : 2016 – 2018", total: "40 épisodes au total" },
+            6: { title: "Gumball World - Saison 6", dates: "Diffusion : 2018 – 2019", total: "44 épisodes au total" }
+        };
+
+        const episodesS5 = [
+            {
+                title: "1. Le flashback",
+                desc: "Dans la voiture avec ses parents, son frère et sa sœur, Gumball a une soudaine impression de déjà-vu. Il se rend compte qu'il peut voir l'avenir et que Rob est sur le point de gâcher sa vie.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436805"
+            },
+            {
+                title: "2. Les histoires",
+                desc: "Molly aime beaucoup raconter des histoires à ses amis. Le problème, c'est que ses histoires ne sont pas du tout intéressantes.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436806"
+            },
+            {
+                title: "3. L'ami",
+                desc: "Anaïs pense qu'elle s'est enfin fait un ami. Mais Gumball et Darwin trouvent ça beaucoup trop louche.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436807"
+            },
+            {
+                title: "4. L'ennui",
+                desc: "Gumball et Darwin s'ennuient. Ils trouvent qu'il ne se passe rien d'intéressant à Elmore.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436808"
+            },
+            {
+                title: "5. La vision",
+                desc: "Après le cours de sport, Gumball repart avec un sac qui n'est pas le sien, contenant le plan d'Alan.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436809"
+            },
+            {
+                title: "6. Les choix",
+                desc: "Alors qu'elle doit gérer une crise au moment du repas, maman fait le bilan de sa vie et de ses choix.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436810"
+            },
+            {
+                title: "7. Le code",
+                desc: "La famille réalise qu'ils ont piraté le Wi-Fi de leur voisin pendant des années, mais il vient de changer le mot de passe.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436811"
+            },
+            {
+                title: "8. Le test",
+                desc: "Gumball fait un test sur internet et le résultat l'horrifie : c'est un perdant. Il décide de changer de comportement.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436812"
+            },
+            {
+                title: "9. L’application",
+                desc: "Rocky désespère de ne pas trouver l'amour. Il télécharge donc une application sur son téléphone portable pour rencontrer des filles de la ville.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436813"
+            },
+            {
+                title: "10. La faille",
+                desc: "Gumball et Darwin cherchent une excuse pour retarder le moment de faire leurs devoirs. Bobert va leur en fournir une en leur montrant que son excès de logique peut faire de lui un être très dangereux.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436814"
+            },
+            {
+                title: "11. Les imitateurs",
+                desc: "Gumball et Darwin sont confus quand ils rencontrent Chi Chi et Ribbit, des frères et sœurs qui copient tous leurs faits et gestes. Puis, ils découvrent que cette famille de copieurs se fait de l'argent en ligne en copiant les Wattersons.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436815"
+            },
+            {
+                title: "12. La pomme de terre",
+                desc: "Parce qu'il pense que cela rend Idaho malheureux, Darwin décide d'arrêter de manger des pommes de terre, sur les conseils de Gumball et Sarah, mais cela s'avère beaucoup plus compliqué qu'il ne l'imaginait.",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436816"
+            }
+        ];
+
+        const episodesS6 = [
+            {
+                title: "1. La rivale",
+                desc: "À l'époque où Anaïs est un bébé nouveau-né, Gumball et Darwin sont terrifiés par sa nature...",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436850"
+            },
+            {
+                title: "2. La dame",
+                desc: "Gumball et Darwin découvrent que leur père Richard s'habille en femme pour passer du temps avec ses amies...",
+                embedUrl: "https://video.sibnet.ru/shell.php?videoid=5436852"
+            }
+        ];
+
+        const seasonsData = { 
+            1: [], 
+            2: [], 
+            3: [], 
+            4: [], 
+            5: episodesS5, 
+            6: episodesS6 
+        };
+
+        let currentSeason = 5;
+        let currentEpisodeIndex = 0;
+        let globalTimer = null;
+        let countdownInterval = null;
+
+        function selectSeason(seasonKey) {
+            currentSeason = seasonKey;
+            document.getElementById('searchBar').value = '';
+
+            document.getElementById('seasonsHomeView').style.display = 'none';
+            document.getElementById('episodesListView').style.display = 'block';
+
+            const meta = seasonsMeta[seasonKey];
+            document.getElementById('seasonMainTitle').innerText = meta ? meta.title : `Gumball World - Saison ${seasonKey}`;
+            document.getElementById('seasonDates').innerText = meta ? meta.dates : "";
+            
+            const contentArea = document.getElementById('seasonContentArea');
+            const notAvailableArea = document.getElementById('notAvailableArea');
+            const infoText = document.getElementById('seasonInfoText');
+
+            const activeEpisodes = seasonsData[seasonKey];
+
+            if (activeEpisodes && activeEpisodes.length > 0) {
+                infoText.innerText = `${meta ? meta.total + ' • ' : ''}${activeEpisodes.length} disponible(s) ici`;
+                contentArea.style.display = "block";
+                notAvailableArea.style.display = "none";
+                renderEpisodes(activeEpisodes, seasonKey);
+            } else {
+                infoText.innerText = `${meta ? meta.total : 'Contenu non disponible'} • 0 disponible ici`;
+                contentArea.style.display = "none";
+                notAvailableArea.style.display = "block";
+            }
+        }
+
+        function backToSeasonsHome() {
+            document.getElementById('episodesListView').style.display = 'none';
+            document.getElementById('seasonsHomeView').style.display = 'block';
+            document.getElementById('searchBar').value = '';
+        }
+
+        function renderEpisodes(listToRender, seasonKey) {
+            const container = document.getElementById('episodesList');
+            container.innerHTML = '';
+
+            listToRender.forEach((ep) => {
+                const epIndex = ep.originalIndex !== undefined ? ep.originalIndex : seasonsData[seasonKey].indexOf(ep);
+                const epSeason = ep.seasonKey || seasonKey;
+
+                const card = document.createElement('div');
+                card.className = 'card episode-preview';
+                card.onclick = () => openPlayer(epIndex, epSeason);
+
+                card.innerHTML = `
+                    <h3 class="episode-card-title">${ep.title}</h3>
+                    <div class="preview-video-container">
+                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                    <div class="synopsis-wrapper">
+                        <p class="episode-desc">${ep.desc}</p>
+                        <div class="synopsis-tags">
+                            <span class="synopsis-tag">11 MIN</span>
+                            <span class="synopsis-tag">HD</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterEpisodes() {
+            const query = document.getElementById('searchBar').value.toLowerCase().trim();
+            
+            if (query === '') {
+                if (document.getElementById('episodesListView').style.display === 'block') {
+                    selectSeason(currentSeason);
+                }
+                return;
+            }
+
+            document.getElementById('seasonsHomeView').style.display = 'none';
+            document.getElementById('episodesListView').style.display = 'block';
+
+            const contentArea = document.getElementById('seasonContentArea');
+            const notAvailableArea = document.getElementById('notAvailableArea');
+
+            contentArea.style.display = "block";
+            notAvailableArea.style.display = "none";
+
+            const results = [];
+            Object.keys(seasonsData).forEach(sKey => {
+                seasonsData[sKey].forEach((ep, index) => {
+                    if (ep.title.toLowerCase().includes(query) || ep.desc.toLowerCase().includes(query)) {
+                        results.push({
+                            ...ep,
+                            seasonKey: parseInt(sKey),
+                            originalIndex: index
+                        });
+                    }
+                });
+            });
+
+            document.getElementById('seasonMainTitle').innerText = "Résultats de recherche";
+            document.getElementById('seasonDates').innerText = "";
+            const infoText = document.getElementById('seasonInfoText');
+            infoText.innerText = `${results.length} épisode(s) trouvé(s) pour "${query}"`;
+
+            renderEpisodes(results);
+        }
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.main-nav .nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+
+            const navMap = {
+                'home': 0,
+                'episodesPage': 1,
+                'playerPage': 1,
+                'randomPage': 2,
+                'games': 3,
+                'timerPage': 4,
+                'downloadPage': 5
+            };
+            
+            const btnIndex = navMap[pageId] !== undefined ? navMap[pageId] : 0;
+            document.querySelectorAll('.main-nav .nav-btn')[btnIndex].classList.add('active');
+
+            if (pageId === 'episodesPage') {
+                backToSeasonsHome();
+            }
+
+            if (pageId === 'games' && !window.threeInitialized) {
+                init3DGame();
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function switchGameTab(tabId) {
+            document.querySelectorAll('.game-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.game-section-item').forEach(sec => sec.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            
+            const btnMap = { 'game2d': 0, 'game3d': 1, 'quiz': 2 };
+            document.querySelectorAll('.game-tab-btn')[btnMap[tabId]].classList.add('active');
+
+            if (tabId === 'game3d' && window.resize3D) {
+                window.resize3D();
+            }
+        }
+
+        function generateRandomEpisode() {
+            const seasonChoice = document.getElementById('randomSeasonSelect').value;
+            let pool = [];
+
+            if (seasonChoice === 'all') {
+                Object.keys(seasonsData).forEach(sKey => {
+                    seasonsData[sKey].forEach((ep, idx) => {
+                        pool.push({ ...ep, seasonKey: parseInt(sKey), originalIndex: idx });
+                    });
+                });
+            } else {
+                const sKey = parseInt(seasonChoice);
+                if (seasonsData[sKey]) {
+                    seasonsData[sKey].forEach((ep, idx) => {
+                        pool.push({ ...ep, seasonKey: sKey, originalIndex: idx });
+                    });
+                }
+            }
+
+            if (pool.length === 0) return;
+
+            const randomEp = pool[Math.floor(Math.random() * pool.length)];
+            const resultContainer = document.getElementById('randomCardContainer');
+            const resultBox = document.getElementById('randomEpisodeResult');
+
+            resultContainer.innerHTML = '';
+
+            const card = document.createElement('div');
+            card.className = 'card episode-preview';
+            card.onclick = () => openPlayer(randomEp.originalIndex, randomEp.seasonKey);
+
+            card.innerHTML = `
+                <h3 class="episode-card-title">${randomEp.title} (Saison ${randomEp.seasonKey})</h3>
+                <div class="preview-video-container">
+                    <iframe src="${randomEp.embedUrl}" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="synopsis-wrapper">
+                    <p class="episode-desc">${randomEp.desc}</p>
+                    <div class="synopsis-tags">
+                        <span class="synopsis-tag">11 MIN</span>
+                        <span class="synopsis-tag">HD</span>
+                    </div>
+                </div>
+            `;
+
+            resultContainer.appendChild(card);
+            resultBox.style.display = 'block';
+        }
+
+        function startCustomTimer(minutes = null) {
+            const inputVal = minutes || parseInt(document.getElementById('customMinutesInput').value);
+            if (isNaN(inputVal) || inputVal <= 0) return;
+
+            clearCustomTimer();
+
+            let totalSeconds = inputVal * 60;
+            const displayDiv = document.getElementById('timerDisplay');
+            const statusDiv = document.getElementById('timerStatusPage');
+
+            statusDiv.innerText = `Minuteur actif : ${inputVal} minute(s)`;
+
+            const updateDisplay = (sec) => {
+                let m = Math.floor(sec / 60);
+                let s = sec % 60;
+                displayDiv.innerText = `${m < 10 ? '0' : ''}${m} : ${s < 10 ? '0' : ''}${s}`;
+            };
+
+            updateDisplay(totalSeconds);
+
+            countdownInterval = setInterval(() => {
+                totalSeconds--;
+                updateDisplay(totalSeconds);
+
+                if (totalSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    displayDiv.innerText = "00 : 00";
+                    statusDiv.innerText = "❌ Temps écoulé ! Les vidéos sont coupées.";
+                }
+            }, 1000);
+
+            globalTimer = setTimeout(() => {
+                stopVideoPlayback();
+            }, inputVal * 60 * 1000);
+        }
+
+        function extendTimer() {
+            const minutesToAdd = parseInt(document.getElementById('extendMinutesInput').value);
+            if (isNaN(minutesToAdd) || minutesToAdd <= 0) return;
+
+            const episodesList = seasonsData[currentSeason];
+            const ep = episodesList[currentEpisodeIndex];
+            document.getElementById('videoIframe').src = ep.embedUrl;
+            document.getElementById('timeLimitOverlay').classList.remove('active');
+            document.getElementById('extendMinutesInput').value = '';
+
+            startCustomTimer(minutesToAdd);
+        }
+
+        function clearCustomTimer() {
+            if (globalTimer) clearTimeout(globalTimer);
+            if (countdownInterval) clearInterval(countdownInterval);
+            globalTimer = null;
+            countdownInterval = null;
+            document.getElementById('timerDisplay').innerText = "-- : --";
+            document.getElementById('timerStatusPage').innerText = "Aucun minuteur en cours";
+            document.getElementById('customMinutesInput').value = "";
+        }
+
+        function openPlayer(index, seasonKey = null) {
+            if (seasonKey !== null) {
+                currentSeason = seasonKey;
+            }
+            currentEpisodeIndex = index;
+            const episodesList = seasonsData[currentSeason];
+            const ep = episodesList[currentEpisodeIndex];
+
+            document.getElementById('playerTitle').innerText = ep.title;
+            document.getElementById('playerDesc').innerText = ep.desc;
+            document.getElementById('videoIframe').src = ep.embedUrl;
+            document.getElementById('playerSeasonTag').innerText = `SAISON ${currentSeason}`;
+            document.getElementById('timeLimitOverlay').classList.remove('active');
+
+            const prevBtn = document.getElementById('prevBtn');
+            if (currentEpisodeIndex > 0) {
+                prevBtn.disabled = false;
+                document.getElementById('prevEpNum').innerText = currentEpisodeIndex;
+            } else {
+                prevBtn.disabled = true;
+                document.getElementById('prevEpNum').innerText = "";
+            }
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentEpisodeIndex < episodesList.length - 1) {
+                nextBtn.disabled = false;
+                document.getElementById('nextEpNum').innerText = currentEpisodeIndex + 2;
+            } else {
+                nextBtn.disabled = true;
+                document.getElementById('nextEpNum').innerText = "";
+            }
+
+            renderNextEpisodesList();
+            switchPage('playerPage');
+        }
+
+        function stopVideoPlayback() {
+            document.getElementById('videoIframe').src = '';
+            document.getElementById('timeLimitOverlay').classList.add('active');
+        }
+
+        function renderNextEpisodesList() {
+            const nextContainer = document.getElementById('nextEpisodesList');
+            nextContainer.innerHTML = '';
+
+            const episodesList = seasonsData[currentSeason];
+            const remainingEpisodes = episodesList.slice(currentEpisodeIndex + 1);
+
+            if (remainingEpisodes.length === 0) {
+                nextContainer.innerHTML = `<p style="color: #94A3B8; font-size: 13px;">Dernier épisode de la saison.</p>`;
+                return;
+            }
+
+            remainingEpisodes.forEach((ep, relIndex) => {
+                const absoluteIndex = currentEpisodeIndex + 1 + relIndex;
+                const item = document.createElement('div');
+                item.className = 'compact-ep-card';
+                item.onclick = () => openPlayer(absoluteIndex);
+
+                item.innerHTML = `
+                    <div class="compact-thumb">
+                        <iframe src="${ep.embedUrl}" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                    <div class="compact-info">
+                        <div class="compact-title">${ep.title}</div>
+                        <div class="compact-desc">${ep.desc}</div>
+                    </div>
+                `;
+                nextContainer.appendChild(item);
+            });
+        }
+
+        function navigateEpisode(direction) {
+            const episodesList = seasonsData[currentSeason];
+            const newIndex = currentEpisodeIndex + direction;
+            if (newIndex >= 0 && newIndex < episodesList.length) {
+                openPlayer(newIndex);
+            }
+        }
+
+        function toggleFullScreen() {
+            const container = document.getElementById('gameContainer');
+            const isFullScreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+
+            if (!isFullScreen) {
+                if (container.requestFullscreen) container.requestFullscreen();
+                else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        /* LOGIQUE DU JEU CANVAS */
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let score = 0;
+        let currentLevel = 1;
+        let gameRunning = false;
+        const keys = { left: false, right: false, up: false };
+
+        const player = {
+            x: 50, y: 300, width: 30, height: 40, color: '#00BFFF',
+            vx: 0, vy: 0, speed: 4, jumpPower: -10, gravity: 0.5, grounded: false
+        };
+
+        const levelData = {
+            1: {
+                platforms: [
+                    { x: 0, y: 360, width: 800, height: 40 },
+                    { x: 150, y: 280, width: 100, height: 15 },
+                    { x: 300, y: 220, width: 120, height: 15 },
+                    { x: 620, y: 230, width: 100, height: 15 }
+                ],
+                coins: [{ x: 180, y: 240, radius: 8, collected: false }],
+                goal: { x: 660, y: 170, width: 35, height: 60 }
+            },
+            2: {
+                platforms: [
+                    { x: 0, y: 360, width: 250, height: 40 },
+                    { x: 300, y: 320, width: 90, height: 15 },
+                    { x: 580, y: 180, width: 220, height: 200 }
+                ],
+                coins: [{ x: 330, y: 280, radius: 8, collected: false }],
+                goal: { x: 720, y: 120, width: 35, height: 60 }
+            },
+            3: {
+                platforms: [
+                    { x: 0, y: 360, width: 150, height: 40 },
+                    { x: 200, y: 300, width: 70, height: 15 },
+                    { x: 680, y: 180, width: 120, height: 220 }
+                ],
+                coins: [{ x: 230, y: 260, radius: 8, collected: false }],
+                goal: { x: 730, y: 120, width: 35, height: 60 }
+            }
+        };
+
+        let currentPlatforms = [], currentCoins = [], currentGoal = {};
+
+        function loadLevel(levelNum) {
+            currentLevel = levelNum;
+            const lvl = levelData[levelNum];
+            currentPlatforms = JSON.parse(JSON.stringify(lvl.platforms));
+            currentCoins = JSON.parse(JSON.stringify(lvl.coins));
+            currentGoal = JSON.parse(JSON.stringify(lvl.goal));
+            player.x = 50; player.y = 300; player.vx = 0; player.vy = 0;
+        }
+
+        function startGame() {
+            score = 0;
+            loadLevel(1);
+            gameRunning = true;
+            document.getElementById('gameOverlay').style.display = 'none';
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
+            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') keys.up = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
+            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') keys.up = false;
+        });
+
+        const btnLeft = document.getElementById('btnLeft');
+        const btnRight = document.getElementById('btnRight');
+        const btnJump = document.getElementById('btnJump');
+
+        const bindBtn = (btn, keyName) => {
+            btn.addEventListener('mousedown', () => keys[keyName] = true);
+            btn.addEventListener('mouseup', () => keys[keyName] = false);
+            btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; });
+            btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; });
+        };
+
+        bindBtn(btnLeft, 'left');
+        bindBtn(btnRight, 'right');
+
+        btnJump.addEventListener('click', () => {
+            if (player.grounded) player.vy = player.jumpPower;
+        });
+        btnJump.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (player.grounded) player.vy = player.jumpPower;
+        });
+
+        function updateGame() {
+            if (!gameRunning) return;
+
+            if (keys.left) player.vx = -player.speed;
+            else if (keys.right) player.vx = player.speed;
+            else player.vx = 0;
+
+            if (keys.up && player.grounded) {
+                player.vy = player.jumpPower;
+                player.grounded = false;
+            }
+
+            player.vy += player.gravity;
+            player.x += player.vx;
+            player.y += player.vy;
+
+            if (player.x < 0) player.x = 0;
+            if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+
+            if (player.y > canvas.height) {
+                player.x = 50; player.y = 300; player.vx = 0; player.vy = 0;
+            }
+
+            player.grounded = false;
+            currentPlatforms.forEach(plat => {
+                if (
+                    player.x < plat.x + plat.width &&
+                    player.x + player.width > plat.x &&
+                    player.y + player.height >= plat.y &&
+                    player.y + player.height <= plat.y + plat.height &&
+                    player.vy >= 0
+                ) {
+                    player.y = plat.y - player.height;
+                    player.vy = 0;
+                    player.grounded = true;
+                }
+            });
+
+            currentCoins.forEach(coin => {
+                if (!coin.collected) {
+                    const distX = (player.x + player.width / 2) - coin.x;
+                    const distY = (player.y + player.height / 2) - coin.y;
+                    if (Math.sqrt(distX * distX + distY * distY) < coin.radius + player.width / 2) {
+                        coin.collected = true;
+                        score += 10;
+                    }
+                }
+            });
+
+            if (
+                player.x < currentGoal.x + currentGoal.width &&
+                player.x + player.width > currentGoal.x &&
+                player.y < currentGoal.y + currentGoal.height &&
+                player.y + player.height > currentGoal.y
+            ) {
+                if (currentLevel < 3) {
+                    loadLevel(currentLevel + 1);
+                } else {
+                    gameRunning = false;
+                    const overlay = document.getElementById('gameOverlay');
+                    document.getElementById('overlayTitle').innerText = "🎉 FÉLICITATIONS !";
+                    document.getElementById('overlaySub').innerText = `Tu as fini tous les 3 niveaux ! Score : ${score} pts`;
+                    document.getElementById('startBtn').innerText = "🔄 REJOUER";
+                    overlay.style.display = 'flex';
+                }
+            }
+        }
+
+        function drawGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (!gameRunning) return;
+
+            ctx.fillStyle = '#1E293B';
+            currentPlatforms.forEach(plat => {
+                ctx.fillRect(plat.x, plat.y, plat.width, plat.height);
+                ctx.strokeStyle = '#F27329';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(plat.x, plat.y, plat.width, plat.height);
+            });
+
+            ctx.fillStyle = '#FFD700';
+            currentCoins.forEach(coin => {
+                if (!coin.collected) {
+                    ctx.beginPath();
+                    ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+
+            ctx.fillStyle = '#10B981';
+            ctx.fillRect(currentGoal.x, currentGoal.y, currentGoal.width, currentGoal.height);
+
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+
+            ctx.fillStyle = '#FFF';
+            ctx.font = '16px sans-serif';
+            ctx.fillText(`Niveau : ${currentLevel} / 3`, 20, 30);
+            ctx.fillText(`Score : ${score}`, 150, 30);
+        }
+
+        function gameLoop() {
+            updateGame();
+            drawGame();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+
+        /* QUIZ */
+        const quizData = [
+            { q: "Quel est le prénom complet de Gumball ?", options: ["Gumball Tristopher Watterson", "Gumball Zach Watterson", "Gumball Christopher Watterson"], ans: 0 },
+            { q: "Quel animal est Darwin à l'origine ?", options: ["Un chien", "Un poisson rouge", "Une grenouille"], ans: 1 },
+            { q: "Comment s'appelle la ville de la série ?", options: ["Springfield", "Elmore", "Dimmsdale"], ans: 1 },
+            { q: "Quel est le métier du père (Richard) ?", options: ["Boulanger", "Il n'en a pas", "Chauffeur de bus"], ans: 1 },
+            { q: "De quelle couleur est le pull de Gumball ?", options: ["Jaune", "Gris/Marron clair", "Rouge"], ans: 1 },
+            { q: "Qui est le principal du collège d'Elmore ?", options: ["M. Small", "Principal Brown", "Mlle Simian"], ans: 1 },
+            { q: "Quel est le type de créature de Penny ?", options: ["Une fée/cacahuète", "Un fantôme", "Un nuage"], ans: 0 },
+            { q: "Comment s'appelle le dinosaure du collège ?", options: ["Tina Rex", "Dino", "Bob"], ans: 0 },
+            { q: "Qui est le rival/ennemi juré buggé de Gumball ?", options: ["Tobias", "Rob", "Banana Joe"], ans: 1 },
+            { q: "Quelle est la passion de Banana Joe ?", options: ["Les blagues", "Le chant", "La peinture"], ans: 0 },
+            { q: "Quel est le pouvoir secret d'Anaïs ?", options: ["Super force", "Très grande intelligence", "Invisibilité"], ans: 1 },
+            { q: "Quelle est la couleur de peau de Nicole Watterson ?", options: ["Rose", "Bleue", "Verte"], ans: 1 },
+            { q: "Comment s'appelle le conseiller d'orientation hippie ?", options: ["M. Corneille", "M. Small", "M. Steve"], ans: 1 },
+            { q: "Quel personnage est fait de pâte à modeler ?", options: ["Sussie", "Clayton", "Bobert"], ans: 1 },
+            { q: "Quel est le type de robot qu'est Bobert ?", options: ["High-tech", "Un robot ménager", "Un supercalculateur"], ans: 0 },
+            { q: "De quel aliment Richard est-il passionné ?", options: ["Les salades", "Les burgers", "Les pommes"], ans: 1 },
+            { q: "Comment s'appelle la petite amie de Darwin ?", options: ["Carrie", "Penny", "Carmen"], ans: 0 },
+            { q: "Quelle matière enseigne Mlle Simian ?", options: ["Histoire", "Toutes les matières", "Sport"], ans: 1 },
+            { q: "Quel personnage est une patate ?", options: ["Idaho", "Hector", "Anton"], ans: 0 },
+            { q: "Quelle est la particularité du monde de Gumball ?", options: ["Mix de styles 2D/3D/réel", "Uniquement du noir et blanc", "En pixel art"], ans: 0 }
+        ];
+
+        let currentQ = 0, quizScore = 0;
+
+        function initQuiz() {
+            currentQ = 0;
+            quizScore = 0;
+            document.getElementById('quizResult').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = quizData[currentQ];
+            document.getElementById('quizProgress').innerText = `Question ${currentQ + 1}/20`;
+            document.getElementById('quizQuestion').innerText = q.q;
+            
+            const optionsDiv = document.getElementById('quizOptions');
+            optionsDiv.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option';
+                btn.innerText = opt;
+                btn.onclick = () => checkQuizAnswer(idx);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkQuizAnswer(selected) {
+            if (selected === quizData[currentQ].ans) {
+                quizScore++;
+            }
+            currentQ++;
+            if (currentQ < quizData.length) {
+                showQuestion();
+            } else {
+                document.getElementById('quizContainer').style.display = 'none';
+                document.getElementById('quizResult').style.display = 'block';
+                document.getElementById('quizScoreText').innerText = `Ton score : ${quizScore} / 20 !`;
+            }
+        }
+
+        initQuiz();
+    </script>
+
+    <!-- MOTEUR 3D -->
+    <script type="module">
+        import * as THREE from 'three';
+
+        window.threeInitialized = false;
+
+        let scene, camera, renderer, gumball;
+        let velocityY = 0, isGrounded = true;
+        const gravity = -0.015, speed = 0.22;
+        const keys3D = { left: false, right: false, up: false, down: false };
+        let items = [], score3D = 0;
+
+        const itemsData = [
+            { name: "GameChild", color: 0xff3333, pos: [-12, 0.5, -10], shape: 'console' },
+            { name: "Casquette", color: 0xffff33, pos: [10, 0.5, -25], shape: 'cap' },
+            { name: "Daisy", color: 0xff9900, pos: [-10, 0.5, 18], shape: 'donut' },
+            { name: "Télécommande", color: 0xaa00ff, pos: [0, 0.5, -45], shape: 'remote' },
+            { name: "Chaussette", color: 0x33ff33, pos: [11, 0.5, 20], shape: 'sock' }
+        ];
+
+        window.init3DGame = function() {
+            if (window.threeInitialized) return;
+            window.threeInitialized = true;
+
+            const container = document.getElementById('game3dCanvasContainer');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87ceeb);
+            scene.fog = new THREE.Fog(0x87ceeb, 25, 110);
+
+            camera = new THREE.PerspectiveCamera(65, container.clientWidth / container.clientHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xfffaed, 0.95);
+            dirLight.position.set(30, 60, 30);
+            dirLight.castShadow = true;
+            scene.add(dirLight);
+
+            const road = new THREE.Mesh(
+                new THREE.PlaneGeometry(16, 180),
+                new THREE.MeshStandardMaterial({ color: 0x2e2e2e, roughness: 0.9 })
+            );
+            road.rotation.x = -Math.PI / 2;
+            scene.add(road);
+
+            const sidewalkMat = new THREE.MeshStandardMaterial({ color: 0xb5b5b5, roughness: 0.8 });
+            const leftSidewalk = new THREE.Mesh(new THREE.PlaneGeometry(4, 180), sidewalkMat);
+            leftSidewalk.rotation.x = -Math.PI / 2;
+            leftSidewalk.position.set(-10, 0.02, 0);
+            scene.add(leftSidewalk);
+
+            const rightSidewalk = new THREE.Mesh(new THREE.PlaneGeometry(4, 180), sidewalkMat);
+            rightSidewalk.rotation.x = -Math.PI / 2;
+            rightSidewalk.position.set(10, 0.02, 0);
+            scene.add(rightSidewalk);
+
+            const lawnMat = new THREE.MeshStandardMaterial({ color: 0x5dbb46, roughness: 0.9 });
+            const leftLawn = new THREE.Mesh(new THREE.PlaneGeometry(80, 180), lawnMat);
+            leftLawn.rotation.x = -Math.PI / 2;
+            leftLawn.position.set(-52, 0.01, 0);
+            scene.add(leftLawn);
+
+            const rightLawn = new THREE.Mesh(new THREE.PlaneGeometry(80, 180), lawnMat);
+            rightLawn.rotation.x = -Math.PI / 2;
+            rightLawn.position.set(52, 0.01, 0);
+            scene.add(rightLawn);
+
+            const createWattersonHouse = (x, z, rotY) => {
+                const houseGroup = new THREE.Group();
+                const body = new THREE.Mesh(
+                    new THREE.BoxGeometry(10, 6, 12),
+                    new THREE.MeshStandardMaterial({ color: 0xf4e2bb, roughness: 0.8 })
+                );
+                body.position.y = 3;
+                houseGroup.add(body);
+
+                const roof = new THREE.Mesh(
+                    new THREE.ConeGeometry(8, 4, 4),
+                    new THREE.MeshStandardMaterial({ color: 0xcc4444, roughness: 0.7 })
+                );
+                roof.rotation.y = Math.PI / 4;
+                roof.position.y = 7;
+                houseGroup.add(roof);
+
+                const door = new THREE.Mesh(
+                    new THREE.BoxGeometry(1.8, 3, 0.2),
+                    new THREE.MeshStandardMaterial({ color: 0x8b5a2b })
+                );
+                door.position.set(0, 1.5, 6.05);
+                houseGroup.add(door);
+
+                houseGroup.position.set(x, 0, z);
+                houseGroup.rotation.y = rotY;
+                scene.add(houseGroup);
+            };
+
+            const createRobinsonHouse = (x, z, rotY) => {
+                const houseGroup = new THREE.Group();
+                const body = new THREE.Mesh(
+                    new THREE.BoxGeometry(10, 6.5, 12),
+                    new THREE.MeshStandardMaterial({ color: 0x4a4a5a, roughness: 0.9 })
+                );
+                body.position.y = 3.25;
+                houseGroup.add(body);
+
+                const roof = new THREE.Mesh(
+                    new THREE.BoxGeometry(11, 1.5, 13),
+                    new THREE.MeshStandardMaterial({ color: 0x22222a })
+                );
+                roof.position.y = 7;
+                houseGroup.add(roof);
+
+                houseGroup.position.set(x, 0, z);
+                houseGroup.rotation.y = rotY;
+                scene.add(houseGroup);
+            };
+
+            createWattersonHouse(-18, -10, Math.PI / 2);
+            createRobinsonHouse(-18, 25, Math.PI / 2);
+            createWattersonHouse(18, -30, -Math.PI / 2);
+            createRobinsonHouse(18, 10, -Math.PI / 2);
+
+            gumball = new THREE.Group();
+            
+            const head = new THREE.Mesh(
+                new THREE.SphereGeometry(0.7, 24, 24),
+                new THREE.MeshStandardMaterial({ color: 0x00a3e0, roughness: 0.4 })
+            );
+            head.position.y = 1.6;
+            gumball.add(head);
+
+            const earMat = new THREE.MeshStandardMaterial({ color: 0x0088cc });
+            const leftEar = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.6, 12), earMat);
+            leftEar.position.set(-0.4, 2.2, 0);
+            leftEar.rotation.z = -0.3;
+            gumball.add(leftEar);
+
+            const rightEar = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.6, 12), earMat);
+            rightEar.position.set(0.4, 2.2, 0);
+            rightEar.rotation.z = 0.3;
+            gumball.add(rightEar);
+
+            const body = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.3, 0.4, 0.9),
+                new THREE.MeshStandardMaterial({ color: 0xcc2222 })
+            );
+            body.position.y = 0.8;
+            gumball.add(body);
+
+            const pants = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.28, 0.28, 0.5),
+                new THREE.MeshStandardMaterial({ color: 0xa67c52 })
+            );
+            pants.position.y = 0.25;
+            gumball.add(pants);
+
+            gumball.position.set(0, 0, 30);
+            scene.add(gumball);
+
+            itemsData.forEach((data, index) => {
+                let mesh;
+                if (data.shape === 'console') {
+                    mesh = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.9, 0.2, 0.5),
+                        new THREE.MeshStandardMaterial({ color: data.color, roughness: 0.3 })
+                    );
+                } else if (data.shape === 'cap') {
+                    mesh = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.4, 12, 12, 0, Math.PI * 2, 0, Math.PI / 2),
+                        new THREE.MeshStandardMaterial({ color: data.color })
+                    );
+                } else if (data.shape === 'donut') {
+                    mesh = new THREE.Mesh(
+                        new THREE.TorusGeometry(0.35, 0.15, 12, 24),
+                        new THREE.MeshStandardMaterial({ color: data.color })
+                    );
+                } else if (data.shape === 'remote') {
+                    mesh = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.3, 0.1, 0.7),
+                        new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.5 })
+                    );
+                } else {
+                    mesh = new THREE.Mesh(
+                        new THREE.CylinderGeometry(0.15, 0.2, 0.6),
+                        new THREE.MeshStandardMaterial({ color: data.color })
+                    );
+                }
+
+                mesh.position.set(...data.pos);
+                scene.add(mesh);
+                items.push({ mesh, id: index });
+            });
+
+            window.addEventListener('keydown', (e) => {
+                const k = e.key.toLowerCase();
+                if (k === 'z' || k === 'arrowup') keys3D.up = true;
+                if (k === 's' || k === 'arrowdown') keys3D.down = true;
+                if (k === 'q' || k === 'arrowleft') keys3D.left = true;
+                if (k === 'd' || k === 'arrowright') keys3D.right = true;
+                if (e.code === 'Space' && isGrounded) {
+                    velocityY = 0.35;
+                    isGrounded = false;
+                }
+            });
+
+            window.addEventListener('keyup', (e) => {
+                const k = e.key.toLowerCase();
+                if (k === 'z' || k === 'arrowup') keys3D.up = false;
+                if (k === 's' || k === 'arrowdown') keys3D.down = false;
+                if (k === 'q' || k === 'arrowleft') keys3D.left = false;
+                if (k === 'd' || k === 'arrowright') keys3D.right = false;
+            });
+
+            const bind3DBtn = (btnId, keyProp) => {
+                const btn = document.getElementById(btnId);
+                if (!btn) return;
+                btn.addEventListener('mousedown', () => keys3D[keyProp] = true);
+                btn.addEventListener('mouseup', () => keys3D[keyProp] = false);
+                btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys3D[keyProp] = true; });
+                btn.addEventListener('touchend', (e) => { e.preventDefault(); keys3D[keyProp] = false; });
+            };
+
+            bind3DBtn('btn3dLeft', 'left');
+            bind3DBtn('btn3dRight', 'right');
+            bind3DBtn('btn3dUp', 'up');
+            bind3DBtn('btn3dDown', 'down');
+
+            const btnJump3D = document.getElementById('btn3dJump');
+            if (btnJump3D) {
+                const triggerJump = () => { if (isGrounded) { velocityY = 0.35; isGrounded = false; } };
+                btnJump3D.addEventListener('click', triggerJump);
+                btnJump3D.addEventListener('touchstart', (e) => { e.preventDefault(); triggerJump(); });
+            }
+
+            window.resize3D = function() {
+                if (!renderer) return;
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            };
+
+            function animate3D() {
+                requestAnimationFrame(animate3D);
+
+                let moveX = 0, moveZ = 0;
+                if (keys3D.up) moveZ -= speed;
+                if (keys3D.down) moveZ += speed;
+                if (keys3D.left) moveX -= speed;
+                if (keys3D.right) moveX += speed;
+
+                gumball.position.x += moveX;
+                gumball.position.z += moveZ;
+
+                if (moveX !== 0 || moveZ !== 0) {
+                    gumball.rotation.y = Math.atan2(moveX, moveZ) + Math.PI;
+                }
+
+                gumball.position.y += velocityY;
+                if (!isGrounded) {
+                    velocityY += gravity;
+                    if (gumball.position.y <= 0) {
+                        gumball.position.y = 0;
+                        velocityY = 0;
+                        isGrounded = true;
+                    }
+                }
+
+                camera.position.set(gumball.position.x, gumball.position.y + 5, gumball.position.z + 12);
+                camera.lookAt(gumball.position.x, gumball.position.y + 1, gumball.position.z);
+
+                items.forEach(itemObj => {
+                    if (itemObj.mesh.visible) {
+                        itemObj.mesh.rotation.y += 0.03;
+                        if (gumball.position.distanceTo(itemObj.mesh.position) < 1.4) {
+                            itemObj.mesh.visible = false;
+                            document.getElementById(`item3d-${itemObj.id}`).classList.add('done');
+                            score3D++;
+
+                            if (score3D === itemsData.length) {
+                                document.getElementById('winOverlay3d').style.display = 'flex';
+                            }
+                        }
+                    }
+                });
+
+                renderer.render(scene, camera);
+            }
+
+            animate3D();
+        };
+
+        window.reset3DGroup = function() {
+            // function stub if needed
+        };
+
+        window.reset3DGame = function() {
+            score3D = 0;
+            gumball.position.set(0, 0, 30);
+            items.forEach(itemObj => {
+                itemObj.mesh.visible = true;
+                document.getElementById(`item3d-${itemObj.id}`).classList.remove('done');
+            });
+            document.getElementById('winOverlay3d').style.display = 'none';
+        };
+    </script>
+</body>
+</html>
